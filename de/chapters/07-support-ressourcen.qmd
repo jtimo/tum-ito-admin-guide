@@ -1,0 +1,241 @@
+---
+lang: de
+---
+
+# Support und Ressourcen
+
+## ITO Helpdesk
+
+Der ITO Helpdesk ist die zentrale Anlaufstelle für alle IT-bezogenen Fragen und Probleme innerhalb der School of CIT.
+
+### Kontaktinformationen
+
+::: {.callout-tip}
+## ITO Helpdesk Kontakt
+| Kanal | Details |
+|-------|---------|
+| **E-Mail** | support@ito.cit.tum.de |
+| **Telefon** | +49 (89) 289 - 18018 |
+| **Öffnungszeiten** | Montag - Freitag, 08:00 - 18:00 Uhr |
+:::
+
+### Support-Anfrageprozess
+
+```{mermaid}
+%%| fig-cap: "Support-Anfrage-Workflow"
+flowchart TB
+    Issue["Problem identifiziert"]
+    Issue --> Self["Self-Service prüfen"]
+    Self --> |Gelöst| Done["Problem gelöst"]
+    Self --> |Nicht gelöst| Contact["Helpdesk kontaktieren"]
+
+    Contact --> Email["E-Mail-Anfrage"]
+    Contact --> Phone["Telefonanruf"]
+
+    Email --> Ticket["Ticket erstellt"]
+    Phone --> Ticket
+
+    Ticket --> Triage["Problem-Triage"]
+    Triage --> Resolution["Problemlösung"]
+    Resolution --> Done
+```
+
+### Was in Support-Anfragen enthalten sein sollte
+
+| Information | Beschreibung | Beispiel |
+|-------------|--------------|----------|
+| **Betreff** | Klarer, spezifischer Titel | "VM startet nicht - lehrstuhl-web-01" |
+| **Beschreibung** | Detaillierte Problembeschreibung | Was passiert ist, wann, was Sie versucht haben |
+| **System** | Betroffenes System/Dienst | Servername, Dienstname |
+| **Fehlermeldungen** | Exakter Fehlertext | Kopieren/Einfügen oder Screenshot |
+| **Reproduktionsschritte** | Wie das Problem reproduziert werden kann | Schritt-für-Schritt-Anleitung |
+| **Auswirkung** | Wer/was ist betroffen | "10 Forschende können nicht auf Dateien zugreifen" |
+| **Kontakt** | Ihre Kontaktinformationen | Telefon für dringende Rückfragen |
+
+### Prioritätsrichtlinien
+
+| Priorität | Kriterien | Reaktion |
+|-----------|-----------|----------|
+| **Kritisch** | Dienst komplett ausgefallen, viele Benutzer betroffen | Gleicher Tag |
+| **Hoch** | Wichtige Funktionalität beeinträchtigt | Nächster Werktag |
+| **Mittel** | Teilfunktionalität, Workaround verfügbar | Innerhalb einer Woche |
+| **Niedrig** | Geringfügiges Problem, Verbesserungsanfrage | Eingeplant |
+
+## Beratungsdienste
+
+### Überblick
+
+Die ITO bietet Beratungsdienste für Administratoren, besonders wertvoll für:
+
+- Neue Administratoren beim Einstieg
+- Planung von Infrastrukturänderungen
+- Systemintegrationsprojekte
+- Bewertung neuer Anforderungen
+
+### Beratungsthemen
+
+```{mermaid}
+%%| fig-cap: "Verfügbare Beratungsdienste"
+mindmap
+    root((ITO Beratung))
+        Einarbeitung
+            Systemeinführung
+            Tool-Schulung
+            Service-Überblick
+        Infrastruktur
+            VM-Planung
+            Speicherdesign
+            Netzwerkarchitektur
+        Integration
+            LDAP-Integration
+            Dienstverbindungen
+            Individuelle Lösungen
+        Planung
+            Kapazitätsplanung
+            Migrationsprojekte
+            Sicherheitsüberprüfung
+```
+
+### Beratung beantragen
+
+1. **E-Mail**: support@ito.cit.tum.de
+2. **Betreff**: Beratungsanfrage - [Thema]
+3. **Angeben**:
+   - Ihre Rolle und Lehrstuhl/Büro
+   - Beratungsthema
+   - Bevorzugter Zeitrahmen
+   - Spezifische Fragen
+4. **Terminierung**: ITO vereinbart einen Gesprächstermin
+
+## Self-Service-Ressourcen
+
+### StrukturDB
+
+Das primäre Self-Service-Tool für Administratoren:
+
+| Funktion | Beschreibung |
+|----------|--------------|
+| **Benutzerverwaltung** | Benutzerkonten erstellen/ändern |
+| **Gruppenverwaltung** | Gruppen erstellen und verwalten |
+| **Host-Registrierung** | Geräte und Server registrieren |
+| **DNS/DHCP** | Netzwerkeinträge konfigurieren |
+
+**Zugang**: [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/)
+
+### Benutzerwiki
+
+Die ITO pflegt ein umfassendes Dokumentationswiki:
+
+- Detaillierte Service-Dokumentation
+- Schritt-für-Schritt-Anleitungen
+- Best Practices
+- FAQs und Fehlerbehebung
+
+### Web-Interface für VMs
+
+Administratoren können virtuelle Maschinen verwalten über:
+
+- VMs starten/stoppen/neustarten
+- Remote-Konsole aufrufen
+- Ressourcennutzung anzeigen
+- Snapshots beantragen
+
+## Schulung und Einarbeitung
+
+### Einarbeitung neuer Administratoren
+
+Die ITO bietet Einarbeitung für neue Administratoren mit:
+
+1. **ITO-Überblick**: Dienste und Organisation
+2. **StrukturDB-Schulung**: Hands-on Tool-Training
+3. **Service-Zugang**: Nutzung verschiedener Dienste
+4. **Best Practices**: Empfehlungen und Richtlinien
+5. **Fragen & Antworten**: Spezifische Fragen klären
+
+### Einarbeitung planen
+
+Kontaktieren Sie support@ito.cit.tum.de um zu planen:
+
+- Individuelle Einarbeitungssitzung
+- Gruppenschulung für mehrere neue Admins
+- Auffrischungsschulung zu spezifischen Themen
+
+## Verwandte Dienste an der TUM
+
+### IT-Servicezentrum (ITSZ)
+
+Für universitätsweite IT-Dienste:
+
+| Dienst | Beschreibung |
+|--------|--------------|
+| **TUM E-Mail** | Universitäts-E-Mail-Konten |
+| **TUMonline** | Campus-Management-System |
+| **Identitätsmanagement** | Zentrale TUM-ID |
+| **Allgemeiner Support** | Universitätsweiter IT-Support |
+
+### Leibniz-Rechenzentrum (LRZ)
+
+Für Hochleistungsrechenbedarf:
+
+| Dienst | Beschreibung |
+|--------|--------------|
+| **HPC-Cluster** | Hochleistungsrechnen |
+| **Großspeicher** | Forschungsdatenspeicherung |
+| **Wissenschaftliches Rechnen** | Spezialisierte Rechenressourcen |
+| **Netzwerk** | Münchner Wissenschaftsnetz |
+
+## Notfallkontakte
+
+### Sicherheitsvorfälle
+
+Bei sicherheitsrelevanten Notfällen:
+
+1. **Sofort kontaktieren**: ITO Helpdesk
+2. **Dokumentieren**: Was passiert ist und wann
+3. **Isolieren**: Wenn möglich, betroffene Systeme trennen
+4. **Bewahren**: Logs oder Beweise nicht löschen
+
+### Dienstausfälle
+
+Bei kritischen Dienstausfällen außerhalb der Geschäftszeiten:
+
+- ITO-Statusseite prüfen (falls verfügbar)
+- E-Mail an support@ito.cit.tum.de mit DRINGEND im Betreff
+- Nachricht auf Helpdesk-Anrufbeantworter hinterlassen
+
+## Feedback und Vorschläge
+
+### Feedback geben
+
+Die ITO freut sich über Feedback zu:
+
+- Servicequalität
+- Dokumentationsverbesserungen
+- Neue Service-Anfragen
+- Prozessverbesserungen
+
+**Einreichen**: E-Mail an support@ito.cit.tum.de mit Betreff "Feedback"
+
+## Kurzreferenzkarte
+
+### Wichtige Kontakte
+
+| Zweck | Kontakt |
+|-------|---------|
+| **Allgemeiner Support** | support@ito.cit.tum.de |
+| **Telefon** | +49 (89) 289 - 18018 |
+| **Beratung** | support@ito.cit.tum.de |
+
+### Wichtige Links
+
+| Ressource | URL |
+|-----------|-----|
+| **StrukturDB** | rbgwebapp.in.tum.de/struktur |
+| **ITO Website** | www.cit.tum.de/ito |
+
+### Geschäftszeiten
+
+| Tag | Zeiten |
+|-----|--------|
+| **Montag - Freitag** | 08:00 - 18:00 Uhr |
+| **Samstag - Sonntag** | Geschlossen |

@@ -1,0 +1,67 @@
+# Introduction {.unnumbered}
+
+Welcome to the **TUM ITO System Administrator Reference Guide**. This comprehensive guide is designed for IT administrators (EDV-Betreuer) and Chair Administrators (Lehrstuhladmins) working within the School of Computation, Information and Technology (CIT) at the Technical University of Munich.
+
+## About This Guide
+
+This reference book provides detailed information about:
+
+- **ITO Organization**: Understanding the structure and role of IT Operations within TUM
+- **Administrator Responsibilities**: Roles, duties, and best practices for system administrators
+- **User Management**: Managing users, groups, and access through StrukturDB
+- **Infrastructure Services**: Virtual machines, server hosting, and hardware management
+- **Network Services**: DNS, DHCP, VPN, and domain management
+- **Storage and Backup**: NAS fileservers and data protection with IBM Spectrum Protect
+- **Support Resources**: Contact information and consulting services
+
+## ITO Overview
+
+```{mermaid}
+%%| fig-cap: "ITO Service Ecosystem"
+flowchart TB
+    subgraph TUM["Technical University of Munich"]
+        subgraph CIT["School of CIT"]
+            ITO["ITO - IT Operations"]
+        end
+        ITSZ["IT Service Center (ITSZ)"]
+    end
+    LRZ["Leibniz Supercomputing Centre (LRZ)"]
+
+    ITO --> |supplements| ITSZ
+    ITO --> |extends| LRZ
+
+    subgraph Services["ITO Services"]
+        S1["Students"]
+        S2["Employees"]
+        S3["Administrators"]
+    end
+
+    ITO --> S1
+    ITO --> S2
+    ITO --> S3
+```
+
+## Target Audience
+
+This guide is intended for:
+
+| Role | Description |
+|------|-------------|
+| **EDV-Betreuer** | IT Supervisors responsible for technical infrastructure |
+| **Lehrstuhladmin** | Chair Administrators managing departmental IT needs |
+| **New Administrators** | Those newly appointed to IT administration roles |
+
+## How to Use This Guide
+
+1. **New Administrators**: Start with Chapter 1 (Organization) and Chapter 2 (Administrator Roles)
+2. **Day-to-Day Operations**: Refer to Chapters 3-6 for specific service management
+3. **Quick Reference**: Chapter 8 provides a handy quick reference card
+
+## Contact Information
+
+::: {.callout-tip}
+## ITO Helpdesk
+- **Hours**: Monday - Friday, 08:00 - 18:00
+- **Phone**: +49 (89) 289 - 18018
+- **Email**: support@ito.cit.tum.de
+:::

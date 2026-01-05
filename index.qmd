@@ -1,0 +1,38 @@
+---
+title: "TUM ITO Administrator Guide"
+---
+
+# Welcome / Willkommen {.unnumbered}
+
+Please select your preferred language / Bitte wählen Sie Ihre Sprache:
+
+::: {.grid}
+
+::: {.g-col-6}
+### 🇬🇧 English
+
+[**Open English Version**](en/index.qmd){.btn .btn-primary .btn-lg}
+
+Comprehensive guide for IT Administrators at the Technical University of Munich School of CIT.
+:::
+
+::: {.g-col-6}
+### 🇩🇪 Deutsch
+
+[**Deutsche Version öffnen**](de/index.qmd){.btn .btn-primary .btn-lg}
+
+Umfassendes Handbuch für IT-Administratoren an der School of CIT der Technischen Universität München.
+:::
+
+:::
+
+---
+
+## Quick Contact / Schnellkontakt
+
+::: {.callout-tip}
+## ITO Helpdesk
+- **Email**: support@ito.cit.tum.de
+- **Phone / Telefon**: +49 (89) 289 - 18018
+- **Hours / Öffnungszeiten**: Mon-Fri / Mo-Fr 08:00 - 18:00
+:::

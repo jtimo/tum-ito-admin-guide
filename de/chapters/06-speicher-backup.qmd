@@ -1,0 +1,269 @@
+---
+lang: de
+---
+
+# Speicher- und Backup-Dienste
+
+## NAS-Fileserver-Dienste
+
+### Überblick
+
+Die ITO stellt Lehrstühlen und Servicebüros Network Attached Storage (NAS) Fileserver zur Verfügung. Diese zentral verwalteten Speichersysteme bieten sicheren, zugänglichen und gesicherten Dateispeicher.
+
+```{mermaid}
+%%| fig-cap: "NAS-Service-Architektur"
+flowchart TB
+    subgraph Clients["Client-Zugriff"]
+        Win["Windows<br/>(SMB)"]
+        Linux["Linux<br/>(NFSv3)"]
+        Mac["macOS<br/>(SMB/NFSv3)"]
+    end
+
+    subgraph Access["Zugriffsmethoden"]
+        LAN["Lehrstuhl-Netzwerk"]
+        VPN["VPN-Verbindung"]
+    end
+
+    subgraph NAS["ITO NAS-Infrastruktur"]
+        FS["Fileserver"]
+        LDAP["LDAP-Authentifizierung"]
+        Backup["IBM Spectrum Protect"]
+    end
+
+    Win --> LAN
+    Linux --> LAN
+    Mac --> LAN
+
+    Win --> VPN
+    Linux --> VPN
+    Mac --> VPN
+
+    LAN --> FS
+    VPN --> FS
+
+    FS --> LDAP
+    FS --> Backup
+```
+
+### Speicherspezifikationen
+
+| Spezifikation | Wert |
+|---------------|------|
+| **Kapazität** | Bis zu 10 TB pro Lehrstuhl/Servicebüro |
+| **Protokolle** | NFSv3, SMB (CIFS) |
+| **Zugriff** | Lehrstuhl-Netzwerk + VPN |
+| **Authentifizierung** | ITO LDAP |
+| **Verwaltung** | Über StrukturDB |
+| **Backup** | Täglich via IBM Spectrum Protect |
+
+### Zugriffsprotokolle
+
+#### NFSv3 (Network File System)
+
+| Aspekt | Details |
+|--------|---------|
+| **Ideal für** | Linux/Unix-Systeme |
+| **Funktionen** | Native Unix-Berechtigungen |
+| **Performance** | Exzellent für Linux-Workloads |
+| **Konfiguration** | Mount-Punkte in `/etc/fstab` |
+
+#### SMB/CIFS (Server Message Block)
+
+| Aspekt | Details |
+|--------|---------|
+| **Ideal für** | Windows-Systeme, macOS |
+| **Funktionen** | Windows-natives Sharing |
+| **Performance** | Exzellent für Windows-Workloads |
+| **Konfiguration** | Verbundene Netzlaufwerke |
+
+### Zugriffskontrolle
+
+```{mermaid}
+%%| fig-cap: "NAS-Zugriffskontrollfluss"
+flowchart LR
+    User["Benutzer"]
+    User --> |authentifiziert| LDAP["ITO LDAP"]
+    LDAP --> |verifiziert| Groups["Benutzergruppen"]
+    Groups --> |bestimmt| Access["Zugriffsberechtigungen"]
+    Access --> |gewährt/verweigert| NAS["NAS-Freigaben"]
+```
+
+Benutzer- und Gruppenverwaltung für NAS-Zugriff:
+
+- **Benutzer**: Verwaltet über ITO LDAP
+- **Gruppen**: Erstellt und verwaltet über StrukturDB
+- **Berechtigungen**: Von Administratoren pro Freigabe/Verzeichnis gesetzt
+
+### NAS-Dienste beantragen
+
+Um NAS-Speicher für Ihren Lehrstuhl oder Ihr Servicebüro zu beantragen:
+
+1. **ITO kontaktieren**: E-Mail an support@ito.cit.tum.de
+2. **Beratung vereinbaren**: ITO arrangiert ein persönliches Gespräch
+3. **Anforderungen definieren**:
+   - Erwartete Speicherkapazität
+   - Benutzeranzahl
+   - Zugriffsmuster
+   - Sicherheitsanforderungen
+4. **Bereitstellung**: ITO richtet den Fileserver ein
+5. **Konfiguration**: Administrator konfiguriert Benutzerzugriff über StrukturDB
+
+::: {.callout-tip}
+## Beratung verfügbar
+Die ITO bietet persönliche Beratung zur Konzipierung Ihres Fileserver-Setups. Kontaktieren Sie support@ito.cit.tum.de für einen Termin.
+:::
+
+## Backup-Dienste
+
+### IBM Spectrum Protect
+
+Alle NAS-Daten werden mit **IBM Spectrum Protect** (früher Tivoli Storage Manager) gesichert:
+
+```{mermaid}
+%%| fig-cap: "Backup-Architektur"
+flowchart TB
+    subgraph Source["Quelldaten"]
+        NAS["NAS-Fileserver"]
+    end
+
+    subgraph Backup["IBM Spectrum Protect"]
+        Agent["Backup-Agent"]
+        Server["Backup-Server"]
+        Tape["Bandspeicher"]
+    end
+
+    NAS --> |tägliches Backup| Agent
+    Agent --> Server
+    Server --> Tape
+```
+
+### Backup-Funktionen
+
+| Funktion | Beschreibung |
+|----------|--------------|
+| **Frequenz** | Tägliche Backups |
+| **Typ** | Inkrementell (nur geänderte Dateien) |
+| **Aufbewahrung** | Mehrere Wiederherstellungspunkte |
+| **Verifizierung** | Automatische Integritätsprüfungen |
+| **Speicherung** | Sichere, offsite-fähige Speicherung |
+
+### Datenwiederherstellung
+
+#### Wann Wiederherstellung beantragen
+
+- Versehentliches Löschen von Dateien
+- Dateibeschädigung
+- Zugriff auf frühere Version benötigt
+- Wiederherstellung nach Systemproblemen
+
+#### Wiederherstellungsprozess
+
+```{mermaid}
+%%| fig-cap: "Datenwiederherstellungsprozess"
+sequenceDiagram
+    participant Admin as Administrator
+    participant ITO as ITO Support
+    participant Backup as IBM Spectrum Protect
+
+    Admin->>ITO: Wiederherstellungsanfrage<br/>(per E-Mail)
+    Note over Admin,ITO: Enthält: Pfad, Datum, Beschreibung
+
+    ITO->>Backup: Backup-Version suchen
+    Backup-->>ITO: Verfügbare Snapshots identifizieren
+    ITO->>Backup: Wiederherstellung starten
+    Backup-->>ITO: Wiederherstellung abgeschlossen
+    ITO-->>Admin: Benachrichtigung + Speicherort
+```
+
+#### Datenwiederherstellung beantragen
+
+1. **E-Mail**: support@ito.cit.tum.de
+2. **Betreff**: Datenwiederherstellungsanfrage - [Lehrstuhlname]
+3. **Angeben**:
+   - Vollständiger Pfad zur Datei/zum Verzeichnis
+   - Zieldatum (aus welchem Backup wiederherstellen)
+   - Beschreibung was wiederhergestellt werden muss
+4. **Zeitpunkt**: So schnell wie möglich nach Datenverlust beantragen
+
+::: {.callout-important}
+## Schnell handeln
+Beantragen Sie die Wiederherstellung so schnell wie möglich. Obwohl die ITO mehrere Wiederherstellungspunkte pflegt, gewährleistet frühere Kontaktaufnahme bessere Wiederherstellungsoptionen.
+:::
+
+### Erforderliche Informationen für Wiederherstellung
+
+| Information | Beschreibung | Beispiel |
+|-------------|--------------|----------|
+| **Pfad** | Vollständiger Datei-/Verzeichnispfad | `/nas/lehrstuhl1/projekte/daten.csv` |
+| **Datum** | Backup-Datum für Wiederherstellung | `2024-01-15` |
+| **Typ** | Datei oder Verzeichnis | Verzeichnis mit gesamtem Inhalt |
+| **Dringlichkeit** | Prioritätsstufe | Standard / Dringend |
+
+## Best Practices für Speicher
+
+### Datenorganisation
+
+```{mermaid}
+%%| fig-cap: "Empfohlene Ordnerstruktur"
+flowchart TB
+    Root["Lehrstuhl NAS Root"]
+    Root --> Projects["Projekte/"]
+    Root --> Users["Benutzer/"]
+    Root --> Shared["Gemeinsam/"]
+    Root --> Archive["Archiv/"]
+
+    Projects --> P1["Projekt_A/"]
+    Projects --> P2["Projekt_B/"]
+
+    Users --> U1["Mueller/"]
+    Users --> U2["Schmidt/"]
+
+    Shared --> Templates["Vorlagen/"]
+    Shared --> Resources["Ressourcen/"]
+```
+
+### Empfehlungen
+
+| Praxis | Beschreibung |
+|--------|--------------|
+| **Organisierte Struktur** | Logische Ordnerhierarchie verwenden |
+| **Klare Benennung** | Beschreibende Datei- und Ordnernamen |
+| **Regelmäßiges Aufräumen** | Veraltete Daten archivieren oder löschen |
+| **Zugriffskontrolle** | Angemessene Berechtigungen anwenden |
+| **Dokumentation** | Ordnerzwecke dokumentieren |
+
+### Was NICHT gespeichert werden sollte
+
+- Temporäre/Cache-Dateien
+- Personenbezogene Daten (ohne Genehmigung)
+- Lizenzierte Software-Installer (offizielle Quellen nutzen)
+- Extrem große Mediendateien (Alternativen in Betracht ziehen)
+
+## Monitoring und Quotas
+
+### Speicherüberwachung
+
+Administratoren sollten regelmäßig überwachen:
+
+- Aktuelle Speichernutzung
+- Nutzungstrends über Zeit
+- Große Dateien und Verzeichnisse
+- Kandidaten für Archivierung inaktiver Daten
+
+### Quota-Verwaltung
+
+| Aspekt | Details |
+|--------|---------|
+| **Standardlimit** | Bis zu 10 TB pro Lehrstuhl |
+| **Erweiterung** | ITO für zusätzlichen Bedarf kontaktieren |
+| **Monitoring** | Regelmäßige Nutzungsberichte verfügbar |
+| **Warnungen** | Benachrichtigung vor Quota-Überschreitung |
+
+## Zusammenfassung
+
+| Dienst | Beschreibung | Kontakt |
+|--------|--------------|---------|
+| **NAS-Einrichtung** | Neue Fileserver-Bereitstellung | support@ito.cit.tum.de |
+| **Zugriffsverwaltung** | Benutzer-/Gruppenberechtigungen | StrukturDB |
+| **Datenwiederherstellung** | Backup-Wiederherstellung | support@ito.cit.tum.de |
+| **Quota-Erhöhung** | Zusätzlicher Speicher | support@ito.cit.tum.de |

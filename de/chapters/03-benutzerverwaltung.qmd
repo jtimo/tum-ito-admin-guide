@@ -1,0 +1,219 @@
+---
+lang: de
+---
+
+# Benutzer- und Hostverwaltung
+
+## StrukturDB Überblick
+
+Die **StrukturDB** ist die zentrale Verwaltungsplattform für Benutzer, Hosts und Infrastruktur innerhalb der ITO. Sie bietet eine umfassende Oberfläche für EDV-Betreuer und Lehrstuhladmins zur Verwaltung der IT-Ressourcen ihres Lehrstuhls.
+
+### Zugangsinformationen
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **URL** | [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/) |
+| **Zugang** | Beschränkt auf autorisierte Administratoren |
+| **Dokumentation** | ITO Benutzerwiki |
+
+## Kernfunktionen
+
+```{mermaid}
+%%| fig-cap: "StrukturDB Kernfunktionen"
+mindmap
+    root((StrukturDB))
+        Benutzerverwaltung
+            Neue Benutzeranträge
+            Kontoänderungen
+            Zugriffsberechtigungen
+            Kontodeaktivierung
+        Gruppenverwaltung
+            Gruppen erstellen
+            Mitglieder verwalten
+            LDAP-Gruppen
+            Berechtigungssets
+        Hostverwaltung
+            Geräte registrieren
+            Netzwerkkonfiguration
+            Geräteinventar
+        Infrastruktur
+            Laptops
+            Desktops
+            Drucker
+            Server
+```
+
+## Benutzerverwaltung
+
+### Neue Benutzer beantragen
+
+```{mermaid}
+%%| fig-cap: "Prozess für neue Benutzeranträge"
+sequenceDiagram
+    participant Admin as Administrator
+    participant SDB as StrukturDB
+    participant LDAP as LDAP-Verzeichnis
+    participant User as Neuer Benutzer
+
+    Admin->>SDB: Neuen Benutzerantrag einreichen
+    SDB->>SDB: Antrag validieren
+    SDB->>LDAP: Benutzerkonto erstellen
+    LDAP-->>SDB: Bestätigung
+    SDB-->>Admin: Benachrichtigung über Kontoerstellung
+    Admin->>User: Zugangsdaten mitteilen
+    User->>LDAP: Erstanmeldung
+```
+
+Um ein neues Benutzerkonto zu beantragen:
+
+1. In StrukturDB anmelden
+2. Zum Bereich Benutzerverwaltung navigieren
+3. Erforderliche Benutzerinformationen ausfüllen:
+   - Vollständiger Name
+   - E-Mail-Adresse
+   - Lehrstuhl-/Abteilungszugehörigkeit
+   - Erforderliche Zugangsstufe
+4. Antrag absenden
+5. System verarbeitet und erstellt das Konto
+6. Benutzer über neue Zugangsdaten informieren
+
+### Benutzergruppen verwalten
+
+Gruppen in StrukturDB dienen mehreren Zwecken:
+
+| Gruppentyp | Zweck | Beispielnutzung |
+|------------|-------|-----------------|
+| **Zugriffsgruppen** | Ressourcenzugriff steuern | Druckerzugriff, Dateifreigaben |
+| **Projektgruppen** | Projektteams organisieren | Mitglieder von Forschungsprojekten |
+| **LDAP-Gruppen** | Verzeichnisintegration | Authentifizierung und Autorisierung |
+| **Verteilergruppen** | E-Mail-Verteilung | Mailinglisten |
+
+#### Gruppen erstellen
+
+1. Zur Gruppenverwaltung in StrukturDB navigieren
+2. "Neue Gruppe erstellen" auswählen
+3. Gruppeneigenschaften definieren:
+   - Gruppenname (Namenskonventionen beachten)
+   - Beschreibung
+   - Initiale Mitglieder
+   - Gruppentyp (LDAP, Verteiler, etc.)
+4. Gruppe speichern und aktivieren
+
+### LDAP-Integration
+
+```{mermaid}
+%%| fig-cap: "LDAP-Integrationsfluss"
+flowchart LR
+    SDB["StrukturDB"]
+    SDB --> |Sync| LDAP["LDAP-Verzeichnis"]
+    LDAP --> Auth["Authentifizierungs-<br/>dienste"]
+    LDAP --> NAS["NAS-Zugriffs-<br/>kontrolle"]
+    LDAP --> VM["VM-Zugriffs-<br/>kontrolle"]
+    LDAP --> Mail["Mail-<br/>Dienste"]
+```
+
+Über StrukturDB erstellte LDAP-Gruppen werden automatisch:
+
+- Mit dem zentralen LDAP-Verzeichnis synchronisiert
+- Für die Authentifizierung über alle ITO-Dienste verfügbar
+- Für die Zugriffskontrolle auf NAS, VMs und andere Ressourcen verwendet
+
+## Hostverwaltung
+
+### Geräte registrieren
+
+Administratoren können Infrastruktur über StrukturDB registrieren und verfolgen:
+
+```{mermaid}
+%%| fig-cap: "Geräteregistrierungs-Workflow"
+flowchart TB
+    subgraph Registration["Geräteregistrierung"]
+        Device["Neues Gerät"]
+        Device --> Info["Informationen sammeln"]
+        Info --> |MAC-Adresse<br/>Gerätetyp<br/>Standort| SDB["StrukturDB-Eintrag"]
+    end
+
+    subgraph Configuration["Automatische Konfiguration"]
+        SDB --> DNS["DNS-Eintrag"]
+        SDB --> DHCP["DHCP-Reservierung"]
+        SDB --> Inventory["Inventareintrag"]
+    end
+```
+
+#### Erforderliche Informationen für Host-Registrierung
+
+| Feld | Beschreibung | Beispiel |
+|------|--------------|----------|
+| **Hostname** | Eindeutiger Gerätename | `ws-mueller-01` |
+| **MAC-Adresse** | Netzwerkschnittstellen-ID | `00:1A:2B:3C:4D:5E` |
+| **Gerätetyp** | Kategorie | Laptop, Desktop, Drucker, Server |
+| **Standort** | Physischer Standort | Raum 01.234, Gebäude MI |
+| **Verantwortliche Person** | Hauptnutzer/Kontakt | Prof. Dr. Schmidt |
+
+### Infrastrukturinventar
+
+StrukturDB führt ein vollständiges Inventar von:
+
+- **Laptops**: Mobile Arbeitsplätze, die Benutzern zugewiesen sind
+- **Desktops**: Feste Arbeitsplätze in Büros und Laboren
+- **Drucker**: Netzwerkdrucker und Multifunktionsgeräte
+- **Server**: Virtuelle und physische Server
+- **Netzwerkgeräte**: Verwaltete Switches und Access Points
+
+## Mailinglisten und Shared Folder
+
+Die ITO bietet zwei E-Mail-Kollaborationslösungen:
+
+### Mailinglisten
+
+Traditionelle E-Mail-Verteilerlisten, die:
+
+- E-Mails an alle Listenmitglieder weiterleiten
+- Moderationsoptionen unterstützen
+- Von Listeneigentümern verwaltet werden können
+- Für Ankündigungen und Diskussionen geeignet sind
+
+### Shared Folder
+
+Erweiterte E-Mail-Kollaboration, die:
+
+- Mehreren Benutzern das Senden von einer gemeinsamen Adresse ermöglicht
+- Gemeinsame Postfachfunktionalität bietet
+- Team-E-Mail-Verwaltung unterstützt
+- Ideal für Service-Desks und Teamkommunikation ist
+
+### Vergleich
+
+| Funktion | Mailingliste | Shared Folder |
+|----------|--------------|---------------|
+| **E-Mails empfangen** | Alle Mitglieder | Alle Mitglieder |
+| **Als gemeinsame Adresse senden** | Nein | Ja |
+| **Gemeinsamer Posteingang** | Nein | Ja |
+| **Ideal für** | Ankündigungen | Teamzusammenarbeit |
+
+::: {.callout-tip}
+## E-Mail-Dienste beantragen
+Detaillierte Informationen zur Einrichtung von Mailinglisten und Shared Folders finden Sie im ITO Benutzerwiki oder kontaktieren Sie support@ito.cit.tum.de.
+:::
+
+## Best Practices
+
+### Benutzerkontenverwaltung
+
+- **Regelmäßige Audits**: Überprüfen Sie periodisch aktive Konten
+- **Rechtzeitige Deaktivierung**: Entfernen Sie Konten, wenn Benutzer ausscheiden
+- **Angemessene Berechtigungen**: Wenden Sie das Prinzip der minimalen Rechte an
+- **Dokumentation**: Führen Sie Aufzeichnungen über spezielle Zugriffsgewährungen
+
+### Gruppenverwaltung
+
+- **Namenskonventionen**: Befolgen Sie etablierte Namensmuster
+- **Klare Beschreibungen**: Dokumentieren Sie Gruppenzweck und Mitgliedschaftskriterien
+- **Regelmäßige Überprüfung**: Auditieren Sie Gruppenmitgliedschaften periodisch
+- **Aufräumen**: Entfernen Sie veraltete Gruppen
+
+### Infrastrukturaufzeichnungen
+
+- **Vollständige Informationen**: Füllen Sie alle relevanten Felder aus
+- **Aktuelle Daten**: Aktualisieren Sie Aufzeichnungen bei Geräteumzügen oder -änderungen
+- **Entsorgungsverfolgung**: Markieren Sie Geräte als außer Betrieb genommen

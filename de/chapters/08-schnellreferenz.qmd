@@ -1,0 +1,231 @@
+---
+lang: de
+---
+
+# Schnellreferenz
+
+Dieses Kapitel bietet eine Kurzreferenz für häufige administrative Aufgaben und wichtige Informationen.
+
+## Kontaktinformationen
+
+::: {.callout-tip}
+## ITO Helpdesk
+| | |
+|---|---|
+| **E-Mail** | support@ito.cit.tum.de |
+| **Telefon** | +49 (89) 289 - 18018 |
+| **Öffnungszeiten** | Mo-Fr 08:00 - 18:00 |
+:::
+
+## Wichtige URLs
+
+| Ressource | URL |
+|-----------|-----|
+| **StrukturDB** | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
+| **ITO Hauptseite** | [www.cit.tum.de/ito](https://www.cit.tum.de/ito) |
+| **Für Administrierende** | [www.cit.tum.de/ito/fuer-administrierende](https://www.cit.tum.de/ito/fuer-administrierende/) |
+
+## Service-Anfrage-Matrix
+
+```{mermaid}
+%%| fig-cap: "Service-Anfrage-Entscheidungsbaum"
+flowchart TB
+    Task["Was benötigen Sie?"]
+
+    Task --> User["Benutzer-/Gruppen-<br/>verwaltung"]
+    Task --> Network["Netzwerk-<br/>konfiguration"]
+    Task --> Infra["Infrastruktur"]
+    Task --> Storage["Speicher"]
+    Task --> Other["Sonstiges"]
+
+    User --> StrukturDB1["StrukturDB<br/>(Self-Service)"]
+    Network --> |DNS/DHCP| StrukturDB2["StrukturDB<br/>(Self-Service)"]
+    Network --> |Subdomain/VPN| Email1["E-Mail an ITO"]
+    Infra --> |VM-Anfrage| Wiki["Benutzerwiki"]
+    Infra --> |Hardware-Hosting| Email2["E-Mail an ITO"]
+    Storage --> |NAS-Einrichtung| Email3["E-Mail an ITO"]
+    Storage --> |Daten wiederherstellen| Email4["E-Mail an ITO"]
+    Other --> Email5["E-Mail an ITO"]
+```
+
+## Kurzübersicht Aufgaben
+
+### Benutzerverwaltung (StrukturDB)
+
+| Aufgabe | Wo | Schritte |
+|---------|-----|----------|
+| **Benutzer erstellen** | StrukturDB → Benutzer | Formular ausfüllen, absenden |
+| **Gruppe erstellen** | StrukturDB → Gruppen | Name, Mitglieder definieren |
+| **Zu Gruppe hinzufügen** | StrukturDB → Gruppen → Bearbeiten | Benutzer auswählen, speichern |
+| **Host registrieren** | StrukturDB → Hosts | MAC, Hostname eingeben |
+
+### Netzwerkdienste
+
+| Aufgabe | Methode | Benötigte Informationen |
+|---------|---------|------------------------|
+| **DNS-Eintrag** | StrukturDB | Hostname, IP-Adresse |
+| **DHCP statisch** | StrukturDB | MAC-Adresse, Hostname |
+| **Subdomain** | E-Mail an ITO | Gewünschter Name, Begründung |
+| **VPN-Einrichtung** | E-Mail an ITO | Lehrstuhlname, Benutzeranzahl |
+
+### Infrastruktur
+
+| Aufgabe | Methode | Benötigte Informationen |
+|---------|---------|------------------------|
+| **VM beantragen** | Benutzerwiki | Zweck, Ressourcen, OS |
+| **VM-Snapshot** | ITO Support | VM-Name, Grund |
+| **Hardware-Hosting** | E-Mail an ITO | Hardware-Specs, Zeitplan |
+
+### Speicher & Backup
+
+| Aufgabe | Methode | Benötigte Informationen |
+|---------|---------|------------------------|
+| **NAS-Einrichtung** | E-Mail an ITO | Kapazitätsbedarf, Benutzer |
+| **Datenwiederherstellung** | E-Mail an ITO | Pfad, Datum, Beschreibung |
+| **Quota-Erhöhung** | E-Mail an ITO | Aktuelle Nutzung, Bedarf |
+
+## Häufige Verfahren
+
+### Neuen Benutzer hinzufügen
+
+```
+1. In StrukturDB anmelden
+2. Zu Benutzerverwaltung navigieren
+3. "Neuer Benutzerantrag" klicken
+4. Pflichtfelder ausfüllen:
+   - Name
+   - E-Mail
+   - Lehrstuhlzugehörigkeit
+5. Antrag absenden
+6. Benutzer erhält Zugangsdaten
+```
+
+### Neues Gerät registrieren
+
+```
+1. Geräteinformationen sammeln:
+   - MAC-Adresse
+   - Gerätetyp
+   - Vorgesehener Hostname
+2. In StrukturDB anmelden
+3. Zu Hostverwaltung navigieren
+4. Neuen Host-Eintrag erstellen
+5. Speichern → DHCP/DNS automatisch konfiguriert
+```
+
+### Datenwiederherstellung beantragen
+
+```
+1. E-Mail: support@ito.cit.tum.de
+2. Betreff: Datenwiederherstellungsanfrage
+3. Angeben:
+   - Vollständiger Pfad zu Daten
+   - Datum für Wiederherstellung
+   - Kurze Beschreibung
+4. Auf ITO-Bestätigung warten
+```
+
+## Standardspezifikationen
+
+### VM-Standardwerte
+
+| Ressource | Standard | Erweiterbar |
+|-----------|----------|-------------|
+| **vCPUs** | 2 | Ja |
+| **RAM** | 2-4 GB | Ja |
+| **Speicher** | Nach Bedarf | Ja |
+| **Backup** | Täglich | Inklusive |
+
+### NAS-Fileserver
+
+| Spezifikation | Wert |
+|---------------|------|
+| **Kapazität** | Bis zu 10 TB |
+| **Protokolle** | NFSv3, SMB |
+| **Backup** | Täglich (IBM Spectrum Protect) |
+| **Zugriff** | Lehrstuhl-Netzwerk + VPN |
+
+## Fehlerbehebung Kurzanleitung
+
+### Gerät erhält keine IP
+
+1. MAC-Adresse in StrukturDB prüfen
+2. Verifizieren, dass Host-Eintrag existiert
+3. Physische Verbindung prüfen
+4. `ipconfig /release` dann `/renew` versuchen (Windows)
+5. ITO kontaktieren wenn Problem bestehen bleibt
+
+### Kein NAS-Zugriff
+
+1. VPN-Verbindung verifizieren (bei Remote)
+2. Prüfen ob Benutzer in korrekter Gruppe ist
+3. Korrekten Pfad/Freigabenamen verifizieren
+4. Erneut authentifizieren versuchen
+5. ITO kontaktieren wenn Problem bestehen bleibt
+
+### VM nicht erreichbar
+
+1. VM-Status im Web-Interface prüfen
+2. Neustart über Web-Interface versuchen
+3. Netzwerkkonnektivität prüfen
+4. Verifizieren, dass DNS-Eintrag existiert
+5. ITO kontaktieren wenn Problem bestehen bleibt
+
+## Checklisten
+
+### Checkliste neuer Administrator
+
+- [ ] ITO für Einarbeitung kontaktieren
+- [ ] StrukturDB-Zugang erhalten
+- [ ] Benutzerwiki-Dokumentation durchlesen
+- [ ] Mit Vorgänger treffen (falls zutreffend)
+- [ ] Kontaktdaten bei ITO verifizieren
+- [ ] Lehrstuhl-Infrastrukturinventar prüfen
+- [ ] Aktuelle Benutzerbasis verstehen
+
+### Checkliste Benutzer-Offboarding
+
+- [ ] Benutzerkonto deaktivieren/entfernen
+- [ ] Aus allen Gruppen entfernen
+- [ ] VPN-Zugang widerrufen
+- [ ] Dateneigentum übertragen
+- [ ] Dokumentation aktualisieren
+
+### Checkliste neue Gerätebereitstellung
+
+- [ ] MAC-Adresse erfassen
+- [ ] Hostname festlegen
+- [ ] In StrukturDB registrieren
+- [ ] DHCP-Funktion verifizieren
+- [ ] Gerät konfigurieren
+- [ ] Im Inventar dokumentieren
+
+## StrukturDB-Navigation
+
+| Aktion | Shortcut/Ort |
+|--------|--------------|
+| **Suche** | Obere Suchleiste |
+| **Neuer Benutzer** | Benutzer → Neu |
+| **Neue Gruppe** | Gruppen → Neu |
+| **Neuer Host** | Hosts → Neu |
+
+## Glossar
+
+| Begriff | Definition |
+|---------|------------|
+| **CIT** | School of Computation, Information and Technology |
+| **DHCP** | Dynamic Host Configuration Protocol |
+| **DNS** | Domain Name System |
+| **EDV-Betreuer** | IT-Betreuer am Lehrstuhl |
+| **ESX** | VMware Virtualisierungsplattform |
+| **ITO** | IT Operations |
+| **LDAP** | Lightweight Directory Access Protocol |
+| **Lehrstuhladmin** | Lehrstuhl-Administrator |
+| **LRZ** | Leibniz-Rechenzentrum |
+| **NAS** | Network Attached Storage |
+| **NFSv3** | Network File System Version 3 |
+| **SMB** | Server Message Block (Windows-Dateifreigabe) |
+| **StrukturDB** | Zentrale Verwaltungsdatenbank der ITO |
+| **TUM** | Technische Universität München |
+| **VM** | Virtuelle Maschine |
+| **VPN** | Virtual Private Network |

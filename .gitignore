@@ -1,0 +1,10 @@
+# Quarto
+/.quarto/
+/_site/
+
+# OS
+.DS_Store
+
+# Editor
+*.swp
+*~

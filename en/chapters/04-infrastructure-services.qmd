@@ -1,0 +1,236 @@
+# Infrastructure Services
+
+## Overview
+
+ITO provides comprehensive infrastructure services for chairs and service offices, including virtual machines, hardware hosting, and server management. These services are designed to support research, teaching, and administrative needs within the School of CIT.
+
+## Virtual Machines (VM) Services
+
+### ESX Infrastructure
+
+```{mermaid}
+%%| fig-cap: "ITO ESX Infrastructure"
+flowchart TB
+    subgraph ESX["ITO ESX Environment"]
+        subgraph Cluster1["Cluster 1"]
+            direction TB
+            C1N1["Node 1"]
+            C1N2["Node 2"]
+            C1N3["Node N"]
+        end
+        subgraph Cluster2["Cluster 2"]
+            direction TB
+            C2N1["Node 1"]
+            C2N2["Node 2"]
+            C2N3["Node N"]
+        end
+    end
+
+    subgraph Rooms["Physical Rooms"]
+        Room1["Server Room 1"]
+        Room2["Server Room 2"]
+    end
+
+    Cluster1 --> Room1
+    Cluster2 --> Room2
+
+    subgraph Features["Features"]
+        HA["High Availability"]
+        Backup["Daily Backups"]
+        Remote["Remote Access"]
+    end
+
+    ESX --> Features
+```
+
+ITO's ESX infrastructure consists of:
+
+- **Two highly redundant clusters**
+- **Distributed across two physical server rooms** (for disaster resilience)
+- **Managed via web interface** accessible to authorized administrators
+
+### VM Specifications
+
+#### Standard Resources
+
+| Resource | Default Value | Notes |
+|----------|---------------|-------|
+| **CPUs** | 2 vCPUs | Can be expanded on request |
+| **RAM** | 2 GB or 4 GB | Based on requirements |
+| **Storage** | Allocated as needed | SAN-backed storage |
+| **Network** | Chair VLAN | Isolated network segment |
+
+::: {.callout-note}
+## Resource Expansion
+Standard resources can be expanded upon request. Contact ITO with your specific requirements.
+:::
+
+#### Use Cases
+
+VMs are intended for **infrastructure purposes**, not resource-intensive computing:
+
+| Suitable | Not Suitable |
+|----------|--------------|
+| Web servers | High-performance computing |
+| Database servers | Machine learning training |
+| Development environments | Data processing clusters |
+| Internal tools | Computationally intensive research |
+
+### VM Management
+
+```{mermaid}
+%%| fig-cap: "VM Management Capabilities"
+flowchart LR
+    Admin["Administrator"]
+    Admin --> WebUI["Web Interface"]
+
+    WebUI --> Start["Start/Stop VM"]
+    WebUI --> Console["Remote Console"]
+    WebUI --> Config["Configuration"]
+    WebUI --> Snap["Snapshots"]
+```
+
+Administrators can control VMs through the web interface:
+
+- **Power Control**: Start, stop, restart VMs
+- **Remote Desktop**: Access VM console directly
+- **Configuration**: Adjust VM settings
+- **Snapshots**: Request machine state snapshots
+
+### Backup and Snapshots
+
+| Feature | Description |
+|---------|-------------|
+| **Daily Backups** | Automatic daily backups of all VMs |
+| **Snapshots** | Point-in-time snapshots available on request |
+| **Retention** | Configurable retention periods |
+| **Restore** | Contact ITO for restoration requests |
+
+### Requesting a VM
+
+To request an infrastructure VM:
+
+1. Review your requirements
+2. Submit request via ITO Benutzerwiki
+3. Specify:
+   - Purpose and intended use
+   - Required resources (CPU, RAM, storage)
+   - Operating system preference
+   - Network requirements
+4. ITO provisions and notifies administrator
+
+## Hardware Hosting (Colocation)
+
+### Service Description
+
+ITO offers colocation services for chairs and service offices that need to host their own physical hardware:
+
+```{mermaid}
+%%| fig-cap: "Hardware Hosting Service"
+flowchart TB
+    subgraph Customer["Chair/Service Office"]
+        HW["Customer Hardware"]
+    end
+
+    subgraph ITO["ITO Data Center"]
+        subgraph Rack["19-inch Racks"]
+            Server["Hosted Server"]
+        end
+        Network["Network Connectivity"]
+        Power["Power Supply"]
+        Cooling["Cooling"]
+        Physical["Physical Security"]
+    end
+
+    HW --> |delivered to| Server
+    Server --> Network
+    Server --> Power
+    Server --> Cooling
+    Rack --> Physical
+```
+
+### What ITO Provides
+
+| Service | Description |
+|---------|-------------|
+| **Rack Space** | 19-inch rack mounting space |
+| **Power** | Reliable, redundant power supply |
+| **Cooling** | Climate-controlled environment |
+| **Network** | High-speed network connectivity |
+| **Physical Security** | Secured data center access |
+| **Monitoring** | Infrastructure monitoring |
+
+### What You Provide
+
+- Physical server hardware
+- Operating system and software
+- Application management
+- Content and data management
+
+### Requesting Hardware Hosting
+
+1. Contact ITO at support@ito.cit.tum.de
+2. Schedule a consultation meeting
+3. Discuss:
+   - Hardware specifications
+   - Power requirements
+   - Network requirements
+   - Delivery and installation timeline
+4. Coordinate hardware delivery and installation
+
+## Chair Mail Server
+
+### Overview
+
+Every chair that handles email requires a mail server for receiving messages addressed to chair hosts:
+
+```{mermaid}
+%%| fig-cap: "Chair Mail Server Architecture"
+flowchart LR
+    Internet["Internet"]
+    Internet --> MX["MX Records"]
+    MX --> ChairMail["Chair Mail Server"]
+
+    ChairMail --> Users["User Mailboxes"]
+    ChairMail --> Lists["Mailing Lists"]
+
+    Admin["Administrator"]
+    Admin --> |manages| ChairMail
+```
+
+### Features
+
+- **Email Reception**: All emails to @chair.domain addresses
+- **Mailing Lists**: Self-managed mailing lists
+- **Administration**: Chair administrators can manage the server
+- **Integration**: Works with ITO LDAP for authentication
+
+### Setup and Configuration
+
+For detailed information about setting up and managing chair mail servers, consult the ITO Benutzerwiki.
+
+## Infrastructure Decision Guide
+
+```{mermaid}
+%%| fig-cap: "Choosing the Right Infrastructure"
+flowchart TB
+    Start["Need Infrastructure?"]
+    Start --> Q1{"Resource-intensive<br/>computing?"}
+
+    Q1 --> |Yes| LRZ["Consider LRZ<br/>HPC Resources"]
+    Q1 --> |No| Q2{"Need physical<br/>hardware control?"}
+
+    Q2 --> |Yes| Colo["Hardware Hosting<br/>(Colocation)"]
+    Q2 --> |No| Q3{"Standard web/db<br/>server needs?"}
+
+    Q3 --> |Yes| VM["ITO Virtual<br/>Machine"]
+    Q3 --> |No| Consult["Consult ITO<br/>for Guidance"]
+```
+
+## Summary
+
+| Service | Best For | Contact |
+|---------|----------|---------|
+| **Virtual Machines** | Standard infrastructure, development | Benutzerwiki |
+| **Hardware Hosting** | Custom hardware, special requirements | support@ito.cit.tum.de |
+| **Chair Mail Server** | Email handling for chair | Benutzerwiki |

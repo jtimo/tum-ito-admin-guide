@@ -1,0 +1,135 @@
+---
+lang: de
+---
+
+# ITO Organisation
+
+## Überblick
+
+Die **IT Operations (ITO)** ist der dedizierte IT-Dienstleister für die School of Computation, Information and Technology (CIT) an der Technischen Universität München (TUM). Die ITO ergänzt und erweitert die Angebote des zentralen IT-Servicezentrums (ITSZ) der TUM sowie des Leibniz-Rechenzentrums (LRZ) der Bayerischen Akademie der Wissenschaften.
+
+## Organisationsstruktur
+
+```{mermaid}
+%%| fig-cap: "Organisatorische Einordnung der ITO"
+flowchart TB
+    TUM["Technische Universität München"]
+    TUM --> Schools["Schools & Departments"]
+    Schools --> CIT["School of Computation,<br/>Information and Technology"]
+    CIT --> ITO["ITO - IT Operations"]
+
+    subgraph External["Externe Partner"]
+        LRZ["Leibniz-Rechenzentrum<br/>(LRZ)"]
+        ITSZ["TUM IT-Servicezentrum<br/>(ITSZ)"]
+    end
+
+    ITO <--> |Zusammenarbeit| LRZ
+    ITO <--> |Zusammenarbeit| ITSZ
+```
+
+## Auftrag und Verantwortlichkeiten
+
+Die ITO bietet spezialisierte und maßgeschneiderte IT-Dienste für:
+
+- **Studierende** der School of CIT
+- **Mitarbeitende** (Forschende, Lehrende und Personal)
+- **Systemadministratoren** (EDV-Betreuer und Lehrstuhladmins)
+
+### Kernfunktionen
+
+| Funktion | Beschreibung |
+|----------|--------------|
+| **Infrastruktur** | Bereitstellung und Entwicklung leistungsfähiger IT-Infrastruktur |
+| **Individuelle Lösungen** | Entwicklung maßgeschneiderter IT-Services und Anwendungen |
+| **Prozessoptimierung** | Lösungen zur Effizienzsteigerung von Arbeitsprozessen |
+| **Internet-Dienste** | Verwaltung autonomer Systeme und mehrerer Domains |
+| **Self-Service-Portale** | Benutzerfreundliche Web-Portale zur einfachen Konfiguration |
+| **Medientechnik** | Unterstützung für Vorlesungsübertragungen, Streaming und Videokonferenzen |
+| **Beschaffung** | Konforme IT-Beschaffung im Rahmen von Rahmenverträgen |
+| **Support** | Zentraler Helpdesk für alle IT-Fragen |
+
+## Service-Portfolio
+
+```{mermaid}
+%%| fig-cap: "ITO Service-Portfolio"
+mindmap
+    root((ITO Dienste))
+        Infrastruktur
+            Virtuelle Server
+            Colocation
+            Arbeitsplatzsysteme
+        Netzwerk
+            DNS-Verwaltung
+            DHCP-Dienste
+            VPN-Zugang
+        Speicher
+            NAS-Fileserver
+            Backup-Lösungen
+        Support
+            Helpdesk
+            Beratung
+            Schulung
+        Medien
+            Vorlesungsaufzeichnung
+            Video-Streaming
+            Konferenzen
+        Beschaffung
+            Hardware
+            Software
+            Rahmenverträge
+```
+
+## Wichtige Systeme und Werkzeuge
+
+### StrukturDB
+
+Die **StrukturDB** ist die zentrale Verwaltungsplattform für ITO-Administratoren:
+
+- **URL**: [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/)
+- **Zweck**: Benutzerverwaltung, Host-Registrierung, Gruppenadministration
+- **Zugriff**: Beschränkt auf autorisierte EDV-Betreuer und Lehrstuhladmins
+
+### Self-Service Web-Portale
+
+Die ITO bietet benutzerfreundliche Self-Service-Portale für:
+
+- Einfache Nutzung von IT-Diensten
+- Konfiguration von Diensten ohne technischen Support
+- Eigenständige Verwaltung von Ressourcen
+
+## Beziehung zu anderen IT-Anbietern
+
+### TUM IT-Servicezentrum (ITSZ)
+
+Die ITO ergänzt ITSZ-Dienste mit CIT-spezifischen Angeboten. Das ITSZ bietet:
+
+- Universitätsweite E-Mail-Dienste
+- Zentrales Identitätsmanagement
+- Allgemeinen IT-Support für die TUM
+
+### Leibniz-Rechenzentrum (LRZ)
+
+Die ITO erweitert LRZ-Dienste für Forschungsbedürfnisse. Das LRZ bietet:
+
+- Hochleistungsrechnen (HPC)
+- Großspeichersysteme
+- Unterstützung für wissenschaftliches Rechnen
+
+## Medien- und Hörsaaltechnik
+
+Die ITO unterstützt Veranstaltungen und Lehre durch:
+
+- **Vorlesungsübertragungen**: Live-Streaming von Vorlesungen
+- **Aufzeichnungen**: Videoaufzeichnung und -archivierung
+- **Streaming-Dienste**: Video-on-Demand-Inhalte
+- **Videokonferenzen**: Unterstützung für Remote-Zusammenarbeit
+- **Großformatdruck**: Poster- und Präsentationsdruck
+
+## IT-Beschaffung
+
+Die ITO gewährleistet konforme Beschaffung durch:
+
+- Etablierte TUM-weite Rahmenverträge
+- Verwaltete Webshops für standardisierte Bestellungen
+- Unterstützung bei Hardware- und Software-Beschaffung
+- Lieferantenbeziehungsmanagement

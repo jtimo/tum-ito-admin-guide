@@ -1,0 +1,87 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "TUM ITO Administrator Guide"
+  favicon: ""
+  search:
+    location: navbar
+    type: overlay
+  navbar:
+    background: primary
+    left:
+      - text: "English"
+        href: en/index.qmd
+      - text: "Deutsch"
+        href: de/index.qmd
+    right:
+      - icon: globe
+        menu:
+          - text: "English"
+            href: en/index.qmd
+          - text: "Deutsch"
+            href: de/index.qmd
+
+  sidebar:
+    - id: en
+      title: "Administrator Guide"
+      style: docked
+      search: true
+      contents:
+        - section: "Introduction"
+          contents:
+            - en/index.qmd
+        - section: "Organization"
+          contents:
+            - en/chapters/01-organization.qmd
+            - en/chapters/02-administrator-roles.qmd
+        - section: "Management"
+          contents:
+            - en/chapters/03-user-management.qmd
+        - section: "Services"
+          contents:
+            - en/chapters/04-infrastructure-services.qmd
+            - en/chapters/05-network-services.qmd
+            - en/chapters/06-storage-backup.qmd
+        - section: "Support"
+          contents:
+            - en/chapters/07-support-resources.qmd
+            - en/chapters/08-quick-reference.qmd
+
+    - id: de
+      title: "Administratorhandbuch"
+      style: docked
+      search: true
+      contents:
+        - section: "Einführung"
+          contents:
+            - de/index.qmd
+        - section: "Organisation"
+          contents:
+            - de/chapters/01-organisation.qmd
+            - de/chapters/02-administratorrollen.qmd
+        - section: "Verwaltung"
+          contents:
+            - de/chapters/03-benutzerverwaltung.qmd
+        - section: "Dienste"
+          contents:
+            - de/chapters/04-infrastrukturdienste.qmd
+            - de/chapters/05-netzwerkdienste.qmd
+            - de/chapters/06-speicher-backup.qmd
+        - section: "Unterstützung"
+          contents:
+            - de/chapters/07-support-ressourcen.qmd
+            - de/chapters/08-schnellreferenz.qmd
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    mermaid:
+      theme: default

@@ -1,0 +1,240 @@
+---
+lang: de
+---
+
+# Infrastrukturdienste
+
+## Überblick
+
+Die ITO bietet umfassende Infrastrukturdienste für Lehrstühle und Servicebüros, einschließlich virtueller Maschinen, Hardware-Hosting und Serververwaltung. Diese Dienste unterstützen Forschung, Lehre und Verwaltung innerhalb der School of CIT.
+
+## Virtuelle Maschinen (VM) Dienste
+
+### ESX-Infrastruktur
+
+```{mermaid}
+%%| fig-cap: "ITO ESX-Infrastruktur"
+flowchart TB
+    subgraph ESX["ITO ESX-Umgebung"]
+        subgraph Cluster1["Cluster 1"]
+            direction TB
+            C1N1["Knoten 1"]
+            C1N2["Knoten 2"]
+            C1N3["Knoten N"]
+        end
+        subgraph Cluster2["Cluster 2"]
+            direction TB
+            C2N1["Knoten 1"]
+            C2N2["Knoten 2"]
+            C2N3["Knoten N"]
+        end
+    end
+
+    subgraph Rooms["Physische Räume"]
+        Room1["Serverraum 1"]
+        Room2["Serverraum 2"]
+    end
+
+    Cluster1 --> Room1
+    Cluster2 --> Room2
+
+    subgraph Features["Funktionen"]
+        HA["Hochverfügbarkeit"]
+        Backup["Tägliche Backups"]
+        Remote["Remote-Zugriff"]
+    end
+
+    ESX --> Features
+```
+
+Die ESX-Infrastruktur der ITO besteht aus:
+
+- **Zwei hoch redundante Cluster**
+- **Verteilt über zwei physikalische Serverräume** (für Disaster-Resilience)
+- **Verwaltung über Web-Interface** für autorisierte Administratoren
+
+### VM-Spezifikationen
+
+#### Standardressourcen
+
+| Ressource | Standardwert | Hinweise |
+|-----------|--------------|----------|
+| **CPUs** | 2 vCPUs | Kann auf Anfrage erweitert werden |
+| **RAM** | 2 GB oder 4 GB | Je nach Anforderungen |
+| **Speicher** | Nach Bedarf | SAN-basierter Speicher |
+| **Netzwerk** | Lehrstuhl-VLAN | Isoliertes Netzwerksegment |
+
+::: {.callout-note}
+## Ressourcenerweiterung
+Standardressourcen können auf Anfrage erweitert werden. Kontaktieren Sie die ITO mit Ihren spezifischen Anforderungen.
+:::
+
+#### Anwendungsfälle
+
+VMs sind für **Infrastrukturzwecke** gedacht, nicht für ressourcenintensive Berechnungen:
+
+| Geeignet | Nicht geeignet |
+|----------|----------------|
+| Webserver | Hochleistungsrechnen |
+| Datenbankserver | Machine-Learning-Training |
+| Entwicklungsumgebungen | Datenverarbeitungscluster |
+| Interne Tools | Rechenintensive Forschung |
+
+### VM-Verwaltung
+
+```{mermaid}
+%%| fig-cap: "VM-Verwaltungsmöglichkeiten"
+flowchart LR
+    Admin["Administrator"]
+    Admin --> WebUI["Web-Interface"]
+
+    WebUI --> Start["VM starten/stoppen"]
+    WebUI --> Console["Remote-Konsole"]
+    WebUI --> Config["Konfiguration"]
+    WebUI --> Snap["Snapshots"]
+```
+
+Administratoren können VMs über das Web-Interface steuern:
+
+- **Energieverwaltung**: VMs starten, stoppen, neustarten
+- **Remote Desktop**: Direkter Zugriff auf VM-Konsole
+- **Konfiguration**: VM-Einstellungen anpassen
+- **Snapshots**: Maschinenstatus-Snapshots anfordern
+
+### Backup und Snapshots
+
+| Funktion | Beschreibung |
+|----------|--------------|
+| **Tägliche Backups** | Automatische tägliche Sicherung aller VMs |
+| **Snapshots** | Zeitpunktbezogene Snapshots auf Anfrage verfügbar |
+| **Aufbewahrung** | Konfigurierbare Aufbewahrungszeiten |
+| **Wiederherstellung** | ITO für Wiederherstellungsanfragen kontaktieren |
+
+### VM beantragen
+
+Um eine Infrastruktur-VM zu beantragen:
+
+1. Anforderungen prüfen
+2. Antrag über ITO Benutzerwiki einreichen
+3. Angeben:
+   - Zweck und beabsichtigte Nutzung
+   - Erforderliche Ressourcen (CPU, RAM, Speicher)
+   - Betriebssystem-Präferenz
+   - Netzwerkanforderungen
+4. ITO stellt bereit und benachrichtigt Administrator
+
+## Hardware-Hosting (Colocation)
+
+### Dienstbeschreibung
+
+Die ITO bietet Colocation-Dienste für Lehrstühle und Servicebüros, die eigene physische Hardware hosten müssen:
+
+```{mermaid}
+%%| fig-cap: "Hardware-Hosting-Dienst"
+flowchart TB
+    subgraph Customer["Lehrstuhl/Servicebüro"]
+        HW["Kunden-Hardware"]
+    end
+
+    subgraph ITO["ITO Rechenzentrum"]
+        subgraph Rack["19-Zoll-Racks"]
+            Server["Gehosteter Server"]
+        end
+        Network["Netzwerkanbindung"]
+        Power["Stromversorgung"]
+        Cooling["Kühlung"]
+        Physical["Physische Sicherheit"]
+    end
+
+    HW --> |geliefert an| Server
+    Server --> Network
+    Server --> Power
+    Server --> Cooling
+    Rack --> Physical
+```
+
+### Was die ITO bereitstellt
+
+| Dienst | Beschreibung |
+|--------|--------------|
+| **Rack-Platz** | 19-Zoll-Rack-Montageplatz |
+| **Strom** | Zuverlässige, redundante Stromversorgung |
+| **Kühlung** | Klimatisierte Umgebung |
+| **Netzwerk** | Hochgeschwindigkeits-Netzwerkanbindung |
+| **Physische Sicherheit** | Gesicherter Rechenzentrumszugang |
+| **Monitoring** | Infrastrukturüberwachung |
+
+### Was Sie bereitstellen
+
+- Physische Server-Hardware
+- Betriebssystem und Software
+- Anwendungsmanagement
+- Inhalte und Datenverwaltung
+
+### Hardware-Hosting beantragen
+
+1. ITO unter support@ito.cit.tum.de kontaktieren
+2. Beratungsgespräch vereinbaren
+3. Besprechen:
+   - Hardware-Spezifikationen
+   - Stromanforderungen
+   - Netzwerkanforderungen
+   - Liefer- und Installationszeitplan
+4. Hardware-Lieferung und Installation koordinieren
+
+## Lehrstuhl-Mailserver
+
+### Überblick
+
+Jeder Lehrstuhl, der E-Mails handhabt, benötigt einen Mailserver für den Empfang von Nachrichten, die an Lehrstuhl-Hosts adressiert sind:
+
+```{mermaid}
+%%| fig-cap: "Lehrstuhl-Mailserver-Architektur"
+flowchart LR
+    Internet["Internet"]
+    Internet --> MX["MX-Records"]
+    MX --> ChairMail["Lehrstuhl-Mailserver"]
+
+    ChairMail --> Users["Benutzer-Postfächer"]
+    ChairMail --> Lists["Mailinglisten"]
+
+    Admin["Administrator"]
+    Admin --> |verwaltet| ChairMail
+```
+
+### Funktionen
+
+- **E-Mail-Empfang**: Alle E-Mails an @lehrstuhl.domain-Adressen
+- **Mailinglisten**: Selbstverwaltete Mailinglisten
+- **Administration**: Lehrstuhl-Administratoren können den Server verwalten
+- **Integration**: Funktioniert mit ITO LDAP für Authentifizierung
+
+### Einrichtung und Konfiguration
+
+Detaillierte Informationen zur Einrichtung und Verwaltung von Lehrstuhl-Mailservern finden Sie im ITO Benutzerwiki.
+
+## Infrastruktur-Entscheidungshilfe
+
+```{mermaid}
+%%| fig-cap: "Die richtige Infrastruktur wählen"
+flowchart TB
+    Start["Infrastruktur benötigt?"]
+    Start --> Q1{"Ressourcenintensives<br/>Rechnen?"}
+
+    Q1 --> |Ja| LRZ["LRZ HPC-Ressourcen<br/>in Betracht ziehen"]
+    Q1 --> |Nein| Q2{"Physische Hardware-<br/>kontrolle benötigt?"}
+
+    Q2 --> |Ja| Colo["Hardware-Hosting<br/>(Colocation)"]
+    Q2 --> |Nein| Q3{"Standard Web/DB<br/>Server-Bedarf?"}
+
+    Q3 --> |Ja| VM["ITO Virtuelle<br/>Maschine"]
+    Q3 --> |Nein| Consult["ITO für<br/>Beratung kontaktieren"]
+```
+
+## Zusammenfassung
+
+| Dienst | Geeignet für | Kontakt |
+|--------|--------------|---------|
+| **Virtuelle Maschinen** | Standard-Infrastruktur, Entwicklung | Benutzerwiki |
+| **Hardware-Hosting** | Eigene Hardware, spezielle Anforderungen | support@ito.cit.tum.de |
+| **Lehrstuhl-Mailserver** | E-Mail-Handling für Lehrstuhl | Benutzerwiki |

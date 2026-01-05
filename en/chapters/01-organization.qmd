@@ -1,0 +1,131 @@
+# ITO Organization
+
+## Overview
+
+The **IT Operations (ITO)** is the dedicated IT service provider for the School of Computation, Information and Technology (CIT) at the Technical University of Munich (TUM). ITO complements and extends the services offered by TUM's central IT Service Center (ITSZ) and the Leibniz Supercomputing Centre (LRZ) of the Bavarian Academy of Sciences.
+
+## Organizational Structure
+
+```{mermaid}
+%%| fig-cap: "ITO Organizational Position"
+flowchart TB
+    TUM["Technical University of Munich"]
+    TUM --> Schools["Schools & Departments"]
+    Schools --> CIT["School of Computation,<br/>Information and Technology"]
+    CIT --> ITO["ITO - IT Operations"]
+
+    subgraph External["External Partners"]
+        LRZ["Leibniz Supercomputing<br/>Centre (LRZ)"]
+        ITSZ["TUM IT Service<br/>Center (ITSZ)"]
+    end
+
+    ITO <--> |collaboration| LRZ
+    ITO <--> |collaboration| ITSZ
+```
+
+## Mission and Responsibilities
+
+ITO provides specialized and tailored IT services designed to meet the specific requirements of:
+
+- **Students** of the School of CIT
+- **Employees** (researchers, faculty, and staff)
+- **System Administrators** (EDV-Betreuer and Lehrstuhladmins)
+
+### Core Functions
+
+| Function | Description |
+|----------|-------------|
+| **Infrastructure** | High-performance IT infrastructure provision and development |
+| **Custom Solutions** | Development of tailored IT services and specialized applications |
+| **Process Optimization** | Solutions designed to make work processes more efficient |
+| **Internet Services** | Management of autonomous systems and multiple domains |
+| **Self-Service Portals** | User-friendly web portals for easy configuration |
+| **Media Technology** | Support for lecture broadcasts, streaming, and video conferencing |
+| **Procurement** | Compliant IT procurement within framework agreements |
+| **Support** | Central helpdesk for all IT questions |
+
+## Service Portfolio
+
+```{mermaid}
+%%| fig-cap: "ITO Service Portfolio"
+mindmap
+    root((ITO Services))
+        Infrastructure
+            Virtual Servers
+            Colocation
+            Workstation Systems
+        Network
+            DNS Management
+            DHCP Services
+            VPN Access
+        Storage
+            NAS Fileservers
+            Backup Solutions
+        Support
+            Helpdesk
+            Consulting
+            Training
+        Media
+            Lecture Recording
+            Video Streaming
+            Conferencing
+        Procurement
+            Hardware
+            Software
+            Framework Agreements
+```
+
+## Key Systems and Tools
+
+### StrukturDB
+
+The **StrukturDB** is the central management platform for ITO administrators:
+
+- **URL**: [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/)
+- **Purpose**: User management, host registration, group administration
+- **Access**: Restricted to authorized EDV-Betreuer and Lehrstuhladmins
+
+### Self-Service Web Portals
+
+ITO provides user-friendly self-service web portals that enable:
+
+- Easy utilization of IT services
+- Configuration of services without technical support
+- Autonomous management of resources
+
+## Relationship with Other IT Providers
+
+### TUM IT Service Center (ITSZ)
+
+ITO supplements ITSZ services with CIT-specific offerings. ITSZ provides:
+
+- University-wide email services
+- Central identity management
+- General IT support for TUM
+
+### Leibniz Supercomputing Centre (LRZ)
+
+ITO extends LRZ services for research needs. LRZ provides:
+
+- High-performance computing resources
+- Large-scale storage systems
+- Scientific computing support
+
+## Media and Lecture Hall Technology
+
+ITO supports events and teaching through:
+
+- **Lecture Broadcasts**: Live streaming of lectures
+- **Recordings**: Video recording and archiving
+- **Streaming Services**: On-demand video content
+- **Video Conferencing**: Support for remote collaboration
+- **Large Format Printing**: Poster and presentation printing
+
+## IT Procurement
+
+ITO ensures compliant procurement through:
+
+- Established TUM-wide framework agreements
+- Managed webshops for standardized ordering
+- Hardware and software procurement support
+- Vendor relationship management

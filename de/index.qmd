@@ -1,0 +1,72 @@
+---
+title: "TUM ITO Administratorhandbuch"
+lang: de
+---
+
+# Einführung {.unnumbered}
+
+Willkommen zum **TUM ITO System-Administrator Referenzhandbuch**. Dieses umfassende Handbuch wurde für IT-Administratoren (EDV-Betreuer) und Lehrstuhladmins an der School of Computation, Information and Technology (CIT) der Technischen Universität München entwickelt.
+
+## Über dieses Handbuch
+
+Dieses Referenzwerk bietet detaillierte Informationen zu:
+
+- **ITO-Organisation**: Struktur und Rolle der IT Operations innerhalb der TUM
+- **Administrator-Verantwortlichkeiten**: Rollen, Aufgaben und Best Practices
+- **Benutzerverwaltung**: Verwaltung von Benutzern, Gruppen und Zugriffen über die StrukturDB
+- **Infrastrukturdienste**: Virtuelle Maschinen, Server-Hosting und Hardware-Management
+- **Netzwerkdienste**: DNS, DHCP, VPN und Domain-Verwaltung
+- **Speicher und Backup**: NAS-Fileserver und Datensicherung mit IBM Spectrum Protect
+- **Support-Ressourcen**: Kontaktinformationen und Beratungsdienste
+
+## ITO Übersicht
+
+```{mermaid}
+%%| fig-cap: "ITO Service-Ökosystem"
+flowchart TB
+    subgraph TUM["Technische Universität München"]
+        subgraph CIT["School of CIT"]
+            ITO["ITO - IT Operations"]
+        end
+        ITSZ["IT-Servicezentrum (ITSZ)"]
+    end
+    LRZ["Leibniz-Rechenzentrum (LRZ)"]
+
+    ITO --> |ergänzt| ITSZ
+    ITO --> |erweitert| LRZ
+
+    subgraph Services["ITO Dienstleistungen"]
+        S1["Studierende"]
+        S2["Mitarbeitende"]
+        S3["Administrierende"]
+    end
+
+    ITO --> S1
+    ITO --> S2
+    ITO --> S3
+```
+
+## Zielgruppe
+
+Dieses Handbuch richtet sich an:
+
+| Rolle | Beschreibung |
+|-------|--------------|
+| **EDV-Betreuer** | IT-Betreuer für technische Infrastruktur |
+| **Lehrstuhladmin** | Lehrstuhl-Administratoren für IT-Bedürfnisse |
+| **Neue Administratoren** | Neu ernannte IT-Administratoren |
+
+## Nutzung dieses Handbuchs
+
+1. **Neue Administratoren**: Beginnen Sie mit Kapitel 1 (Organisation) und Kapitel 2 (Administratorrollen)
+2. **Tägliche Arbeit**: Kapitel 3-6 für spezifische Dienstverwaltung
+3. **Schnellreferenz**: Kapitel 8 bietet eine praktische Kurzübersicht
+
+## Kontaktinformationen
+
+::: {.callout-tip}
+## ITO Helpdesk
+- **Öffnungszeiten**: Montag - Freitag, 08:00 - 18:00 Uhr
+- **Telefon**: +49 (89) 289 - 18018
+- **E-Mail**: support@ito.cit.tum.de
+:::

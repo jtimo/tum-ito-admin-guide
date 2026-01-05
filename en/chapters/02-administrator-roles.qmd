@@ -1,0 +1,159 @@
+# Administrator Roles and Responsibilities
+
+## Overview
+
+Each chair (Lehrstuhl) and service office (Servicebüro) at TUM CIT designates an IT administrator to liaise with ITO. These administrators serve as the primary contact points for IT-related matters within their organizational units.
+
+## Administrator Types
+
+```{mermaid}
+%%| fig-cap: "Administrator Hierarchy"
+flowchart TB
+    LI["Chair Holder<br/>(Lehrstuhlinhaber)"]
+    LI --> |appoints| EA["EDV-Betreuer<br/>(IT Supervisor)"]
+    LI --> |appoints| LA["Lehrstuhladmin<br/>(Chair Administrator)"]
+
+    EA --> |or existing admin appoints| NEW["New Administrators"]
+    LA --> |or existing admin appoints| NEW
+
+    subgraph Responsibilities["Shared Responsibilities"]
+        R1["User Management"]
+        R2["Infrastructure Management"]
+        R3["Service Configuration"]
+        R4["Support Coordination"]
+    end
+
+    EA --> Responsibilities
+    LA --> Responsibilities
+```
+
+### EDV-Betreuer (IT Supervisor)
+
+The **EDV-Betreuer** is the primary technical contact for IT matters:
+
+| Aspect | Description |
+|--------|-------------|
+| **Appointment** | Designated by Chair Holder or existing EDV-Betreuer |
+| **Scope** | Technical infrastructure and systems management |
+| **Authority** | Full access to StrukturDB and administrative tools |
+| **Primary Role** | Day-to-day IT operations and user support |
+
+### Lehrstuhladmin (Chair Administrator)
+
+The **Lehrstuhladmin** serves similar functions with focus on departmental needs:
+
+| Aspect | Description |
+|--------|-------------|
+| **Appointment** | Designated by Chair Holder or existing Lehrstuhladmin |
+| **Scope** | Chair-specific IT resource management |
+| **Authority** | Access to StrukturDB for chair resources |
+| **Primary Role** | User account management and resource allocation |
+
+## Key Responsibilities
+
+### 1. User Management
+
+```{mermaid}
+%%| fig-cap: "User Management Workflow"
+flowchart LR
+    Request["User Request"]
+    Request --> Admin["Administrator<br/>Review"]
+    Admin --> StrukturDB["StrukturDB<br/>Processing"]
+    StrukturDB --> LDAP["LDAP<br/>Synchronization"]
+    LDAP --> Access["User<br/>Access Granted"]
+```
+
+Administrators are responsible for:
+
+- **New User Requests**: Processing requests for new user accounts
+- **Group Management**: Creating and managing user groups
+- **Access Control**: Defining and maintaining access permissions
+- **Account Lifecycle**: Managing account creation, modification, and termination
+
+### 2. Infrastructure Management
+
+Administrators manage chair infrastructure including:
+
+- **Workstations**: Laptops, desktops, and specialized equipment
+- **Printers**: Network printers and printing resources
+- **Servers**: Virtual machines and hosted hardware
+- **Network Equipment**: Switches, access points, and network configuration
+
+### 3. Service Configuration
+
+Configuration responsibilities include:
+
+- **DNS Entries**: Creating and managing DNS records via StrukturDB
+- **DHCP Entries**: Configuring static IP assignments
+- **VPN Access**: Setting up remote access for users
+- **Mail Services**: Managing mailing lists and shared folders
+
+### 4. Support Coordination
+
+Administrators serve as liaison between users and ITO:
+
+- **First-Level Support**: Initial troubleshooting and issue resolution
+- **Escalation**: Forwarding complex issues to ITO helpdesk
+- **Communication**: Relaying ITO announcements and updates
+- **Training**: Orienting users to available IT services
+
+## Onboarding New Administrators
+
+### Getting Started
+
+New administrators should:
+
+1. **Contact ITO**: Schedule an introduction meeting
+2. **Access StrukturDB**: Obtain credentials and familiarize with the interface
+3. **Review Documentation**: Study the Benutzerwiki (user wiki)
+4. **Meet Predecessors**: If possible, coordinate handover with previous administrators
+
+### Consulting Services
+
+ITO offers consulting for new administrators:
+
+::: {.callout-note}
+## Consulting Appointment
+ITO gladly advises new EDV-Betreuer and Lehrstuhladmins on:
+
+- Infrastructure questions
+- System integration requirements
+- Introduction to ITO systems and offerings
+
+**Contact**: support@ito.cit.tum.de to schedule an appointment
+:::
+
+## Best Practices
+
+### Documentation
+
+- Maintain records of all infrastructure and configurations
+- Document custom configurations and non-standard setups
+- Keep user access records up to date
+
+### Communication
+
+- Respond promptly to user requests
+- Communicate scheduled maintenance windows
+- Report security incidents immediately
+
+### Security
+
+- Regularly review user access permissions
+- Ensure proper account termination procedures
+- Follow TUM security guidelines
+
+### Continuity
+
+- Establish backup administrators for coverage
+- Document procedures for handover
+- Maintain up-to-date contact information with ITO
+
+## Administrative Tools Access
+
+| Tool | Purpose | Access Method |
+|------|---------|---------------|
+| **StrukturDB** | User/Host management | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
+| **VM Web Interface** | Virtual machine control | Via ITO portal |
+| **Benutzerwiki** | Documentation | Internal wiki |
+| **ITO Helpdesk** | Support requests | support@ito.cit.tum.de |

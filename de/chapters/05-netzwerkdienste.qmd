@@ -1,0 +1,239 @@
+---
+lang: de
+---
+
+# Netzwerkdienste
+
+## Überblick
+
+Die ITO bietet essentielle Netzwerkdienste für Lehrstühle und Servicebüros, einschließlich DNS-Verwaltung, DHCP-Konfiguration, Subdomain-Verwaltung und VPN-Zugang. Diese Dienste gewährleisten ordnungsgemäße Netzwerkkonnektivität und Erreichbarkeit aller Lehrstuhlressourcen.
+
+## DNS-Dienste
+
+### Domain Name System Verwaltung
+
+DNS-Einträge ermöglichen es, Server und Dienste über lesbare Namen statt IP-Adressen zu erreichen.
+
+```{mermaid}
+%%| fig-cap: "DNS-Auflösungsfluss"
+flowchart LR
+    User["Benutzer"]
+    User --> |fragt an| Domain["server.chair.cit.tum.de"]
+    Domain --> DNS["DNS-Server"]
+    DNS --> |löst auf zu| IP["IP-Adresse<br/>192.168.x.x"]
+    IP --> Server["Lehrstuhl-Server"]
+```
+
+### DNS-Einträge erstellen
+
+DNS-Einträge können über StrukturDB erstellt werden:
+
+| Eintragstyp | Beschreibung | Beispiel |
+|-------------|--------------|----------|
+| **A-Record** | Hostname zu IPv4 | `server.chair.cit.tum.de → 192.168.1.10` |
+| **AAAA-Record** | Hostname zu IPv6 | `server.chair.cit.tum.de → 2001:db8::1` |
+| **CNAME** | Alias zu anderem Hostname | `www → server.chair.cit.tum.de` |
+| **MX-Record** | Mailserver-Zuordnung | Mail-Handling |
+
+### Domain-Optionen
+
+DNS-Einträge können erstellt werden für:
+
+1. **School of CIT Domains**: Standard TUM CIT Domains
+2. **Lehrstuhlspezifische Subdomains**: Eigene Subdomains für Ihren Lehrstuhl
+
+## Subdomain-Verwaltung
+
+### Subdomain beantragen
+
+Lehrstühle und Servicebüros können eine eigene Subdomain unter `cit.tum.de` beantragen:
+
+```{mermaid}
+%%| fig-cap: "Subdomain-Struktur"
+flowchart TB
+    TUM["tum.de"]
+    TUM --> CIT["cit.tum.de"]
+    CIT --> ITO["ito.cit.tum.de"]
+    CIT --> Chair1["lehrstuhl1.cit.tum.de"]
+    CIT --> Chair2["lehrstuhl2.cit.tum.de"]
+    CIT --> Service["service.cit.tum.de"]
+
+    Chair1 --> Server1["server.lehrstuhl1.cit.tum.de"]
+    Chair1 --> Web1["www.lehrstuhl1.cit.tum.de"]
+```
+
+### Namenskonventionen
+
+| Anforderung | Beschreibung | Beispiele |
+|-------------|--------------|-----------|
+| **Starker Bezug** | Muss zum Lehrstuhl/Büro passen | Initialen oder Abkürzung |
+| **Format** | `name.cit.tum.de` | `ito.cit.tum.de` |
+| **Eindeutigkeit** | Darf nicht mit bestehenden kollidieren | Verfügbarkeit prüfen |
+
+### Beantragungsprozess
+
+1. Gewünschten Subdomain-Namen identifizieren
+2. support@ito.cit.tum.de kontaktieren
+3. Angeben:
+   - Gewünschter Subdomain-Name
+   - Lehrstuhl-/Servicebüro-Name
+   - Begründung für den Namen
+4. ITO prüft und aktiviert
+
+## DHCP-Dienste
+
+### Dynamic Host Configuration Protocol
+
+DHCP weist Geräten im Netzwerk automatisch IP-Adressen zu.
+
+```{mermaid}
+%%| fig-cap: "DHCP-Zuweisungsprozess"
+sequenceDiagram
+    participant Device as Gerät
+    participant DHCP as DHCP-Server
+    participant SDB as StrukturDB
+
+    Note over SDB: Statischer Eintrag definiert<br/>MAC → IP Zuordnung
+
+    Device->>DHCP: DHCP Discover (MAC-Adresse)
+    DHCP->>SDB: MAC-Adresse nachschlagen
+    SDB-->>DHCP: Zugewiesene IP zurückgeben
+    DHCP-->>Device: DHCP Offer (IP-Adresse)
+    Device->>DHCP: DHCP Request
+    DHCP-->>Device: DHCP Acknowledge
+```
+
+### Statische DHCP-Einträge
+
+Administratoren können statische DHCP-Einträge über StrukturDB erstellen:
+
+| Feld | Beschreibung | Beispiel |
+|------|--------------|----------|
+| **Hostname** | Gerätename | `laptop-mueller` |
+| **MAC-Adresse** | Geräte-Netzwerkschnittstelle | `00:1A:2B:3C:4D:5E` |
+| **IP-Adresse** | Zugewiesene statische IP | `192.168.10.50` |
+
+### Statischen Eintrag erstellen
+
+1. In StrukturDB anmelden
+2. Zur Hostverwaltung navigieren
+3. Gerät registrieren mit:
+   - Hostname
+   - MAC-Adresse
+4. System weist automatisch statische IP zu
+5. Gerät erhält bei jeder Verbindung dieselbe IP
+
+### Dynamische Subnetze
+
+Für Subnetze mit dynamisch vergebenen DHCP-Einträgen:
+
+::: {.callout-note}
+## Dynamisches Subnetz beantragen
+Wenn Sie ein Subnetz mit dynamischer DHCP-Zuweisung für Ihren Lehrstuhl oder Ihr Servicebüro benötigen, kontaktieren Sie support@ito.cit.tum.de für eine Beratung.
+:::
+
+## VPN-Dienste
+
+### Lehrstuhl-VPN Überblick
+
+Für jeden Lehrstuhl und jedes Servicebüro steht ein eigenes VPN für den Remote-Zugriff auf die Lehrstuhlinfrastruktur zur Verfügung.
+
+```{mermaid}
+%%| fig-cap: "VPN-Zugangsarchitektur"
+flowchart TB
+    subgraph Remote["Remote-Standorte"]
+        Home["Home Office"]
+        Travel["Unterwegs"]
+        External["Externe Netzwerke"]
+    end
+
+    subgraph VPN["VPN-Gateway"]
+        Auth["Authentifizierung"]
+        Tunnel["Verschlüsselter Tunnel"]
+    end
+
+    subgraph Chair["Lehrstuhl-Netzwerk"]
+        Servers["Lehrstuhl-Server"]
+        NAS["Dateispeicher"]
+        Services["Interne Dienste"]
+    end
+
+    Home --> VPN
+    Travel --> VPN
+    External --> VPN
+
+    VPN --> Chair
+```
+
+### VPN-Funktionen
+
+| Funktion | Beschreibung |
+|----------|--------------|
+| **Dediziert** | Jeder Lehrstuhl hat sein eigenes VPN |
+| **Remote-Zugriff** | Zugang von zu Hause oder unterwegs |
+| **Voller Zugriff** | Wie vor Ort |
+| **Sicher** | Verschlüsselte Verbindung |
+
+### Lehrstuhlressourcen über VPN erreichen
+
+Mit verbundenem VPN können Benutzer:
+
+- Auf NAS-Fileserver zugreifen (NFSv3, SMB)
+- Mit internen Servern verbinden
+- Lehrstuhlinterne Dienste nutzen
+- LDAP-authentifizierte Ressourcen erreichen
+
+### VPN-Einrichtung beantragen
+
+Wenn Ihr Lehrstuhl noch kein VPN eingerichtet hat:
+
+1. support@ito.cit.tum.de kontaktieren
+2. Angeben:
+   - Lehrstuhl-/Servicebüro-Name
+   - Erwartete Benutzeranzahl
+   - Besondere Anforderungen
+3. ITO konfiguriert VPN-Zugang
+4. Verbindungsanleitung erhalten
+
+### VPN-Benutzerkonfiguration
+
+Einzelne Benutzer können VPN-Zugang über ihren Administrator beantragen:
+
+```{mermaid}
+%%| fig-cap: "VPN-Zugangsantragsfluss"
+flowchart LR
+    User["Benutzer"]
+    User --> |beantragt| Admin["Administrator"]
+    Admin --> |konfiguriert| VPN["VPN-System"]
+    VPN --> |stellt bereit| Creds["Zugangsdaten"]
+    Creds --> User
+```
+
+## Netzwerk-Fehlerbehebung
+
+### Häufige Probleme
+
+| Problem | Mögliche Ursache | Lösung |
+|---------|-----------------|--------|
+| **Keine IP-Adresse** | DHCP-Eintrag fehlt | StrukturDB-Registrierung prüfen |
+| **DNS löst nicht auf** | DNS-Eintrag fehlt | Eintrag in StrukturDB erstellen |
+| **VPN verbindet nicht** | Zugangsdaten/Konfig-Problem | ITO-Support kontaktieren |
+| **Lehrstuhlressourcen nicht erreichbar** | Netzwerksegmentierung | VLAN-Konfiguration prüfen |
+
+### Diagnoseschritte
+
+1. **Physische Verbindung prüfen** (Kabel, WLAN)
+2. **IP-Konfiguration prüfen** (`ipconfig` / `ip addr`)
+3. **DNS-Auflösung testen** (`nslookup hostname`)
+4. **Routing überprüfen** (`traceroute`)
+5. **ITO kontaktieren** wenn Probleme bestehen bleiben
+
+## Zusammenfassungstabelle
+
+| Dienst | Verwaltung | Beantragung |
+|--------|------------|-------------|
+| **DNS-Einträge** | StrukturDB | Self-Service |
+| **Subdomains** | ITO | support@ito.cit.tum.de |
+| **Statisches DHCP** | StrukturDB | Self-Service |
+| **Dynamische Subnetze** | ITO | support@ito.cit.tum.de |
+| **VPN-Einrichtung** | ITO | support@ito.cit.tum.de |

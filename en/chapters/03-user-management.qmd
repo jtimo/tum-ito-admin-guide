@@ -1,0 +1,215 @@
+# User and Host Management
+
+## StrukturDB Overview
+
+The **StrukturDB** is the central administrative platform for managing users, hosts, and infrastructure within ITO. It provides a comprehensive interface for EDV-Betreuer and Lehrstuhladmins to manage their chair's IT resources.
+
+### Access Information
+
+| Property | Value |
+|----------|-------|
+| **URL** | [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/) |
+| **Access** | Restricted to authorized administrators |
+| **Documentation** | ITO Benutzerwiki |
+
+## Core Functions
+
+```{mermaid}
+%%| fig-cap: "StrukturDB Core Functions"
+mindmap
+    root((StrukturDB))
+        User Management
+            New User Requests
+            Account Modifications
+            Access Permissions
+            Account Deactivation
+        Group Management
+            Create Groups
+            Manage Members
+            LDAP Groups
+            Permission Sets
+        Host Management
+            Register Devices
+            Network Configuration
+            Device Inventory
+        Infrastructure
+            Laptops
+            Desktops
+            Printers
+            Servers
+```
+
+## User Management
+
+### Requesting New Users
+
+```{mermaid}
+%%| fig-cap: "New User Request Process"
+sequenceDiagram
+    participant Admin as Administrator
+    participant SDB as StrukturDB
+    participant LDAP as LDAP Directory
+    participant User as New User
+
+    Admin->>SDB: Submit new user request
+    SDB->>SDB: Validate request
+    SDB->>LDAP: Create user account
+    LDAP-->>SDB: Confirmation
+    SDB-->>Admin: Account created notification
+    Admin->>User: Communicate credentials
+    User->>LDAP: First login
+```
+
+To request a new user account:
+
+1. Log in to StrukturDB
+2. Navigate to User Management section
+3. Fill in required user information:
+   - Full name
+   - Email address
+   - Chair/Department affiliation
+   - Required access level
+4. Submit the request
+5. System processes and creates the account
+6. Notify the user of their new credentials
+
+### Managing User Groups
+
+Groups in StrukturDB serve multiple purposes:
+
+| Group Type | Purpose | Example Use |
+|------------|---------|-------------|
+| **Access Groups** | Control resource access | Printer access, file shares |
+| **Project Groups** | Organize project teams | Research project members |
+| **LDAP Groups** | Directory integration | Authentication and authorization |
+| **Distribution Groups** | Email distribution | Mailing lists |
+
+#### Creating Groups
+
+1. Navigate to Group Management in StrukturDB
+2. Select "Create New Group"
+3. Define group properties:
+   - Group name (following naming conventions)
+   - Description
+   - Initial members
+   - Group type (LDAP, distribution, etc.)
+4. Save and activate the group
+
+### LDAP Integration
+
+```{mermaid}
+%%| fig-cap: "LDAP Integration Flow"
+flowchart LR
+    SDB["StrukturDB"]
+    SDB --> |sync| LDAP["LDAP Directory"]
+    LDAP --> Auth["Authentication<br/>Services"]
+    LDAP --> NAS["NAS Access<br/>Control"]
+    LDAP --> VM["VM Access<br/>Control"]
+    LDAP --> Mail["Mail<br/>Services"]
+```
+
+LDAP groups created through StrukturDB are automatically:
+
+- Synchronized with the central LDAP directory
+- Available for authentication across ITO services
+- Used for access control on NAS, VMs, and other resources
+
+## Host Management
+
+### Registering Devices
+
+Administrators can register and track infrastructure through StrukturDB:
+
+```{mermaid}
+%%| fig-cap: "Device Registration Workflow"
+flowchart TB
+    subgraph Registration["Device Registration"]
+        Device["New Device"]
+        Device --> Info["Collect Information"]
+        Info --> |MAC Address<br/>Device Type<br/>Location| SDB["StrukturDB Entry"]
+    end
+
+    subgraph Configuration["Automatic Configuration"]
+        SDB --> DNS["DNS Entry"]
+        SDB --> DHCP["DHCP Reservation"]
+        SDB --> Inventory["Inventory Record"]
+    end
+```
+
+#### Required Information for Host Registration
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| **Hostname** | Unique device name | `ws-mueller-01` |
+| **MAC Address** | Network interface ID | `00:1A:2B:3C:4D:5E` |
+| **Device Type** | Category | Laptop, Desktop, Printer, Server |
+| **Location** | Physical location | Room 01.234, Building MI |
+| **Responsible Person** | Primary user/contact | Prof. Dr. Schmidt |
+
+### Infrastructure Inventory
+
+StrukturDB maintains a complete inventory of:
+
+- **Laptops**: Mobile workstations assigned to users
+- **Desktops**: Fixed workstations in offices and labs
+- **Printers**: Network printers and multifunction devices
+- **Servers**: Both virtual and physical servers
+- **Network Equipment**: Managed switches and access points
+
+## Mailing Lists and Shared Folders
+
+ITO provides two email collaboration solutions:
+
+### Mailing Lists
+
+Traditional email distribution lists that:
+
+- Forward emails to all list members
+- Support moderation options
+- Can be managed by list owners
+- Are suitable for announcements and discussions
+
+### Shared Folders
+
+Advanced email collaboration that:
+
+- Allows multiple users to send from a common address
+- Provides shared inbox functionality
+- Supports team email management
+- Is ideal for service desks and team communication
+
+### Comparison
+
+| Feature | Mailing List | Shared Folder |
+|---------|--------------|---------------|
+| **Receive emails** | All members | All members |
+| **Send as shared address** | No | Yes |
+| **Shared inbox** | No | Yes |
+| **Best for** | Announcements | Team collaboration |
+
+::: {.callout-tip}
+## Requesting Email Services
+For detailed information about setting up mailing lists and shared folders, consult the ITO Benutzerwiki or contact support@ito.cit.tum.de.
+:::
+
+## Best Practices
+
+### User Account Management
+
+- **Regular Audits**: Periodically review active accounts
+- **Timely Deactivation**: Remove accounts when users leave
+- **Appropriate Permissions**: Apply principle of least privilege
+- **Documentation**: Keep records of special access grants
+
+### Group Management
+
+- **Naming Conventions**: Follow established naming patterns
+- **Clear Descriptions**: Document group purpose and membership criteria
+- **Regular Review**: Audit group memberships periodically
+- **Cleanup**: Remove obsolete groups
+
+### Infrastructure Records
+
+- **Complete Information**: Fill all relevant fields
+- **Current Data**: Update records when devices move or change
+- **Disposal Tracking**: Mark devices as decommissioned when appropriate

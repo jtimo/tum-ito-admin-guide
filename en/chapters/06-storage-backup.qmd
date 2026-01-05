@@ -1,0 +1,265 @@
+# Storage and Backup Services
+
+## NAS Fileserver Services
+
+### Overview
+
+ITO provides Network Attached Storage (NAS) fileservers for chairs and service offices. These centrally managed storage systems offer secure, accessible, and backed-up file storage.
+
+```{mermaid}
+%%| fig-cap: "NAS Service Architecture"
+flowchart TB
+    subgraph Clients["Client Access"]
+        Win["Windows<br/>(SMB)"]
+        Linux["Linux<br/>(NFSv3)"]
+        Mac["macOS<br/>(SMB/NFSv3)"]
+    end
+
+    subgraph Access["Access Methods"]
+        LAN["Chair Network"]
+        VPN["VPN Connection"]
+    end
+
+    subgraph NAS["ITO NAS Infrastructure"]
+        FS["Fileserver"]
+        LDAP["LDAP Authentication"]
+        Backup["IBM Spectrum Protect"]
+    end
+
+    Win --> LAN
+    Linux --> LAN
+    Mac --> LAN
+
+    Win --> VPN
+    Linux --> VPN
+    Mac --> VPN
+
+    LAN --> FS
+    VPN --> FS
+
+    FS --> LDAP
+    FS --> Backup
+```
+
+### Storage Specifications
+
+| Specification | Value |
+|--------------|-------|
+| **Capacity** | Up to 10 TB per chair/service office |
+| **Protocols** | NFSv3, SMB (CIFS) |
+| **Access** | Chair network + VPN |
+| **Authentication** | ITO LDAP |
+| **Management** | Via StrukturDB |
+| **Backup** | Daily via IBM Spectrum Protect |
+
+### Access Protocols
+
+#### NFSv3 (Network File System)
+
+| Aspect | Details |
+|--------|---------|
+| **Best for** | Linux/Unix systems |
+| **Features** | Native Unix permissions |
+| **Performance** | Excellent for Linux workloads |
+| **Configuration** | Mount points defined in `/etc/fstab` |
+
+#### SMB/CIFS (Server Message Block)
+
+| Aspect | Details |
+|--------|---------|
+| **Best for** | Windows systems, macOS |
+| **Features** | Windows-native sharing |
+| **Performance** | Excellent for Windows workloads |
+| **Configuration** | Mapped network drives |
+
+### Access Control
+
+```{mermaid}
+%%| fig-cap: "NAS Access Control Flow"
+flowchart LR
+    User["User"]
+    User --> |authenticates| LDAP["ITO LDAP"]
+    LDAP --> |verifies| Groups["User Groups"]
+    Groups --> |determines| Access["Access Permissions"]
+    Access --> |grants/denies| NAS["NAS Shares"]
+```
+
+User and group management for NAS access:
+
+- **Users**: Managed through ITO LDAP
+- **Groups**: Created and managed via StrukturDB
+- **Permissions**: Set by administrators per share/directory
+
+### Requesting NAS Services
+
+To request NAS storage for your chair or service office:
+
+1. **Contact ITO**: Email support@ito.cit.tum.de
+2. **Schedule Consultation**: ITO will arrange a personal consultation
+3. **Define Requirements**:
+   - Expected storage capacity
+   - Number of users
+   - Access patterns
+   - Security requirements
+4. **Provisioning**: ITO sets up the fileserver
+5. **Configuration**: Administrator configures user access via StrukturDB
+
+::: {.callout-tip}
+## Consultation Available
+ITO offers personalized consultation for designing your fileserver setup. Contact support@ito.cit.tum.de to schedule a meeting.
+:::
+
+## Backup Services
+
+### IBM Spectrum Protect
+
+All NAS data is protected using **IBM Spectrum Protect** (formerly Tivoli Storage Manager):
+
+```{mermaid}
+%%| fig-cap: "Backup Architecture"
+flowchart TB
+    subgraph Source["Source Data"]
+        NAS["NAS Fileserver"]
+    end
+
+    subgraph Backup["IBM Spectrum Protect"]
+        Agent["Backup Agent"]
+        Server["Backup Server"]
+        Tape["Tape Storage"]
+    end
+
+    NAS --> |daily backup| Agent
+    Agent --> Server
+    Server --> Tape
+```
+
+### Backup Features
+
+| Feature | Description |
+|---------|-------------|
+| **Frequency** | Daily backups |
+| **Type** | Incremental (only changed files) |
+| **Retention** | Multiple recovery points |
+| **Verification** | Automatic integrity checks |
+| **Storage** | Secure, offsite-capable storage |
+
+### Data Restoration
+
+#### When to Request Restoration
+
+- Accidental file deletion
+- File corruption
+- Need to access previous version
+- Recovery after system issues
+
+#### Restoration Process
+
+```{mermaid}
+%%| fig-cap: "Data Restoration Process"
+sequenceDiagram
+    participant Admin as Administrator
+    participant ITO as ITO Support
+    participant Backup as IBM Spectrum Protect
+
+    Admin->>ITO: Restoration Request<br/>(via email)
+    Note over Admin,ITO: Include: Path, Date, Description
+
+    ITO->>Backup: Locate backup version
+    Backup-->>ITO: Identify available snapshots
+    ITO->>Backup: Initiate restoration
+    Backup-->>ITO: Restoration complete
+    ITO-->>Admin: Notification + location
+```
+
+#### Requesting Data Restoration
+
+1. **Email**: support@ito.cit.tum.de
+2. **Subject**: Data Restoration Request - [Chair Name]
+3. **Include**:
+   - Full path to the file(s) or directory
+   - Target date (which backup to restore from)
+   - Description of what needs restoration
+4. **Timing**: Request as soon as possible after data loss
+
+::: {.callout-important}
+## Act Quickly
+Request restoration as soon as possible. While ITO maintains multiple recovery points, earlier contact ensures best restoration options.
+:::
+
+### Required Information for Restoration
+
+| Information | Description | Example |
+|-------------|-------------|---------|
+| **Path** | Full file/directory path | `/nas/chair1/projects/data.csv` |
+| **Date** | Backup date to restore from | `2024-01-15` |
+| **Type** | File or directory | Directory with all contents |
+| **Urgency** | Priority level | Standard / Urgent |
+
+## Storage Best Practices
+
+### Data Organization
+
+```{mermaid}
+%%| fig-cap: "Recommended Folder Structure"
+flowchart TB
+    Root["Chair NAS Root"]
+    Root --> Projects["Projects/"]
+    Root --> Users["Users/"]
+    Root --> Shared["Shared/"]
+    Root --> Archive["Archive/"]
+
+    Projects --> P1["Project_A/"]
+    Projects --> P2["Project_B/"]
+
+    Users --> U1["Mueller/"]
+    Users --> U2["Schmidt/"]
+
+    Shared --> Templates["Templates/"]
+    Shared --> Resources["Resources/"]
+```
+
+### Recommendations
+
+| Practice | Description |
+|----------|-------------|
+| **Organized Structure** | Use logical folder hierarchy |
+| **Clear Naming** | Use descriptive file and folder names |
+| **Regular Cleanup** | Archive or delete obsolete data |
+| **Access Control** | Apply appropriate permissions |
+| **Documentation** | Document folder purposes |
+
+### What NOT to Store
+
+- Temporary/cache files
+- Personally identifiable data (without approval)
+- Licensed software installers (use official sources)
+- Extremely large media files (consider alternatives)
+
+## Monitoring and Quotas
+
+### Storage Monitoring
+
+Administrators should regularly monitor:
+
+- Current storage usage
+- Usage trends over time
+- Large files and directories
+- Inactive data candidates for archiving
+
+### Quota Management
+
+| Aspect | Details |
+|--------|---------|
+| **Default Limit** | Up to 10 TB per chair |
+| **Expansion** | Contact ITO for additional needs |
+| **Monitoring** | Regular usage reports available |
+| **Alerts** | Notification before quota exceeded |
+
+## Summary
+
+| Service | Description | Contact |
+|---------|-------------|---------|
+| **NAS Setup** | New fileserver provisioning | support@ito.cit.tum.de |
+| **Access Management** | User/group permissions | StrukturDB |
+| **Data Restoration** | Backup recovery | support@ito.cit.tum.de |
+| **Quota Increase** | Additional storage | support@ito.cit.tum.de |

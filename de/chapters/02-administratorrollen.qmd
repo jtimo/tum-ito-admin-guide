@@ -1,0 +1,163 @@
+---
+lang: de
+---
+
+# Administratorrollen und Verantwortlichkeiten
+
+## Überblick
+
+Jeder Lehrstuhl und jedes Servicebüro an der TUM CIT benennt bei der ITO einen EDV-Betreuer oder Lehrstuhladmin. Diese Administratoren dienen als primäre Ansprechpartner für IT-bezogene Angelegenheiten innerhalb ihrer Organisationseinheiten.
+
+## Administratortypen
+
+```{mermaid}
+%%| fig-cap: "Administratorhierarchie"
+flowchart TB
+    LI["Lehrstuhlinhaber"]
+    LI --> |ernennt| EA["EDV-Betreuer"]
+    LI --> |ernennt| LA["Lehrstuhladmin"]
+
+    EA --> |oder bestehender Admin ernennt| NEW["Neue Administratoren"]
+    LA --> |oder bestehender Admin ernennt| NEW
+
+    subgraph Responsibilities["Gemeinsame Verantwortlichkeiten"]
+        R1["Benutzerverwaltung"]
+        R2["Infrastrukturverwaltung"]
+        R3["Dienstkonfiguration"]
+        R4["Support-Koordination"]
+    end
+
+    EA --> Responsibilities
+    LA --> Responsibilities
+```
+
+### EDV-Betreuer
+
+Der **EDV-Betreuer** ist der primäre technische Ansprechpartner für IT-Angelegenheiten:
+
+| Aspekt | Beschreibung |
+|--------|--------------|
+| **Ernennung** | Durch Lehrstuhlinhaber oder bestehenden EDV-Betreuer |
+| **Umfang** | Technische Infrastruktur und Systemverwaltung |
+| **Befugnis** | Voller Zugriff auf StrukturDB und Verwaltungstools |
+| **Hauptaufgabe** | Täglicher IT-Betrieb und Benutzerunterstützung |
+
+### Lehrstuhladmin
+
+Der **Lehrstuhladmin** erfüllt ähnliche Funktionen mit Fokus auf Lehrstuhlbedürfnisse:
+
+| Aspekt | Beschreibung |
+|--------|--------------|
+| **Ernennung** | Durch Lehrstuhlinhaber oder bestehenden Lehrstuhladmin |
+| **Umfang** | Lehrstuhlspezifische IT-Ressourcenverwaltung |
+| **Befugnis** | Zugriff auf StrukturDB für Lehrstuhlressourcen |
+| **Hauptaufgabe** | Benutzerkontenverwaltung und Ressourcenzuweisung |
+
+## Hauptverantwortlichkeiten
+
+### 1. Benutzerverwaltung
+
+```{mermaid}
+%%| fig-cap: "Benutzerverwaltungs-Workflow"
+flowchart LR
+    Request["Benutzeranfrage"]
+    Request --> Admin["Administrator<br/>Prüfung"]
+    Admin --> StrukturDB["StrukturDB<br/>Verarbeitung"]
+    StrukturDB --> LDAP["LDAP<br/>Synchronisation"]
+    LDAP --> Access["Benutzer<br/>Zugriff erteilt"]
+```
+
+Administratoren sind verantwortlich für:
+
+- **Neue Benutzeranträge**: Bearbeitung von Anträgen für neue Benutzerkonten
+- **Gruppenverwaltung**: Erstellen und Verwalten von Benutzergruppen
+- **Zugriffskontrolle**: Definition und Pflege von Zugriffsberechtigungen
+- **Kontenlebenszyklus**: Verwaltung von Erstellung, Änderung und Deaktivierung
+
+### 2. Infrastrukturverwaltung
+
+Administratoren verwalten Lehrstuhlinfrastruktur einschließlich:
+
+- **Arbeitsplätze**: Laptops, Desktops und Spezialgeräte
+- **Drucker**: Netzwerkdrucker und Druckressourcen
+- **Server**: Virtuelle Maschinen und gehostete Hardware
+- **Netzwerkgeräte**: Switches, Access Points und Netzwerkkonfiguration
+
+### 3. Dienstkonfiguration
+
+Konfigurationsverantwortlichkeiten umfassen:
+
+- **DNS-Einträge**: Erstellen und Verwalten von DNS-Records über StrukturDB
+- **DHCP-Einträge**: Konfiguration statischer IP-Zuweisungen
+- **VPN-Zugang**: Einrichtung von Remote-Zugriff für Benutzer
+- **Mail-Dienste**: Verwaltung von Mailinglisten und Shared Folders
+
+### 4. Support-Koordination
+
+Administratoren dienen als Verbindung zwischen Benutzern und ITO:
+
+- **First-Level-Support**: Erste Fehlerbehebung und Problemlösung
+- **Eskalation**: Weiterleitung komplexer Probleme an den ITO-Helpdesk
+- **Kommunikation**: Weitergabe von ITO-Ankündigungen und Updates
+- **Einarbeitung**: Orientierung der Benutzer zu verfügbaren IT-Diensten
+
+## Einarbeitung neuer Administratoren
+
+### Erste Schritte
+
+Neue Administratoren sollten:
+
+1. **ITO kontaktieren**: Einführungsgespräch vereinbaren
+2. **StrukturDB-Zugang**: Zugangsdaten erhalten und Oberfläche kennenlernen
+3. **Dokumentation**: Das Benutzerwiki studieren
+4. **Vorgänger treffen**: Wenn möglich, Übergabe mit vorherigen Administratoren
+
+### Beratungsdienste
+
+Die ITO bietet Beratung für neue Administratoren:
+
+::: {.callout-note}
+## Beratungstermin
+Die ITO berät gerne neue EDV-Betreuer und Lehrstuhladmins zu:
+
+- Infrastrukturfragen
+- Anforderungen zur Systemintegration
+- Einführung in ITO-Systeme und Angebote
+
+**Kontakt**: support@ito.cit.tum.de für Terminvereinbarung
+:::
+
+## Best Practices
+
+### Dokumentation
+
+- Führen Sie Aufzeichnungen über alle Infrastrukturen und Konfigurationen
+- Dokumentieren Sie individuelle Konfigurationen und Nicht-Standard-Setups
+- Halten Sie Benutzerzugriffsaufzeichnungen aktuell
+
+### Kommunikation
+
+- Reagieren Sie zeitnah auf Benutzeranfragen
+- Kommunizieren Sie geplante Wartungsfenster
+- Melden Sie Sicherheitsvorfälle sofort
+
+### Sicherheit
+
+- Überprüfen Sie regelmäßig Benutzerzugriffsberechtigungen
+- Stellen Sie ordnungsgemäße Kontodeaktivierungsverfahren sicher
+- Befolgen Sie TUM-Sicherheitsrichtlinien
+
+### Kontinuität
+
+- Etablieren Sie Backup-Administratoren für Vertretungen
+- Dokumentieren Sie Verfahren für Übergaben
+- Halten Sie aktuelle Kontaktinformationen bei der ITO
+
+## Zugriff auf Verwaltungstools
+
+| Tool | Zweck | Zugriffsmethode |
+|------|-------|-----------------|
+| **StrukturDB** | Benutzer-/Host-Verwaltung | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
+| **VM Web-Interface** | Steuerung virtueller Maschinen | Über ITO-Portal |
+| **Benutzerwiki** | Dokumentation | Internes Wiki |
+| **ITO Helpdesk** | Support-Anfragen | support@ito.cit.tum.de |

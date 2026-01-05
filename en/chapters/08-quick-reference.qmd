@@ -1,0 +1,227 @@
+# Quick Reference
+
+This chapter provides a quick reference card for common administrative tasks and essential information.
+
+## Contact Information
+
+::: {.callout-tip}
+## ITO Helpdesk
+| | |
+|---|---|
+| **Email** | support@ito.cit.tum.de |
+| **Phone** | +49 (89) 289 - 18018 |
+| **Hours** | Mon-Fri 08:00 - 18:00 |
+:::
+
+## Essential URLs
+
+| Resource | URL |
+|----------|-----|
+| **StrukturDB** | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
+| **ITO Main Page** | [www.cit.tum.de/ito](https://www.cit.tum.de/ito) |
+| **For Administrators** | [www.cit.tum.de/ito/fuer-administrierende](https://www.cit.tum.de/ito/fuer-administrierende/) |
+
+## Service Request Matrix
+
+```{mermaid}
+%%| fig-cap: "Service Request Decision Tree"
+flowchart TB
+    Task["What do you need?"]
+
+    Task --> User["User/Group<br/>Management"]
+    Task --> Network["Network<br/>Configuration"]
+    Task --> Infra["Infrastructure"]
+    Task --> Storage["Storage"]
+    Task --> Other["Other"]
+
+    User --> StrukturDB1["StrukturDB<br/>(Self-service)"]
+    Network --> |DNS/DHCP| StrukturDB2["StrukturDB<br/>(Self-service)"]
+    Network --> |Subdomain/VPN| Email1["Email ITO"]
+    Infra --> |VM Request| Wiki["Benutzerwiki"]
+    Infra --> |Hardware Hosting| Email2["Email ITO"]
+    Storage --> |NAS Setup| Email3["Email ITO"]
+    Storage --> |Restore Data| Email4["Email ITO"]
+    Other --> Email5["Email ITO"]
+```
+
+## Quick Task Reference
+
+### User Management (StrukturDB)
+
+| Task | Where | Steps |
+|------|-------|-------|
+| **Create User** | StrukturDB → Users | Fill form, submit |
+| **Create Group** | StrukturDB → Groups | Define name, members |
+| **Add to Group** | StrukturDB → Groups → Edit | Select users, save |
+| **Register Host** | StrukturDB → Hosts | Enter MAC, hostname |
+
+### Network Services
+
+| Task | Method | Information Needed |
+|------|--------|-------------------|
+| **DNS Entry** | StrukturDB | Hostname, IP address |
+| **DHCP Static** | StrukturDB | MAC address, hostname |
+| **Subdomain** | Email ITO | Requested name, justification |
+| **VPN Setup** | Email ITO | Chair name, user count |
+
+### Infrastructure
+
+| Task | Method | Information Needed |
+|------|--------|-------------------|
+| **Request VM** | Benutzerwiki | Purpose, resources, OS |
+| **VM Snapshot** | ITO Support | VM name, reason |
+| **Hardware Hosting** | Email ITO | Hardware specs, timeline |
+
+### Storage & Backup
+
+| Task | Method | Information Needed |
+|------|--------|-------------------|
+| **NAS Setup** | Email ITO | Capacity needs, users |
+| **Data Restore** | Email ITO | Path, date, description |
+| **Quota Increase** | Email ITO | Current usage, needs |
+
+## Common Procedures
+
+### Adding a New User
+
+```
+1. Login to StrukturDB
+2. Navigate to User Management
+3. Click "New User Request"
+4. Fill required fields:
+   - Name
+   - Email
+   - Chair affiliation
+5. Submit request
+6. User receives credentials
+```
+
+### Registering a New Device
+
+```
+1. Collect device information:
+   - MAC address
+   - Device type
+   - Intended hostname
+2. Login to StrukturDB
+3. Navigate to Host Management
+4. Create new host entry
+5. Save → DHCP/DNS auto-configured
+```
+
+### Requesting Data Restoration
+
+```
+1. Email: support@ito.cit.tum.de
+2. Subject: Data Restoration Request
+3. Include:
+   - Full path to data
+   - Date to restore from
+   - Brief description
+4. Wait for ITO confirmation
+```
+
+## Standard Specifications
+
+### Virtual Machine Defaults
+
+| Resource | Default | Expandable |
+|----------|---------|------------|
+| **vCPUs** | 2 | Yes |
+| **RAM** | 2-4 GB | Yes |
+| **Storage** | As needed | Yes |
+| **Backup** | Daily | Included |
+
+### NAS Fileserver
+
+| Specification | Value |
+|--------------|-------|
+| **Capacity** | Up to 10 TB |
+| **Protocols** | NFSv3, SMB |
+| **Backup** | Daily (IBM Spectrum Protect) |
+| **Access** | Chair network + VPN |
+
+## Troubleshooting Quick Guide
+
+### Device Not Getting IP
+
+1. Check MAC address in StrukturDB
+2. Verify host entry exists
+3. Check physical connection
+4. Try `ipconfig /release` then `/renew` (Windows)
+5. Contact ITO if issue persists
+
+### Cannot Access NAS
+
+1. Verify VPN connection (if remote)
+2. Check user is in correct group
+3. Verify correct path/share name
+4. Try re-authenticating
+5. Contact ITO if issue persists
+
+### VM Not Accessible
+
+1. Check VM status in web interface
+2. Try restart from web interface
+3. Check network connectivity
+4. Verify DNS entry exists
+5. Contact ITO if issue persists
+
+## Checklists
+
+### New Administrator Checklist
+
+- [ ] Contact ITO for orientation
+- [ ] Obtain StrukturDB access
+- [ ] Review Benutzerwiki documentation
+- [ ] Meet with predecessor (if applicable)
+- [ ] Verify contact info with ITO
+- [ ] Review chair infrastructure inventory
+- [ ] Understand current user base
+
+### User Offboarding Checklist
+
+- [ ] Disable/remove user account
+- [ ] Remove from all groups
+- [ ] Revoke VPN access
+- [ ] Transfer data ownership
+- [ ] Update documentation
+
+### New Device Deployment Checklist
+
+- [ ] Collect MAC address
+- [ ] Determine hostname
+- [ ] Register in StrukturDB
+- [ ] Verify DHCP working
+- [ ] Configure device
+- [ ] Document in inventory
+
+## Keyboard Quick Reference
+
+### StrukturDB Navigation
+
+| Action | Shortcut/Location |
+|--------|------------------|
+| **Search** | Top search bar |
+| **New User** | Users → New |
+| **New Group** | Groups → New |
+| **New Host** | Hosts → New |
+
+## Glossary
+
+| Term | Definition |
+|------|------------|
+| **CIT** | School of Computation, Information and Technology |
+| **DHCP** | Dynamic Host Configuration Protocol |
+| **DNS** | Domain Name System |
+| **ESX** | VMware virtualization platform |
+| **ITO** | IT Operations |
+| **LDAP** | Lightweight Directory Access Protocol |
+| **LRZ** | Leibniz Supercomputing Centre |
+| **NAS** | Network Attached Storage |
+| **NFSv3** | Network File System version 3 |
+| **SMB** | Server Message Block (Windows file sharing) |
+| **StrukturDB** | ITO's central management database |
+| **TUM** | Technical University of Munich |
+| **VM** | Virtual Machine |
+| **VPN** | Virtual Private Network |

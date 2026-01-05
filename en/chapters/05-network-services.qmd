@@ -1,0 +1,235 @@
+# Network Services
+
+## Overview
+
+ITO provides essential network services for chairs and service offices, including DNS management, DHCP configuration, subdomain management, and VPN access. These services ensure proper network connectivity and accessibility for all chair resources.
+
+## DNS Services
+
+### Domain Name System Management
+
+DNS entries enable servers and services to be accessible by human-readable names instead of IP addresses.
+
+```{mermaid}
+%%| fig-cap: "DNS Resolution Flow"
+flowchart LR
+    User["User"]
+    User --> |requests| Domain["server.chair.cit.tum.de"]
+    Domain --> DNS["DNS Server"]
+    DNS --> |resolves to| IP["IP Address<br/>192.168.x.x"]
+    IP --> Server["Chair Server"]
+```
+
+### Creating DNS Entries
+
+DNS entries can be created through StrukturDB:
+
+| Entry Type | Description | Example |
+|------------|-------------|---------|
+| **A Record** | Maps hostname to IPv4 | `server.chair.cit.tum.de → 192.168.1.10` |
+| **AAAA Record** | Maps hostname to IPv6 | `server.chair.cit.tum.de → 2001:db8::1` |
+| **CNAME** | Alias to another hostname | `www → server.chair.cit.tum.de` |
+| **MX Record** | Mail server designation | Mail handling |
+
+### Domain Options
+
+DNS entries can be created for:
+
+1. **School of CIT Domains**: Standard TUM CIT domains
+2. **Chair-Specific Subdomains**: Custom subdomains for your chair
+
+## Subdomain Management
+
+### Requesting a Subdomain
+
+Chairs and service offices can request their own subdomain under `cit.tum.de`:
+
+```{mermaid}
+%%| fig-cap: "Subdomain Structure"
+flowchart TB
+    TUM["tum.de"]
+    TUM --> CIT["cit.tum.de"]
+    CIT --> ITO["ito.cit.tum.de"]
+    CIT --> Chair1["chair1.cit.tum.de"]
+    CIT --> Chair2["chair2.cit.tum.de"]
+    CIT --> Service["service.cit.tum.de"]
+
+    Chair1 --> Server1["server.chair1.cit.tum.de"]
+    Chair1 --> Web1["www.chair1.cit.tum.de"]
+```
+
+### Naming Conventions
+
+| Requirement | Description | Examples |
+|-------------|-------------|----------|
+| **Strong connection** | Must relate to chair/office | Initials or abbreviation |
+| **Format** | `name.cit.tum.de` | `ito.cit.tum.de` |
+| **Uniqueness** | Must not conflict with existing | Check availability first |
+
+### Request Process
+
+1. Identify your desired subdomain name
+2. Contact support@ito.cit.tum.de
+3. Provide:
+   - Requested subdomain name
+   - Chair/Service office name
+   - Justification for the name
+4. ITO reviews and activates
+
+## DHCP Services
+
+### Dynamic Host Configuration Protocol
+
+DHCP automatically assigns IP addresses to devices on the network.
+
+```{mermaid}
+%%| fig-cap: "DHCP Assignment Process"
+sequenceDiagram
+    participant Device
+    participant DHCP as DHCP Server
+    participant SDB as StrukturDB
+
+    Note over SDB: Static entry defined<br/>MAC → IP mapping
+
+    Device->>DHCP: DHCP Discover (MAC address)
+    DHCP->>SDB: Lookup MAC address
+    SDB-->>DHCP: Return assigned IP
+    DHCP-->>Device: DHCP Offer (IP address)
+    Device->>DHCP: DHCP Request
+    DHCP-->>Device: DHCP Acknowledge
+```
+
+### Static DHCP Entries
+
+Administrators can create static DHCP entries through StrukturDB:
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| **Hostname** | Device name | `laptop-mueller` |
+| **MAC Address** | Device network interface | `00:1A:2B:3C:4D:5E` |
+| **IP Address** | Assigned static IP | `192.168.10.50` |
+
+### Creating a Static Entry
+
+1. Log in to StrukturDB
+2. Navigate to Host Management
+3. Register the device with:
+   - Hostname
+   - MAC address
+4. System automatically assigns a static IP
+5. Device receives same IP on every connection
+
+### Dynamic Subnets
+
+For subnets with dynamically assigned DHCP entries:
+
+::: {.callout-note}
+## Dynamic Subnet Request
+If you need a subnet with dynamic DHCP assignment for your chair or service office, contact support@ito.cit.tum.de for consultation.
+:::
+
+## VPN Services
+
+### Chair VPN Overview
+
+Each chair and service office has access to a dedicated VPN for remote access to chair infrastructure.
+
+```{mermaid}
+%%| fig-cap: "VPN Access Architecture"
+flowchart TB
+    subgraph Remote["Remote Locations"]
+        Home["Home Office"]
+        Travel["On the Road"]
+        External["External Networks"]
+    end
+
+    subgraph VPN["VPN Gateway"]
+        Auth["Authentication"]
+        Tunnel["Encrypted Tunnel"]
+    end
+
+    subgraph Chair["Chair Network"]
+        Servers["Chair Servers"]
+        NAS["File Storage"]
+        Services["Internal Services"]
+    end
+
+    Home --> VPN
+    Travel --> VPN
+    External --> VPN
+
+    VPN --> Chair
+```
+
+### VPN Features
+
+| Feature | Description |
+|---------|-------------|
+| **Dedicated** | Each chair has its own VPN |
+| **Remote Access** | Access from home or while traveling |
+| **Full Access** | Same as being on-site |
+| **Secure** | Encrypted connection |
+
+### Accessing Chair Resources via VPN
+
+With VPN connected, users can:
+
+- Access NAS fileservers (NFSv3, SMB)
+- Connect to internal servers
+- Use chair-internal services
+- Reach LDAP-authenticated resources
+
+### Requesting VPN Setup
+
+If your chair doesn't have VPN set up yet:
+
+1. Contact support@ito.cit.tum.de
+2. Specify:
+   - Chair/Service office name
+   - Number of expected users
+   - Any special requirements
+3. ITO configures VPN access
+4. Receive connection instructions
+
+### VPN User Configuration
+
+Individual users can request VPN access through their administrator:
+
+```{mermaid}
+%%| fig-cap: "VPN Access Request Flow"
+flowchart LR
+    User["User"]
+    User --> |requests| Admin["Administrator"]
+    Admin --> |configures| VPN["VPN System"]
+    VPN --> |provides| Creds["Credentials"]
+    Creds --> User
+```
+
+## Network Troubleshooting Guide
+
+### Common Issues
+
+| Issue | Possible Cause | Solution |
+|-------|---------------|----------|
+| **No IP address** | DHCP entry missing | Check StrukturDB registration |
+| **DNS not resolving** | DNS entry missing | Create entry in StrukturDB |
+| **VPN won't connect** | Credentials/config issue | Contact ITO support |
+| **Can't reach chair resources** | Network segmentation | Verify VLAN configuration |
+
+### Diagnostic Steps
+
+1. **Verify physical connection** (cable, WiFi)
+2. **Check IP configuration** (`ipconfig` / `ip addr`)
+3. **Test DNS resolution** (`nslookup hostname`)
+4. **Verify routing** (`traceroute`)
+5. **Contact ITO** if issues persist
+
+## Summary Table
+
+| Service | Management | Request Method |
+|---------|------------|----------------|
+| **DNS Entries** | StrukturDB | Self-service |
+| **Subdomains** | ITO | support@ito.cit.tum.de |
+| **Static DHCP** | StrukturDB | Self-service |
+| **Dynamic Subnets** | ITO | support@ito.cit.tum.de |
+| **VPN Setup** | ITO | support@ito.cit.tum.de |
