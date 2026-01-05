@@ -1,0 +1,43 @@
+project:
+  type: book
+  output-dir: ../_pdf-en
+
+book:
+  title: "TUM ITO System Administrator Guide"
+  subtitle: "A Comprehensive Guide for IT Administrators at Technical University of Munich"
+  author: "Based on ITO - IT Operations (CIT) Documentation"
+  date: today
+  date-format: "MMMM D, YYYY"
+
+  chapters:
+    - index.qmd
+    - chapters/01-organization.qmd
+    - chapters/02-administrator-roles.qmd
+    - chapters/03-user-management.qmd
+    - chapters/04-infrastructure-services.qmd
+    - chapters/05-network-services.qmd
+    - chapters/06-storage-backup.qmd
+    - chapters/07-support-resources.qmd
+    - chapters/08-quick-reference.qmd
+
+format:
+  pdf:
+    documentclass: scrreprt
+    papersize: a4
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    link-citations: true
+    fig-pos: 'H'
+    geometry:
+      - top=25mm
+      - left=25mm
+      - right=25mm
+      - bottom=25mm
+    header-includes: |
+      \usepackage{fancyhdr}
+      \pagestyle{fancy}
+      \fancyhead[L]{TUM ITO Administrator Guide}
+      \fancyhead[R]{\thepage}
+      \fancyfoot[C]{}

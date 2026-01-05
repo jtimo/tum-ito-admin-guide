@@ -1,0 +1,44 @@
+project:
+  type: book
+  output-dir: ../_pdf-de
+
+book:
+  title: "TUM ITO Administratorhandbuch"
+  subtitle: "Ein umfassendes Handbuch für IT-Administratoren an der Technischen Universität München"
+  author: "Basierend auf ITO - IT Operations (CIT) Dokumentation"
+  date: today
+  date-format: "D. MMMM YYYY"
+  lang: de
+
+  chapters:
+    - index.qmd
+    - chapters/01-organisation.qmd
+    - chapters/02-administratorrollen.qmd
+    - chapters/03-benutzerverwaltung.qmd
+    - chapters/04-infrastrukturdienste.qmd
+    - chapters/05-netzwerkdienste.qmd
+    - chapters/06-speicher-backup.qmd
+    - chapters/07-support-ressourcen.qmd
+    - chapters/08-schnellreferenz.qmd
+
+format:
+  pdf:
+    documentclass: scrreprt
+    papersize: a4
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    link-citations: true
+    fig-pos: 'H'
+    geometry:
+      - top=25mm
+      - left=25mm
+      - right=25mm
+      - bottom=25mm
+    header-includes: |
+      \usepackage{fancyhdr}
+      \pagestyle{fancy}
+      \fancyhead[L]{TUM ITO Administratorhandbuch}
+      \fancyhead[R]{\thepage}
+      \fancyfoot[C]{}

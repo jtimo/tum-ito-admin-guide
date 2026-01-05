@@ -13,6 +13,8 @@ Please select your preferred language / Bitte wählen Sie Ihre Sprache:
 
 [**Open English Version**](en/index.qmd){.btn .btn-primary .btn-lg}
 
+[**Download PDF**](downloads/TUM-ITO-Administrator-Guide-EN.pdf){.btn .btn-outline-primary}
+
 Comprehensive guide for IT Administrators at the Technical University of Munich School of CIT.
 :::
 
@@ -20,6 +22,8 @@ Comprehensive guide for IT Administrators at the Technical University of Munich 
 ### 🇩🇪 Deutsch
 
 [**Deutsche Version öffnen**](de/index.qmd){.btn .btn-primary .btn-lg}
+
+[**PDF herunterladen**](downloads/TUM-ITO-Administratorhandbuch-DE.pdf){.btn .btn-outline-primary}
 
 Umfassendes Handbuch für IT-Administratoren an der School of CIT der Technischen Universität München.
 :::

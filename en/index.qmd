@@ -1,5 +1,10 @@
 # Introduction {.unnumbered}
 
+::: {.callout-note}
+## Download PDF Version
+[**Download this guide as PDF**](../downloads/TUM-ITO-Administrator-Guide-EN.pdf){.btn .btn-primary}
+:::
+
 Welcome to the **TUM ITO System Administrator Reference Guide**. This comprehensive guide is designed for IT administrators (EDV-Betreuer) and Chair Administrators (Lehrstuhladmins) working within the School of Computation, Information and Technology (CIT) at the Technical University of Munich.
 
 ## About This Guide
