@@ -227,6 +227,194 @@ flowchart TB
     Q3 --> |No| Consult["Consult ITO<br/>for Guidance"]
 ```
 
+## LRZ Server Services
+
+The Leibniz Supercomputing Centre (LRZ) provides additional server infrastructure options for TUM members.
+
+### Server Housing & Cluster-Knoten-Housing
+
+LRZ offers attended housing for your own Linux servers or clusters:
+
+| Feature | Description |
+|---------|-------------|
+| **Location** | LRZ data center (secured environment) |
+| **Hardware Maintenance** | Handled by LRZ |
+| **OS Maintenance** | Handled by LRZ |
+| **Applications** | Customer responsibility |
+
+### Virtual Windows and Linux Servers
+
+TUM provides virtualized high-availability server instances through LRZ:
+
+| Aspect | Options |
+|--------|---------|
+| **Operating Systems** | SLES, Debian, Windows Server |
+| **Management** | Optional LRZ management |
+| **Availability** | High-availability infrastructure |
+| **Location** | LRZ security zone |
+
+### Windows Server Update Service (WSUS)
+
+LRZ provides WSUS for Windows computers in the Munich Scientific Network (MWN):
+
+- Centralized Windows updates
+- Managed update distribution
+- Network-efficient patching
+
+### LRZ Compute Cloud
+
+Infrastructure-as-a-Service based on OpenNebula:
+
+| Feature | Description |
+|---------|-------------|
+| **Model** | IaaS (Infrastructure-as-a-Service) |
+| **Platform** | OpenNebula |
+| **Use Case** | Flexible resource scaling for peak loads |
+| **Billing** | Based on resource consumption |
+
+## Web Services
+
+### Internet Domains
+
+For setting up internet domains for your chair or project:
+
+- Domain registration and management
+- DNS configuration
+- Integration with TUM infrastructure
+
+### Managed Web Servers
+
+LRZ provides managed web server hosting:
+
+| Feature | Description |
+|---------|-------------|
+| **Target** | Chairs, institutes, projects |
+| **Domain** | Custom domain names |
+| **Management** | LRZ handles server infrastructure |
+
+### Website Setup
+
+Options for creating web presence:
+
+1. **TUM Web Infrastructure**: Standard TUM-hosted websites
+2. **Managed Webserver**: LRZ-hosted custom sites
+3. **Self-Hosted**: On your own VM or hosted hardware
+
+### TUM Web-Styleguide
+
+The TUM Web-Styleguide provides official design guidelines for TUM online systems:
+
+- Official colors and typography
+- Layout templates
+- Accessibility requirements
+- Brand compliance
+
+## Client Management
+
+### Managed Windows PC (TUM-PC)
+
+IT Service Center and LRZ provide managed Windows PC services:
+
+```{mermaid}
+%%| fig-cap: "TUM-PC Management Architecture"
+flowchart TB
+    subgraph Management["Central Management"]
+        AD["Active Directory"]
+        SCCM["SCCM"]
+    end
+
+    subgraph Definition["Organization Defines"]
+        PCTypes["PC Types"]
+        Software["Software Collections"]
+    end
+
+    subgraph Clients["Managed Clients"]
+        Admin["Admin PCs"]
+        Lab["Lab PCs"]
+        Office["Office PCs"]
+    end
+
+    Definition --> Management
+    Management --> Clients
+```
+
+| Feature | Description |
+|---------|-------------|
+| **PC Types** | Define different configurations (admin, lab, office) |
+| **Software Collections** | Standardized software packages |
+| **AD Integration** | Computers joined to Active Directory |
+| **SCCM Deployment** | Automatic software installation and updates |
+
+### Managed Apple Computer (MWN-MAC)
+
+LRZ Client Management for Apple provides:
+
+- Managed macOS workstations in MWN
+- Reduced administrative overhead
+- Lifecycle management tools
+- Centralized configuration
+
+### Client Management with Baramundi
+
+Some TUM departments use Baramundi for client management:
+
+- Complementary to TUM-PC
+- Cross-department networking opportunities
+- Contact ITO for coordination with other TUM users
+
+### TeamViewer
+
+Remote desktop support tool for administrators:
+
+| Use Case | Description |
+|----------|-------------|
+| **Remote Maintenance** | Support users remotely |
+| **Troubleshooting** | Diagnose issues without physical presence |
+| **Software Installation** | Deploy software remotely |
+
+## Software & Hardware
+
+### Framework Agreements & Campus Licenses
+
+LRZ maintains agreements with numerous vendors:
+
+| Benefit | Description |
+|---------|-------------|
+| **Cost** | Free or significantly reduced prices |
+| **Availability** | Many common software packages |
+| **Compliance** | Properly licensed software |
+
+Common software available through campus licenses:
+
+- Microsoft products
+- Development tools
+- Scientific software
+- Security software
+
+### Large Equipment Coordination (CIP/WAP)
+
+TUM School of CIT ITO coordinates DFG funding programs for IT equipment:
+
+- Großgeräte (large equipment)
+- CIP (Computer Investment Program)
+- WAP (Workstation Investment Program)
+
+### Data Carrier Disposal
+
+Secure disposal of data storage media at TUM:
+
+| Media Type | Disposal Method |
+|------------|-----------------|
+| **Hard Drives** | Secure destruction |
+| **Magnetic Tapes** | Degaussing and destruction |
+| **DVDs/CDs** | Shredding |
+| **USB Drives** | Secure wiping and destruction |
+
+::: {.callout-important}
+## Data Security
+Never dispose of data carriers through regular waste. Use TUM's secure disposal service to protect sensitive data.
+:::
+
 ## Summary
 
 | Service | Best For | Contact |
@@ -234,3 +422,8 @@ flowchart TB
 | **Virtual Machines** | Standard infrastructure, development | Benutzerwiki |
 | **Hardware Hosting** | Custom hardware, special requirements | support@ito.cit.tum.de |
 | **Chair Mail Server** | Email handling for chair | Benutzerwiki |
+| **LRZ Virtual Servers** | High-availability production servers | LRZ |
+| **LRZ Compute Cloud** | Flexible, scalable workloads | LRZ |
+| **Managed TUM-PC** | Standardized Windows workstations | IT Service Center |
+| **MWN-MAC** | Managed Apple workstations | LRZ |
+| **Campus Licenses** | Software procurement | LRZ |

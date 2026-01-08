@@ -5,11 +5,6 @@ lang: de
 
 # Einführung {.unnumbered}
 
-::: {.callout-note}
-## PDF-Version herunterladen
-[**Dieses Handbuch als PDF herunterladen**](../downloads/TUM-ITO-Administratorhandbuch-DE.pdf){.btn .btn-primary}
-:::
-
 Willkommen zum **TUM ITO System-Administrator Referenzhandbuch**. Dieses umfassende Handbuch wurde für IT-Administratoren (EDV-Betreuer) und Lehrstuhladmins an der School of Computation, Information and Technology (CIT) der Technischen Universität München entwickelt.
 
 ## Über dieses Handbuch

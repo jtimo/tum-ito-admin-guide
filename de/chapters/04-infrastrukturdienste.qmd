@@ -231,6 +231,194 @@ flowchart TB
     Q3 --> |Nein| Consult["ITO für<br/>Beratung kontaktieren"]
 ```
 
+## LRZ Server-Dienste
+
+Das Leibniz-Rechenzentrum (LRZ) bietet zusätzliche Server-Infrastrukturoptionen für TUM-Mitglieder.
+
+### Server Housing & Cluster-Knoten-Housing
+
+Das LRZ bietet Attended Housing für eigene Linux-Server oder Cluster:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Standort** | LRZ-Rechenzentrum (gesicherte Umgebung) |
+| **Hardware-Wartung** | Vom LRZ übernommen |
+| **BS-Wartung** | Vom LRZ übernommen |
+| **Anwendungen** | Kundenverantwortung |
+
+### Virtuelle Windows- und Linux-Server
+
+Die TUM bietet über das LRZ virtualisierte hochverfügbare Serverinstanzen:
+
+| Aspekt | Optionen |
+|--------|----------|
+| **Betriebssysteme** | SLES, Debian, Windows Server |
+| **Verwaltung** | Optional durch LRZ |
+| **Verfügbarkeit** | Hochverfügbare Infrastruktur |
+| **Standort** | LRZ-Sicherheitsbereich |
+
+### Windows Server Update Service (WSUS)
+
+Das LRZ stellt WSUS für Windows-Computer im Münchner Wissenschaftsnetz (MWN) bereit:
+
+- Zentralisierte Windows-Updates
+- Verwaltete Update-Verteilung
+- Netzwerkeffizientes Patching
+
+### LRZ Compute Cloud
+
+Infrastructure-as-a-Service basierend auf OpenNebula:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Modell** | IaaS (Infrastructure-as-a-Service) |
+| **Plattform** | OpenNebula |
+| **Anwendungsfall** | Flexible Ressourcenskalierung für Spitzenlasten |
+| **Abrechnung** | Basierend auf Ressourcenverbrauch |
+
+## Web-Dienste
+
+### Internetdomains
+
+Zur Einrichtung von Internetdomains für Ihren Lehrstuhl oder Projekt:
+
+- Domainregistrierung und -verwaltung
+- DNS-Konfiguration
+- Integration mit TUM-Infrastruktur
+
+### Gemanagte Webserver
+
+Das LRZ bietet gemanagtes Webserver-Hosting:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Zielgruppe** | Lehrstühle, Institute, Projekte |
+| **Domain** | Eigene Domainnamen |
+| **Verwaltung** | LRZ übernimmt Server-Infrastruktur |
+
+### Webseiten einrichten
+
+Optionen zur Erstellung einer Webpräsenz:
+
+1. **TUM Web-Infrastruktur**: Standard TUM-gehostete Webseiten
+2. **Gemanagter Webserver**: LRZ-gehostete eigene Seiten
+3. **Selbst-gehostet**: Auf eigener VM oder gehosteter Hardware
+
+### TUM Web-Styleguide
+
+Der TUM Web-Styleguide bietet offizielle Designrichtlinien für TUM-Onlinesysteme:
+
+- Offizielle Farben und Typografie
+- Layout-Vorlagen
+- Barrierefreiheitsanforderungen
+- Markenkonformität
+
+## Client-Management
+
+### Gemanagter Windows-Rechner (TUM-PC)
+
+IT-Servicezentrum und LRZ bieten gemanagte Windows-PC-Dienste:
+
+```{mermaid}
+%%| fig-cap: "TUM-PC Management-Architektur"
+flowchart TB
+    subgraph Management["Zentrale Verwaltung"]
+        AD["Active Directory"]
+        SCCM["SCCM"]
+    end
+
+    subgraph Definition["Organisation definiert"]
+        PCTypes["PC-Typen"]
+        Software["Software-Kollektionen"]
+    end
+
+    subgraph Clients["Gemanagte Clients"]
+        Admin["Admin-PCs"]
+        Lab["Labor-PCs"]
+        Office["Büro-PCs"]
+    end
+
+    Definition --> Management
+    Management --> Clients
+```
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **PC-Typen** | Verschiedene Konfigurationen definieren (Admin, Labor, Büro) |
+| **Software-Kollektionen** | Standardisierte Software-Pakete |
+| **AD-Integration** | Computer im Active Directory eingebunden |
+| **SCCM-Deployment** | Automatische Software-Installation und Updates |
+
+### Gemanagter Apple-Rechner (MWN-MAC)
+
+LRZ Client Management für Apple bietet:
+
+- Gemanagte macOS-Arbeitsplätze im MWN
+- Reduzierter administrativer Aufwand
+- Lifecycle-Management-Tools
+- Zentralisierte Konfiguration
+
+### Client Management mit Baramundi
+
+Einige TUM-Bereiche nutzen Baramundi für das Client-Management:
+
+- Ergänzend zum TUM-PC
+- Bereichsübergreifende Vernetzungsmöglichkeiten
+- ITO für Koordination mit anderen TUM-Nutzern kontaktieren
+
+### TeamViewer
+
+Remote-Desktop-Support-Tool für Administratoren:
+
+| Anwendungsfall | Beschreibung |
+|----------------|--------------|
+| **Remote-Wartung** | Benutzer aus der Ferne unterstützen |
+| **Fehlerbehebung** | Probleme ohne physische Präsenz diagnostizieren |
+| **Software-Installation** | Software remote bereitstellen |
+
+## Software & Hardware
+
+### Rahmenverträge & Campuslizenzen
+
+Das LRZ unterhält Verträge mit zahlreichen Herstellern:
+
+| Vorteil | Beschreibung |
+|---------|--------------|
+| **Kosten** | Kostenlos oder stark reduzierte Preise |
+| **Verfügbarkeit** | Viele gängige Softwarepakete |
+| **Compliance** | Ordnungsgemäß lizenzierte Software |
+
+Übliche Software über Campuslizenzen verfügbar:
+
+- Microsoft-Produkte
+- Entwicklungstools
+- Wissenschaftliche Software
+- Sicherheitssoftware
+
+### Großgeräte-Koordination (CIP/WAP)
+
+TUM School of CIT ITO koordiniert DFG-Förderprogramme für IT-Ausstattung:
+
+- Großgeräte
+- CIP (Computer-Investitionsprogramm)
+- WAP (Workstation-Investitionsprogramm)
+
+### Entsorgung von Datenträgern
+
+Sichere Entsorgung von Datenspeichermedien an der TUM:
+
+| Medientyp | Entsorgungsmethode |
+|-----------|-------------------|
+| **Festplatten** | Sichere Zerstörung |
+| **Magnetbänder** | Entmagnetisierung und Zerstörung |
+| **DVDs/CDs** | Schreddern |
+| **USB-Sticks** | Sicheres Löschen und Zerstörung |
+
+::: {.callout-important}
+## Datensicherheit
+Datenträger niemals über den normalen Müll entsorgen. Nutzen Sie den sicheren Entsorgungsdienst der TUM zum Schutz sensibler Daten.
+:::
+
 ## Zusammenfassung
 
 | Dienst | Geeignet für | Kontakt |
@@ -238,3 +426,8 @@ flowchart TB
 | **Virtuelle Maschinen** | Standard-Infrastruktur, Entwicklung | Benutzerwiki |
 | **Hardware-Hosting** | Eigene Hardware, spezielle Anforderungen | support@ito.cit.tum.de |
 | **Lehrstuhl-Mailserver** | E-Mail-Handling für Lehrstuhl | Benutzerwiki |
+| **LRZ Virtuelle Server** | Hochverfügbare Produktionsserver | LRZ |
+| **LRZ Compute Cloud** | Flexible, skalierbare Workloads | LRZ |
+| **Gemanagter TUM-PC** | Standardisierte Windows-Arbeitsplätze | IT-Servicezentrum |
+| **MWN-MAC** | Gemanagte Apple-Arbeitsplätze | LRZ |
+| **Campuslizenzen** | Softwarebeschaffung | LRZ |

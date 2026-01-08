@@ -164,25 +164,102 @@ Kontaktieren Sie support@ito.cit.tum.de um zu planen:
 
 ### IT-Servicezentrum (ITSZ)
 
-Für universitätsweite IT-Dienste:
+Die zentrale TUM-IT-Organisation bietet universitätsweite Dienste:
+
+```{mermaid}
+%%| fig-cap: "IT-Servicezentrum Dienste"
+mindmap
+    root((IT-Servicezentrum))
+        Identität
+            TUM-Account
+            TUMCard
+            GuestCard
+        Kommunikation
+            E-Mail
+            Exchange
+            Kollaborationstools
+        Infrastruktur
+            Netzwerk
+            WLAN
+            VPN
+        Anwendungen
+            TUMonline
+            Moodle
+            SAP
+```
 
 | Dienst | Beschreibung |
 |--------|--------------|
+| **TUM-Account** | Zentrale Universitätsidentität |
 | **TUM E-Mail** | Universitäts-E-Mail-Konten |
 | **TUMonline** | Campus-Management-System |
 | **Identitätsmanagement** | Zentrale TUM-ID |
+| **Moodle** | Lernmanagementsystem |
 | **Allgemeiner Support** | Universitätsweiter IT-Support |
+
+::: {.callout-tip}
+## IT-Servicezentrum Kontakt
+| | |
+|---|---|
+| **Telefon** | +49.89.289.17123 |
+| **E-Mail** | it-support@tum.de |
+| **Website** | www.it.tum.de |
+:::
 
 ### Leibniz-Rechenzentrum (LRZ)
 
-Für Hochleistungsrechenbedarf:
+Für Hochleistungsrechnen und fortgeschrittene Infrastrukturbedürfnisse:
 
 | Dienst | Beschreibung |
 |--------|--------------|
 | **HPC-Cluster** | Hochleistungsrechnen |
 | **Großspeicher** | Forschungsdatenspeicherung |
 | **Wissenschaftliches Rechnen** | Spezialisierte Rechenressourcen |
-| **Netzwerk** | Münchner Wissenschaftsnetz |
+| **Netzwerk** | Münchner Wissenschaftsnetz (MWN) |
+| **Cloud-Dienste** | LRZ Compute Cloud |
+| **Server-Hosting** | Gemanagte virtuelle/physische Server |
+
+### TUM IT-Governance-Struktur
+
+Die TUM-IT-Organisation verstehen:
+
+```{mermaid}
+%%| fig-cap: "TUM IT-Governance"
+flowchart TB
+    CIO["CIO"]
+    CIO --> IMB["Information Management Board"]
+    CIO --> DXO["Digital Transformation Office"]
+    CIO --> ITSZ["IT-Servicezentrum"]
+
+    ITSZ --> Schools["School IT-Betrieb"]
+    Schools --> ITO["ITO (School of CIT)"]
+```
+
+| Gremium | Aufgabe |
+|---------|---------|
+| **CIO** | Chief Information Officer |
+| **Information Management Board** | Strategische IT-Entscheidungen |
+| **Digital Transformation Office (DXO)** | Digitale Transformationsinitiativen |
+| **IT-Servicezentrum** | Zentraler IT-Betrieb |
+
+### IT-Sicherheit an der TUM
+
+Die TUM bietet umfassende IT-Sicherheitsressourcen:
+
+| Ressource | Beschreibung |
+|-----------|--------------|
+| **Schwachstellenmanagement** | Sicherheitsscans und Behebung |
+| **Sensibilisierung** | Schulungen und Kampagnen |
+| **Sicherheitsrichtlinien** | Policies und Best Practices |
+| **Vorfallsreaktion** | Sicherheitsvorfallsbehandlung |
+
+Sicherheitsressourcen für Administratoren:
+
+- Sichere Arbeitsplatzkonfiguration
+- Schutz vor Schadsoftware
+- Passwort-Sicherheitsrichtlinien
+- Mobile Gerätesicherheit
+- E-Mail-Sicherheit
 
 ## Notfallkontakte
 

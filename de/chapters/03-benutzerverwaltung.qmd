@@ -160,29 +160,73 @@ StrukturDB führt ein vollständiges Inventar von:
 - **Server**: Virtuelle und physische Server
 - **Netzwerkgeräte**: Verwaltete Switches und Access Points
 
-## Mailinglisten und Shared Folder
+## E-Mail-Dienste
 
-Die ITO bietet zwei E-Mail-Kollaborationslösungen:
+### TUM E-Mail-Adresse
 
-### Mailinglisten
+Alle TUM-Mitglieder (Studierende, Mitarbeitende, Gäste) erhalten automatisch eine persönliche TUM-E-Mail-Adresse:
 
-Traditionelle E-Mail-Verteilerlisten, die:
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Verfügbarkeit** | Automatisch für alle TUM-Mitglieder |
+| **Lebensdauer** | Kann lebenslang als Weiterleitungsadresse genutzt werden |
+| **Format** | vorname.nachname@tum.de |
 
-- E-Mails an alle Listenmitglieder weiterleiten
-- Moderationsoptionen unterstützen
-- Von Listeneigentümern verwaltet werden können
-- Für Ankündigungen und Diskussionen geeignet sind
+### Exchange-Dienste
 
-### Shared Folder
+Microsoft Exchange bietet umfassende E-Mail- und Kollaborationsfunktionen:
 
-Erweiterte E-Mail-Kollaboration, die:
+```{mermaid}
+%%| fig-cap: "Exchange Service-Funktionen"
+mindmap
+    root((Exchange))
+        E-Mail
+            Persönliches Postfach
+            Gemeinsame Postfächer
+            Verteilerlisten
+        Kalender
+            Persönlicher Kalender
+            Gruppenkalender
+            Raumbuchung
+        Kollaboration
+            Gemeinsame Kontakte
+            Aufgaben
+            Notizen
+```
 
-- Mehreren Benutzern das Senden von einer gemeinsamen Adresse ermöglicht
-- Gemeinsame Postfachfunktionalität bietet
-- Team-E-Mail-Verwaltung unterstützt
-- Ideal für Service-Desks und Teamkommunikation ist
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **E-Mail** | Volle E-Mail-Funktionalität |
+| **Kalender** | Persönliche und gemeinsame Kalender |
+| **Gemeinsame Postfächer** | Team-E-Mail-Adressen |
+| **Zugang** | Outlook, Web, Mobil |
 
-### Vergleich
+### Mailverteiler anlegen
+
+Automatisierte Mailinglisten-Verwaltungsoptionen:
+
+| Methode | Beschreibung |
+|---------|--------------|
+| **TUMonline-Gruppen** | Listen basierend auf Organisationsgruppen |
+| **Manuelle Listen** | Traditionell verwaltete Listen |
+| **Dynamische Listen** | Automatisch aktualisiert nach Kriterien |
+
+::: {.callout-tip}
+## Automatische Listenverwaltung
+Nutzen Sie TUMonline-basierte Mailinglisten, um manuelle Pflege zu vermeiden. Listen aktualisieren sich automatisch, wenn Personen Organisationseinheiten beitreten oder verlassen.
+:::
+
+### Gemeinsame Postfächer und Kalender
+
+Team-Kollaborationsräume über TUMonline-Funktionsobjekte erstellen:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Gemeinsame Postfächer** | Team-E-Mail-Adressen (z.B. info@lehrstuhl.tum.de) |
+| **Gruppenkalender** | Gemeinsame Terminplanung |
+| **Verwaltung** | Über TUMonline-Funktionsobjekte |
+
+### Mailinglisten vs. Shared Folder Vergleich
 
 | Funktion | Mailingliste | Shared Folder |
 |----------|--------------|---------------|
@@ -191,10 +235,46 @@ Erweiterte E-Mail-Kollaboration, die:
 | **Gemeinsamer Posteingang** | Nein | Ja |
 | **Ideal für** | Ankündigungen | Teamzusammenarbeit |
 
-::: {.callout-tip}
-## E-Mail-Dienste beantragen
-Detaillierte Informationen zur Einrichtung von Mailinglisten und Shared Folders finden Sie im ITO Benutzerwiki oder kontaktieren Sie support@ito.cit.tum.de.
-:::
+## TUMonline-Integration
+
+### Überblick
+
+TUMonline ist das Campus-Management-System der TUM und integriert viele IT-Dienste:
+
+```{mermaid}
+%%| fig-cap: "TUMonline Service-Integration"
+flowchart TB
+    TUMonline["TUMonline"]
+
+    TUMonline --> Identity["Identitätsmanagement"]
+    TUMonline --> Email["E-Mail-Dienste"]
+    TUMonline --> Groups["Gruppenverwaltung"]
+    TUMonline --> Functions["Funktionsobjekte"]
+
+    Identity --> AD["Active Directory"]
+    Identity --> LDAP["LDAP-Verzeichnis"]
+    Email --> Exchange["Exchange"]
+    Groups --> Lists["Mailinglisten"]
+    Functions --> Shared["Gemeinsame Postfächer"]
+```
+
+### Funktionsobjekte
+
+TUMonline-Funktionsobjekte ermöglichen die Erstellung von:
+
+- Gemeinsamen Postfächern
+- Gruppenkalendern
+- Team-Kollaborationsräumen
+- Service-Desk-Adressen
+
+### Administrator-Ressourcen
+
+| Ressource | Zweck |
+|-----------|-------|
+| **TUMonline-Portal** | Benutzer- und Gruppenverwaltung |
+| **TUMonline-Dokumentation** | Anleitungen und Tutorials |
+| **TUMonline-Beauftragte** | Lokale TUMonline-Koordinatoren |
+| **Keyuser-Bereiche** | Spezialisierte Verwaltungsbereiche |
 
 ## Best Practices
 

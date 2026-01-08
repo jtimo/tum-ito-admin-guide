@@ -224,6 +224,204 @@ flowchart LR
 4. **Verify routing** (`traceroute`)
 5. **Contact ITO** if issues persist
 
+## Munich Scientific Network (MWN)
+
+### Network Backbone
+
+The Munich Scientific Network (MWN) connects all TUM buildings and provides:
+
+```{mermaid}
+%%| fig-cap: "MWN Network Architecture"
+flowchart TB
+    subgraph MWN["Munich Scientific Network"]
+        Backbone["Network Backbone"]
+    end
+
+    subgraph Institutions["Connected Institutions"]
+        TUM["TUM"]
+        LMU["LMU"]
+        HM["Hochschule München"]
+        FH["FH Weihenstephan"]
+    end
+
+    subgraph External["External Networks"]
+        DFN["German Research Network (DFN)"]
+        Internet["Internet"]
+    end
+
+    TUM --> MWN
+    LMU --> MWN
+    HM --> MWN
+    FH --> MWN
+
+    MWN --> DFN
+    DFN --> Internet
+```
+
+| Feature | Description |
+|---------|-------------|
+| **Coverage** | All TUM buildings |
+| **Upstream** | German Research Network (DFN) |
+| **Partners** | LMU, Hochschule München, FH Weihenstephan |
+
+### Local Network Planning
+
+IT Service Center offers free assistance with local network planning:
+
+- Network design consultation
+- Infrastructure requirements analysis
+- Capacity planning
+- Integration with MWN
+
+### Network Maintenance
+
+IT Service Center provides network infrastructure maintenance through LRZ:
+
+| Service | Description |
+|---------|-------------|
+| **Active Components** | Switches, routers, access points |
+| **Passive Components** | Cabling, patch panels |
+| **Monitoring** | Network health monitoring |
+| **Troubleshooting** | Issue diagnosis and resolution |
+
+### Firewall / Routing Filters
+
+Free firewall services available for VLAN-based networks:
+
+| Feature | Description |
+|---------|-------------|
+| **Location** | Network transition points |
+| **Requirement** | VLAN-based local network |
+| **Cost** | Free |
+| **Configuration** | Customizable rules |
+
+::: {.callout-note}
+## VLAN Requirement
+Firewall services require your network to be operated as a VLAN. Contact ITO for assistance with VLAN setup.
+:::
+
+### Open Network Access for Events
+
+For conferences, workshops, and events:
+
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Temporary guest access |
+| **Requirements** | No VPN client needed |
+| **Validation** | Simplified or none |
+| **Use Cases** | Conferences, workshops, symposia |
+
+Request event network access through IT Service Center.
+
+## Identity Management
+
+### TUM Central Directory (LDAP)
+
+The central TUM directory enables access to up-to-date personnel data:
+
+```{mermaid}
+%%| fig-cap: "LDAP Integration Architecture"
+flowchart TB
+    subgraph Central["TUM Central Directory"]
+        LDAP["LDAP Server"]
+        Data["Personnel Data"]
+    end
+
+    subgraph Uses["Integration Options"]
+        Auth["Authentication"]
+        Authz["Authorization"]
+        Query["Data Queries"]
+        Sync["Data Synchronization"]
+    end
+
+    subgraph Systems["Your Systems"]
+        Apps["Applications"]
+        Services["Services"]
+        Access["Access Control"]
+    end
+
+    LDAP --> Auth
+    LDAP --> Authz
+    LDAP --> Query
+    Data --> Sync
+
+    Auth --> Systems
+    Authz --> Systems
+    Query --> Systems
+    Sync --> Systems
+```
+
+| Use Case | Description |
+|----------|-------------|
+| **Authentication** | Verify user identity |
+| **Authorization** | Check user permissions |
+| **Data Queries** | Retrieve personnel information |
+| **Data Sync** | Synchronize data to local systems (with approval) |
+
+### Active Directory (AD)
+
+Central Active Directory service provided by LRZ:
+
+| Feature | Description |
+|---------|-------------|
+| **Provider** | LRZ |
+| **Provisioning** | Users and groups from TUMonline |
+| **Management** | Local administrators manage rights |
+| **Hardware** | Own hardware can be connected (e.g., chair storage) |
+
+```{mermaid}
+%%| fig-cap: "Active Directory Flow"
+flowchart LR
+    TUMonline["TUMonline"]
+    TUMonline --> |provisions| AD["Active Directory"]
+    AD --> |manages| Users["Users"]
+    AD --> |manages| Groups["Groups"]
+    AD --> |manages| Computers["Computers"]
+    AD --> |manages| Resources["IT Resources"]
+
+    LocalAdmin["Local Admin"]
+    LocalAdmin --> |manages rights| AD
+```
+
+### System Accounts
+
+For non-personal computer systems (printers, scanners, services):
+
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Machine-to-machine authentication |
+| **Examples** | Printers, scanners, automated services |
+| **Management** | Request through appropriate channels |
+
+## Certificates
+
+### User Certificates (Nutzerzertifikate)
+
+Digital certificates for users serve as digital identity proof:
+
+| Use Case | Description |
+|----------|-------------|
+| **Email Signing** | Prove email authenticity |
+| **Document Signing** | Sign documents digitally |
+| **Authentication** | Strong identity verification |
+| **Encryption** | Encrypt communications |
+
+### Server Certificates (Serverzertifikate)
+
+TUM provides free certificates for servers through DFN-PKI:
+
+| Feature | Description |
+|---------|-------------|
+| **Provider** | DFN-PKI (German Research Network) |
+| **Cost** | Free for TUM members |
+| **Use Cases** | HTTPS, email servers, other services |
+| **Validity** | Standard certificate lifetimes |
+
+::: {.callout-tip}
+## Certificate Request
+Request server certificates through the DFN-PKI portal with your TUM credentials.
+:::
+
 ## Summary Table
 
 | Service | Management | Request Method |
@@ -233,3 +431,9 @@ flowchart LR
 | **Static DHCP** | StrukturDB | Self-service |
 | **Dynamic Subnets** | ITO | support@ito.cit.tum.de |
 | **VPN Setup** | ITO | support@ito.cit.tum.de |
+| **Firewall** | IT Service Center | Via LRZ |
+| **Event Network** | IT Service Center | Request in advance |
+| **LDAP Integration** | Central TUM | Contact IT Service Center |
+| **Active Directory** | LRZ | Via TUMonline |
+| **User Certificates** | DFN-PKI | Self-service portal |
+| **Server Certificates** | DFN-PKI | Self-service portal |

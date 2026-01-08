@@ -156,29 +156,73 @@ StrukturDB maintains a complete inventory of:
 - **Servers**: Both virtual and physical servers
 - **Network Equipment**: Managed switches and access points
 
-## Mailing Lists and Shared Folders
+## Email Services
 
-ITO provides two email collaboration solutions:
+### TUM Email Address
 
-### Mailing Lists
+All TUM members (students, employees, guests) automatically receive a personal TUM email address:
 
-Traditional email distribution lists that:
+| Feature | Description |
+|---------|-------------|
+| **Availability** | Automatic for all TUM members |
+| **Lifetime** | Can be used as forwarding address for life |
+| **Format** | firstname.lastname@tum.de |
 
-- Forward emails to all list members
-- Support moderation options
-- Can be managed by list owners
-- Are suitable for announcements and discussions
+### Exchange Services
 
-### Shared Folders
+Microsoft Exchange provides comprehensive email and collaboration:
 
-Advanced email collaboration that:
+```{mermaid}
+%%| fig-cap: "Exchange Service Features"
+mindmap
+    root((Exchange))
+        Email
+            Personal Mailbox
+            Shared Mailboxes
+            Distribution Lists
+        Calendar
+            Personal Calendar
+            Group Calendars
+            Room Booking
+        Collaboration
+            Shared Contacts
+            Tasks
+            Notes
+```
 
-- Allows multiple users to send from a common address
-- Provides shared inbox functionality
-- Supports team email management
-- Is ideal for service desks and team communication
+| Feature | Description |
+|---------|-------------|
+| **Email** | Full email functionality |
+| **Calendar** | Personal and shared calendars |
+| **Shared Mailboxes** | Team email addresses |
+| **Access** | Outlook, Web, Mobile |
 
-### Comparison
+### Mailing Lists (Mailverteiler)
+
+Automated mailing list management options:
+
+| Method | Description |
+|--------|-------------|
+| **TUMonline Groups** | Lists based on organizational groups |
+| **Manual Lists** | Traditional managed lists |
+| **Dynamic Lists** | Auto-updated based on criteria |
+
+::: {.callout-tip}
+## Automatic List Management
+Use TUMonline-based mailing lists to avoid manual maintenance. Lists update automatically as people join or leave organizational units.
+:::
+
+### Shared Mailboxes and Calendars
+
+Create team collaboration spaces via TUMonline Function Objects:
+
+| Feature | Description |
+|---------|-------------|
+| **Shared Mailboxes** | Team email addresses (e.g., info@chair.tum.de) |
+| **Group Calendars** | Shared scheduling |
+| **Management** | Via TUMonline Function Objects |
+
+### Mailing Lists vs Shared Folders Comparison
 
 | Feature | Mailing List | Shared Folder |
 |---------|--------------|---------------|
@@ -187,10 +231,46 @@ Advanced email collaboration that:
 | **Shared inbox** | No | Yes |
 | **Best for** | Announcements | Team collaboration |
 
-::: {.callout-tip}
-## Requesting Email Services
-For detailed information about setting up mailing lists and shared folders, consult the ITO Benutzerwiki or contact support@ito.cit.tum.de.
-:::
+## TUMonline Integration
+
+### Overview
+
+TUMonline is TUM's campus management system and integrates with many IT services:
+
+```{mermaid}
+%%| fig-cap: "TUMonline Service Integration"
+flowchart TB
+    TUMonline["TUMonline"]
+
+    TUMonline --> Identity["Identity Management"]
+    TUMonline --> Email["Email Services"]
+    TUMonline --> Groups["Group Management"]
+    TUMonline --> Functions["Function Objects"]
+
+    Identity --> AD["Active Directory"]
+    Identity --> LDAP["LDAP Directory"]
+    Email --> Exchange["Exchange"]
+    Groups --> Lists["Mailing Lists"]
+    Functions --> Shared["Shared Mailboxes"]
+```
+
+### Function Objects
+
+TUMonline Function Objects enable creation of:
+
+- Shared mailboxes
+- Group calendars
+- Team collaboration spaces
+- Service desk addresses
+
+### Administrator Resources
+
+| Resource | Purpose |
+|----------|---------|
+| **TUMonline Portal** | User and group management |
+| **TUMonline Documentation** | Guides and tutorials |
+| **TUMonline-Beauftragte** | Local TUMonline coordinators |
+| **Keyuser Areas** | Specialized management areas |
 
 ## Best Practices
 

@@ -158,27 +158,104 @@ Contact support@ito.cit.tum.de to schedule:
 
 ## Related Services at TUM
 
-### IT Service Center (ITSZ)
+### IT Service Center (IT-Servicezentrum / ITSZ)
 
-For university-wide IT services:
+The central TUM IT organization provides university-wide services:
+
+```{mermaid}
+%%| fig-cap: "IT Service Center Services"
+mindmap
+    root((IT Service Center))
+        Identity
+            TUM Account
+            TUMCard
+            GuestCard
+        Communication
+            Email
+            Exchange
+            Collaboration Tools
+        Infrastructure
+            Network
+            WLAN
+            VPN
+        Applications
+            TUMonline
+            Moodle
+            SAP
+```
 
 | Service | Description |
 |---------|-------------|
+| **TUM Account** | Central university identity |
 | **TUM Email** | University email accounts |
 | **TUMonline** | Campus management system |
 | **Identity Management** | Central TUM ID |
+| **Moodle** | Learning management system |
 | **General Support** | University-wide IT support |
+
+::: {.callout-tip}
+## IT Service Center Contact
+| | |
+|---|---|
+| **Phone** | +49.89.289.17123 |
+| **Email** | it-support@tum.de |
+| **Website** | www.it.tum.de |
+:::
 
 ### Leibniz Supercomputing Centre (LRZ)
 
-For high-performance computing needs:
+For high-performance computing and advanced infrastructure needs:
 
 | Service | Description |
 |---------|-------------|
 | **HPC Clusters** | High-performance computing |
 | **Large Storage** | Research data storage |
 | **Scientific Computing** | Specialized computing resources |
-| **Network** | Munich Scientific Network |
+| **Network** | Munich Scientific Network (MWN) |
+| **Cloud Services** | LRZ Compute Cloud |
+| **Server Hosting** | Managed virtual/physical servers |
+
+### TUM IT Governance Structure
+
+Understanding the TUM IT organization:
+
+```{mermaid}
+%%| fig-cap: "TUM IT Governance"
+flowchart TB
+    CIO["CIO"]
+    CIO --> IMB["Information Management Board"]
+    CIO --> DXO["Digital Transformation Office"]
+    CIO --> ITSZ["IT Service Center"]
+
+    ITSZ --> Schools["School IT Operations"]
+    Schools --> ITO["ITO (School of CIT)"]
+```
+
+| Body | Role |
+|------|------|
+| **CIO** | Chief Information Officer |
+| **Information Management Board** | Strategic IT decisions |
+| **Digital Transformation Office (DXO)** | Digital transformation initiatives |
+| **IT Service Center** | Central IT operations |
+
+### IT Security at TUM
+
+TUM provides comprehensive IT security resources:
+
+| Resource | Description |
+|----------|-------------|
+| **Vulnerability Management** | Security scanning and remediation |
+| **Security Awareness** | Training and campaigns |
+| **Security Guidelines** | Policies and best practices |
+| **Incident Response** | Security incident handling |
+
+Security resources for administrators:
+
+- Secure workplace configuration
+- Protection against malware
+- Password security guidelines
+- Mobile device security
+- Email security
 
 ## Emergency Contacts
 

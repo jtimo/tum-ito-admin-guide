@@ -228,6 +228,204 @@ flowchart LR
 4. **Routing überprüfen** (`traceroute`)
 5. **ITO kontaktieren** wenn Probleme bestehen bleiben
 
+## Münchner Wissenschaftsnetz (MWN)
+
+### Netzwerk-Backbone
+
+Das Münchner Wissenschaftsnetz (MWN) verbindet alle TUM-Gebäude und bietet:
+
+```{mermaid}
+%%| fig-cap: "MWN Netzwerkarchitektur"
+flowchart TB
+    subgraph MWN["Münchner Wissenschaftsnetz"]
+        Backbone["Netzwerk-Backbone"]
+    end
+
+    subgraph Institutions["Verbundene Institutionen"]
+        TUM["TUM"]
+        LMU["LMU"]
+        HM["Hochschule München"]
+        FH["FH Weihenstephan"]
+    end
+
+    subgraph External["Externe Netze"]
+        DFN["Deutsches Forschungsnetz (DFN)"]
+        Internet["Internet"]
+    end
+
+    TUM --> MWN
+    LMU --> MWN
+    HM --> MWN
+    FH --> MWN
+
+    MWN --> DFN
+    DFN --> Internet
+```
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Abdeckung** | Alle TUM-Gebäude |
+| **Upstream** | Deutsches Forschungsnetz (DFN) |
+| **Partner** | LMU, Hochschule München, FH Weihenstephan |
+
+### Planung von lokalen Netzen
+
+Das IT-Servicezentrum bietet kostenlose Unterstützung bei der Netzwerkplanung:
+
+- Netzwerkdesign-Beratung
+- Infrastrukturanforderungsanalyse
+- Kapazitätsplanung
+- Integration ins MWN
+
+### Betreuung von Netzen
+
+Das IT-Servicezentrum bietet Netzwerkinfrastruktur-Wartung über das LRZ:
+
+| Dienst | Beschreibung |
+|--------|--------------|
+| **Aktive Komponenten** | Switches, Router, Access Points |
+| **Passive Komponenten** | Verkabelung, Patchpanels |
+| **Monitoring** | Netzwerkgesundheitsüberwachung |
+| **Fehlerbehebung** | Problemdiagnose und -lösung |
+
+### Firewall / Routing-Filter
+
+Kostenlose Firewall-Dienste für VLAN-basierte Netzwerke:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Standort** | Netzwerkübergangspunkte |
+| **Anforderung** | VLAN-basiertes lokales Netzwerk |
+| **Kosten** | Kostenlos |
+| **Konfiguration** | Anpassbare Regeln |
+
+::: {.callout-note}
+## VLAN-Anforderung
+Firewall-Dienste erfordern, dass Ihr Netzwerk als VLAN betrieben wird. Kontaktieren Sie ITO für Hilfe bei der VLAN-Einrichtung.
+:::
+
+### Offener Netzwerkzugang bei Veranstaltungen
+
+Für Konferenzen, Workshops und Veranstaltungen:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Zweck** | Temporärer Gastzugang |
+| **Anforderungen** | Kein VPN-Client erforderlich |
+| **Validierung** | Vereinfacht oder keine |
+| **Anwendungsfälle** | Konferenzen, Workshops, Symposien |
+
+Veranstaltungsnetzwerkzugang über das IT-Servicezentrum beantragen.
+
+## Identity Management
+
+### Zentrales Verzeichnis der TUM (LDAP)
+
+Das zentrale TUM-Verzeichnis ermöglicht Zugriff auf aktuelle Personendaten:
+
+```{mermaid}
+%%| fig-cap: "LDAP-Integrationsarchitektur"
+flowchart TB
+    subgraph Central["TUM Zentrales Verzeichnis"]
+        LDAP["LDAP-Server"]
+        Data["Personendaten"]
+    end
+
+    subgraph Uses["Integrationsoptionen"]
+        Auth["Authentifizierung"]
+        Authz["Autorisierung"]
+        Query["Datenabfragen"]
+        Sync["Datensynchronisation"]
+    end
+
+    subgraph Systems["Ihre Systeme"]
+        Apps["Anwendungen"]
+        Services["Dienste"]
+        Access["Zugangskontrolle"]
+    end
+
+    LDAP --> Auth
+    LDAP --> Authz
+    LDAP --> Query
+    Data --> Sync
+
+    Auth --> Systems
+    Authz --> Systems
+    Query --> Systems
+    Sync --> Systems
+```
+
+| Anwendungsfall | Beschreibung |
+|----------------|--------------|
+| **Authentifizierung** | Benutzeridentität verifizieren |
+| **Autorisierung** | Benutzerberechtigungen prüfen |
+| **Datenabfragen** | Personaldaten abrufen |
+| **Datensynchronisation** | Daten in lokale Systeme übernehmen (mit Genehmigung) |
+
+### Active Directory (AD)
+
+Zentraler Active Directory-Dienst vom LRZ:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Anbieter** | LRZ |
+| **Provisionierung** | Benutzer und Gruppen aus TUMonline |
+| **Verwaltung** | Lokale Administratoren verwalten Rechte |
+| **Hardware** | Eigene Hardware kann angebunden werden (z.B. Lehrstuhl-Storage) |
+
+```{mermaid}
+%%| fig-cap: "Active Directory Ablauf"
+flowchart LR
+    TUMonline["TUMonline"]
+    TUMonline --> |provisioniert| AD["Active Directory"]
+    AD --> |verwaltet| Users["Benutzer"]
+    AD --> |verwaltet| Groups["Gruppen"]
+    AD --> |verwaltet| Computers["Computer"]
+    AD --> |verwaltet| Resources["IT-Ressourcen"]
+
+    LocalAdmin["Lokaler Admin"]
+    LocalAdmin --> |verwaltet Rechte| AD
+```
+
+### System-Accounts
+
+Für nicht-personenbezogene Computersysteme (Drucker, Scanner, Dienste):
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Zweck** | Maschine-zu-Maschine-Authentifizierung |
+| **Beispiele** | Drucker, Scanner, automatisierte Dienste |
+| **Verwaltung** | Über entsprechende Kanäle beantragen |
+
+## Zertifikate
+
+### Nutzerzertifikate
+
+Digitale Zertifikate für Benutzer dienen als digitaler Identitätsnachweis:
+
+| Anwendungsfall | Beschreibung |
+|----------------|--------------|
+| **E-Mail-Signatur** | E-Mail-Authentizität nachweisen |
+| **Dokumentensignatur** | Dokumente digital signieren |
+| **Authentifizierung** | Starke Identitätsverifizierung |
+| **Verschlüsselung** | Kommunikation verschlüsseln |
+
+### Serverzertifikate
+
+Die TUM stellt kostenlose Zertifikate für Server über DFN-PKI bereit:
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Anbieter** | DFN-PKI (Deutsches Forschungsnetz) |
+| **Kosten** | Kostenlos für TUM-Mitglieder |
+| **Anwendungsfälle** | HTTPS, Mailserver, andere Dienste |
+| **Gültigkeit** | Standard-Zertifikatslaufzeiten |
+
+::: {.callout-tip}
+## Zertifikatsantrag
+Serverzertifikate über das DFN-PKI-Portal mit Ihren TUM-Zugangsdaten beantragen.
+:::
+
 ## Zusammenfassungstabelle
 
 | Dienst | Verwaltung | Beantragung |
@@ -237,3 +435,9 @@ flowchart LR
 | **Statisches DHCP** | StrukturDB | Self-Service |
 | **Dynamische Subnetze** | ITO | support@ito.cit.tum.de |
 | **VPN-Einrichtung** | ITO | support@ito.cit.tum.de |
+| **Firewall** | IT-Servicezentrum | Über LRZ |
+| **Veranstaltungsnetzwerk** | IT-Servicezentrum | Im Voraus beantragen |
+| **LDAP-Integration** | Zentrale TUM | IT-Servicezentrum kontaktieren |
+| **Active Directory** | LRZ | Über TUMonline |
+| **Nutzerzertifikate** | DFN-PKI | Self-Service-Portal |
+| **Serverzertifikate** | DFN-PKI | Self-Service-Portal |
