@@ -24,28 +24,8 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install TinyTeX
-        run: |
-          quarto install tinytex
-
       - name: Render HTML Website
         uses: quarto-dev/quarto-actions/render@v2
-
-      - name: Render English PDF
-        run: |
-          cd en
-          quarto render --to pdf --project _quarto-pdf.yml
-          mkdir -p ../_site/downloads
-          cp ../_pdf-en/TUM-ITO-System-Administrator-Guide.pdf ../_site/downloads/ 2>/dev/null || cp ../_pdf-en/*.pdf ../_site/downloads/TUM-ITO-Administrator-Guide-EN.pdf 2>/dev/null || echo "PDF naming adjusted"
-
-      - name: Render German PDF
-        run: |
-          cd de
-          quarto render --to pdf --project _quarto-pdf.yml
-          cp ../_pdf-de/TUM-ITO-Administratorhandbuch.pdf ../_site/downloads/ 2>/dev/null || cp ../_pdf-de/*.pdf ../_site/downloads/TUM-ITO-Administratorhandbuch-DE.pdf 2>/dev/null || echo "PDF naming adjusted"
-
-      - name: List downloads
-        run: ls -la _site/downloads/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
