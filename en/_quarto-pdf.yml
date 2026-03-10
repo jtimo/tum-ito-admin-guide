@@ -3,9 +3,9 @@ project:
   output-dir: ../_pdf-en
 
 book:
-  title: "TUM ITO System Administrator Guide"
+  title: "TUM IT System Administrator Guide"
   subtitle: "A Comprehensive Guide for IT Administrators at Technical University of Munich"
-  author: "Based on ITO - IT Operations (CIT) Documentation"
+  author: "Based on TUM IT Service Center (ITSZ) & LRZ Documentation"
   date: today
   date-format: "MMMM D, YYYY"
 
@@ -38,6 +38,6 @@ format:
     header-includes: |
       \usepackage{fancyhdr}
       \pagestyle{fancy}
-      \fancyhead[L]{TUM ITO Administrator Guide}
+      \fancyhead[L]{TUM IT Administrator Guide}
       \fancyhead[R]{\thepage}
       \fancyfoot[C]{}

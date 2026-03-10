@@ -4,99 +4,90 @@ lang: de
 
 # Benutzer- und Hostverwaltung
 
-## StrukturDB Überblick
+## TUMonline Überblick
 
-Die **StrukturDB** ist die zentrale Verwaltungsplattform für Benutzer, Hosts und Infrastruktur innerhalb der ITO. Sie bietet eine umfassende Oberfläche für EDV-Betreuer und Lehrstuhladmins zur Verwaltung der IT-Ressourcen ihres Lehrstuhls.
+**TUMonline** ist das zentrale Campus-Management-System der TUM und die primäre Plattform für die Verwaltung von Benutzern, Gruppen und Organisationsdaten. Es bietet eine umfassende Oberfläche für IT-Administratoren zur Verwaltung der IT-Ressourcen ihrer Abteilung.
 
 ### Zugangsinformationen
 
 | Eigenschaft | Wert |
 |-------------|------|
-| **URL** | [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/) |
-| **Zugang** | Beschränkt auf autorisierte Administratoren |
-| **Dokumentation** | ITO Benutzerwiki |
+| **URL** | [campus.tum.de](https://campus.tum.de) |
+| **Zugang** | Rollenbasierte Berechtigungen für autorisierte Administratoren |
+| **Dokumentation** | TUM Wiki, LRZ-Dokumentation |
 
 ## Kernfunktionen
 
 ```{mermaid}
-%%| fig-cap: "StrukturDB Kernfunktionen"
+%%| fig-cap: "TUMonline Kernfunktionen für IT-Admins"
 mindmap
-    root((StrukturDB))
+    root((TUMonline))
         Benutzerverwaltung
-            Neue Benutzeranträge
-            Kontoänderungen
+            Kontoadministration
             Zugriffsberechtigungen
-            Kontodeaktivierung
+            Identitätsmanagement
         Gruppenverwaltung
-            Gruppen erstellen
-            Mitglieder verwalten
-            LDAP-Gruppen
+            Organisationsgruppen
+            Mailinglisten
             Berechtigungssets
-        Hostverwaltung
-            Geräte registrieren
-            Netzwerkkonfiguration
-            Geräteinventar
-        Infrastruktur
-            Laptops
-            Desktops
-            Drucker
-            Server
+        Funktionsobjekte
+            Gemeinsame Postfächer
+            Gruppenkalender
+            Service-Adressen
+        Integration
+            LDAP-Verzeichnis
+            Active Directory
+            Exchange
 ```
 
 ## Benutzerverwaltung
 
-### Neue Benutzer beantragen
+### Benutzerkonten-Lebenszyklus
 
 ```{mermaid}
-%%| fig-cap: "Prozess für neue Benutzeranträge"
+%%| fig-cap: "Benutzerkonten-Lebenszyklus"
 sequenceDiagram
     participant Admin as Administrator
-    participant SDB as StrukturDB
-    participant LDAP as LDAP-Verzeichnis
+    participant TUMo as TUMonline
+    participant LDAP as TUM LDAP / AD
     participant User as Neuer Benutzer
 
-    Admin->>SDB: Neuen Benutzerantrag einreichen
-    SDB->>SDB: Antrag validieren
-    SDB->>LDAP: Benutzerkonto erstellen
-    LDAP-->>SDB: Bestätigung
-    SDB-->>Admin: Benachrichtigung über Kontoerstellung
-    Admin->>User: Zugangsdaten mitteilen
-    User->>LDAP: Erstanmeldung
+    Admin->>TUMo: Benutzerkonto verwalten
+    TUMo->>TUMo: Änderungen verarbeiten
+    TUMo->>LDAP: Identität synchronisieren
+    LDAP-->>TUMo: Bestätigung
+    TUMo-->>Admin: Konto aktualisiert
+    Admin->>User: Zugangsinformationen mitteilen
+    User->>LDAP: Anmeldung mit TUM-Zugangsdaten
 ```
 
-Um ein neues Benutzerkonto zu beantragen:
+Benutzerverwaltungsaufgaben umfassen:
 
-1. In StrukturDB anmelden
-2. Zum Bereich Benutzerverwaltung navigieren
-3. Erforderliche Benutzerinformationen ausfüllen:
-   - Vollständiger Name
-   - E-Mail-Adresse
-   - Lehrstuhl-/Abteilungszugehörigkeit
-   - Erforderliche Zugangsstufe
-4. Antrag absenden
-5. System verarbeitet und erstellt das Konto
-6. Benutzer über neue Zugangsdaten informieren
+1. Benutzerkonten und Berechtigungen über TUMonline verwalten
+2. Benutzer Organisationsgruppen zuweisen
+3. Zugangsstufen für Abteilungsressourcen konfigurieren
+4. Kontoänderungen beim Ein- und Austritt von Benutzern bearbeiten
 
 ### Benutzergruppen verwalten
 
-Gruppen in StrukturDB dienen mehreren Zwecken:
+Gruppen in TUMonline dienen mehreren Zwecken:
 
 | Gruppentyp | Zweck | Beispielnutzung |
 |------------|-------|-----------------|
+| **Organisationsgruppen** | Organisationsstruktur abbilden | Abteilungsmitglieder |
 | **Zugriffsgruppen** | Ressourcenzugriff steuern | Druckerzugriff, Dateifreigaben |
-| **Projektgruppen** | Projektteams organisieren | Mitglieder von Forschungsprojekten |
+| **Mailinglisten** | E-Mail-Verteilung | Abteilungsankündigungen |
 | **LDAP-Gruppen** | Verzeichnisintegration | Authentifizierung und Autorisierung |
-| **Verteilergruppen** | E-Mail-Verteilung | Mailinglisten |
 
 #### Gruppen erstellen
 
-1. Zur Gruppenverwaltung in StrukturDB navigieren
+1. Zur Gruppenverwaltung in TUMonline navigieren
 2. "Neue Gruppe erstellen" auswählen
 3. Gruppeneigenschaften definieren:
    - Gruppenname (Namenskonventionen beachten)
    - Beschreibung
    - Initiale Mitglieder
-   - Gruppentyp (LDAP, Verteiler, etc.)
+   - Gruppentyp
 4. Gruppe speichern und aktivieren
 
 ### LDAP-Integration
@@ -104,25 +95,25 @@ Gruppen in StrukturDB dienen mehreren Zwecken:
 ```{mermaid}
 %%| fig-cap: "LDAP-Integrationsfluss"
 flowchart LR
-    SDB["StrukturDB"]
-    SDB --> |Sync| LDAP["LDAP-Verzeichnis"]
+    TUMo["TUMonline"]
+    TUMo --> |Sync| LDAP["Zentrales TUM LDAP"]
     LDAP --> Auth["Authentifizierungs-<br/>dienste"]
     LDAP --> NAS["NAS-Zugriffs-<br/>kontrolle"]
-    LDAP --> VM["VM-Zugriffs-<br/>kontrolle"]
+    LDAP --> AD["Active<br/>Directory"]
     LDAP --> Mail["Mail-<br/>Dienste"]
 ```
 
-Über StrukturDB erstellte LDAP-Gruppen werden automatisch:
+Über TUMonline verwaltete Gruppen und Benutzer werden automatisch:
 
-- Mit dem zentralen LDAP-Verzeichnis synchronisiert
-- Für die Authentifizierung über alle ITO-Dienste verfügbar
-- Für die Zugriffskontrolle auf NAS, VMs und andere Ressourcen verwendet
+- Mit dem zentralen TUM LDAP-Verzeichnis synchronisiert
+- Für die Authentifizierung über alle TUM IT-Dienste verfügbar
+- Für die Zugriffskontrolle auf Speicher, Server und andere Ressourcen verwendet
 
 ## Hostverwaltung
 
 ### Geräte registrieren
 
-Administratoren können Infrastruktur über StrukturDB registrieren und verfolgen:
+Administratoren verwalten die Geräteregistrierung für den Netzwerkzugang:
 
 ```{mermaid}
 %%| fig-cap: "Geräteregistrierungs-Workflow"
@@ -130,13 +121,13 @@ flowchart TB
     subgraph Registration["Geräteregistrierung"]
         Device["Neues Gerät"]
         Device --> Info["Informationen sammeln"]
-        Info --> |MAC-Adresse<br/>Gerätetyp<br/>Standort| SDB["StrukturDB-Eintrag"]
+        Info --> |MAC-Adresse<br/>Gerätetyp<br/>Standort| Register["Netzwerkregistrierung"]
     end
 
-    subgraph Configuration["Automatische Konfiguration"]
-        SDB --> DNS["DNS-Eintrag"]
-        SDB --> DHCP["DHCP-Reservierung"]
-        SDB --> Inventory["Inventareintrag"]
+    subgraph Configuration["Netzwerkkonfiguration"]
+        Register --> DNS["DNS-Eintrag"]
+        Register --> DHCP["DHCP-Reservierung"]
+        Register --> Inventory["Inventareintrag"]
     end
 ```
 
@@ -147,12 +138,12 @@ flowchart TB
 | **Hostname** | Eindeutiger Gerätename | `ws-mueller-01` |
 | **MAC-Adresse** | Netzwerkschnittstellen-ID | `00:1A:2B:3C:4D:5E` |
 | **Gerätetyp** | Kategorie | Laptop, Desktop, Drucker, Server |
-| **Standort** | Physischer Standort | Raum 01.234, Gebäude MI |
+| **Standort** | Physischer Standort | Raum 01.234, Gebäude |
 | **Verantwortliche Person** | Hauptnutzer/Kontakt | Prof. Dr. Schmidt |
 
 ### Infrastrukturinventar
 
-StrukturDB führt ein vollständiges Inventar von:
+Administratoren sollten ein vollständiges Inventar führen von:
 
 - **Laptops**: Mobile Arbeitsplätze, die Benutzern zugewiesen sind
 - **Desktops**: Feste Arbeitsplätze in Büros und Laboren
@@ -207,7 +198,7 @@ Automatisierte Mailinglisten-Verwaltungsoptionen:
 
 | Methode | Beschreibung |
 |---------|--------------|
-| **TUMonline-Gruppen** | Listen basierend auf Organisationsgruppen |
+| **TUMonline-Gruppen** | Listen basierend auf Organisationsgruppen (automatisch aktualisiert) |
 | **Manuelle Listen** | Traditionell verwaltete Listen |
 | **Dynamische Listen** | Automatisch aktualisiert nach Kriterien |
 
@@ -222,14 +213,14 @@ Team-Kollaborationsräume über TUMonline-Funktionsobjekte erstellen:
 
 | Merkmal | Beschreibung |
 |---------|--------------|
-| **Gemeinsame Postfächer** | Team-E-Mail-Adressen (z.B. info@lehrstuhl.tum.de) |
+| **Gemeinsame Postfächer** | Team-E-Mail-Adressen (z.B. info@abteilung.tum.de) |
 | **Gruppenkalender** | Gemeinsame Terminplanung |
 | **Verwaltung** | Über TUMonline-Funktionsobjekte |
 
-### Mailinglisten vs. Shared Folder Vergleich
+### Mailinglisten vs. Gemeinsame Postfächer Vergleich
 
-| Funktion | Mailingliste | Shared Folder |
-|----------|--------------|---------------|
+| Funktion | Mailingliste | Gemeinsames Postfach |
+|----------|--------------|----------------------|
 | **E-Mails empfangen** | Alle Mitglieder | Alle Mitglieder |
 | **Als gemeinsame Adresse senden** | Nein | Ja |
 | **Gemeinsamer Posteingang** | Nein | Ja |

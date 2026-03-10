@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "TUM ITO Administrator Guide"
+  title: "TUM IT Administrator Guide"
   favicon: ""
   search:
     location: navbar

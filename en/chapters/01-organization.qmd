@@ -1,131 +1,158 @@
-# ITO Organization
+# TUM IT Organization
 
 ## Overview
 
-The **IT Operations (ITO)** is the dedicated IT service provider for the School of Computation, Information and Technology (CIT) at the Technical University of Munich (TUM). ITO complements and extends the services offered by TUM's central IT Service Center (ITSZ) and the Leibniz Supercomputing Centre (LRZ) of the Bavarian Academy of Sciences.
+The **Technical University of Munich (TUM)** provides comprehensive IT services to all its schools, departments, and organizational units through two main providers: the **IT Service Center (ITSZ)** and the **Leibniz Supercomputing Centre (LRZ)**. Together, they deliver the central IT infrastructure and services that support research, teaching, and administration across the entire university.
 
 ## Organizational Structure
 
 ```{mermaid}
-%%| fig-cap: "ITO Organizational Position"
+%%| fig-cap: "TUM IT Organizational Structure"
 flowchart TB
-    TUM["Technical University of Munich"]
-    TUM --> Schools["Schools & Departments"]
-    Schools --> CIT["School of Computation,<br/>Information and Technology"]
-    CIT --> ITO["ITO - IT Operations"]
+    CIO["CIO"]
+    CIO --> IMB["Information Management Board"]
+    CIO --> DXO["Digital Transformation Office"]
+    CIO --> ITSZ["IT Service Center (ITSZ)"]
 
-    subgraph External["External Partners"]
-        LRZ["Leibniz Supercomputing<br/>Centre (LRZ)"]
-        ITSZ["TUM IT Service<br/>Center (ITSZ)"]
+    ITSZ --> Schools["School IT Operations"]
+
+    subgraph TUMSchools["TUM Schools & Departments"]
+        Schools --> CIT["School of CIT"]
+        Schools --> ENG["School of Engineering"]
+        Schools --> NAT["School of Natural Sciences"]
+        Schools --> OTHER["Other Schools..."]
     end
 
-    ITO <--> |collaboration| LRZ
-    ITO <--> |collaboration| ITSZ
+    subgraph External["Infrastructure Partner"]
+        LRZ["Leibniz Supercomputing<br/>Centre (LRZ)"]
+    end
+
+    ITSZ <--> |collaboration| LRZ
 ```
 
-## Mission and Responsibilities
+## IT Governance
 
-ITO provides specialized and tailored IT services designed to meet the specific requirements of:
+The TUM IT governance structure ensures strategic alignment and efficient service delivery:
 
-- **Students** of the School of CIT
-- **Employees** (researchers, faculty, and staff)
-- **System Administrators** (EDV-Betreuer and Lehrstuhladmins)
+| Body | Role |
+|------|------|
+| **CIO** | Chief Information Officer, strategic IT leadership |
+| **Information Management Board** | Strategic IT decisions and prioritization |
+| **Digital Transformation Office (DXO)** | Digital transformation initiatives |
+| **IT Service Center (ITSZ)** | Central IT operations and service delivery |
 
-### Core Functions
+## Central IT Services
 
-| Function | Description |
-|----------|-------------|
-| **Infrastructure** | High-performance IT infrastructure provision and development |
-| **Custom Solutions** | Development of tailored IT services and specialized applications |
-| **Process Optimization** | Solutions designed to make work processes more efficient |
-| **Internet Services** | Management of autonomous systems and multiple domains |
-| **Self-Service Portals** | User-friendly web portals for easy configuration |
-| **Media Technology** | Support for lecture broadcasts, streaming, and video conferencing |
-| **Procurement** | Compliant IT procurement within framework agreements |
-| **Support** | Central helpdesk for all IT questions |
-
-## Service Portfolio
+The IT Service Center and LRZ provide a wide range of services for all TUM members:
 
 ```{mermaid}
-%%| fig-cap: "ITO Service Portfolio"
+%%| fig-cap: "TUM Central IT Service Portfolio"
 mindmap
-    root((ITO Services))
-        Infrastructure
-            Virtual Servers
-            Colocation
-            Workstation Systems
-        Network
-            DNS Management
-            DHCP Services
+    root((TUM IT Services))
+        Email & Collaboration
+            Exchange
+            Mailing Lists
+            Shared Mailboxes
+        Network & Identity
+            MWN Network
             VPN Access
+            LDAP / Active Directory
+        Server Infrastructure
+            Virtual Servers
+            Server Housing
+            Compute Cloud
         Storage
-            NAS Fileservers
-            Backup Solutions
-        Support
-            Helpdesk
-            Consulting
-            Training
-        Media
-            Lecture Recording
-            Video Streaming
-            Conferencing
-        Procurement
-            Hardware
-            Software
+            Online Storage NAS
+            Backup Services
+        Client Management
+            TUM-PC
+            MWN-MAC
+            Baramundi
+        Web Services
+            Managed Webservers
+            Domain Management
+        Software & Licenses
+            Campus Licenses
             Framework Agreements
+        Certificates
+            User Certificates
+            Server Certificates
 ```
 
 ## Key Systems and Tools
 
-### StrukturDB
+### TUMonline
 
-The **StrukturDB** is the central management platform for ITO administrators:
+**TUMonline** is TUM's central campus management system and the primary administrative platform:
 
-- **URL**: [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/)
-- **Purpose**: User management, host registration, group administration
-- **Access**: Restricted to authorized EDV-Betreuer and Lehrstuhladmins
+- **URL**: [campus.tum.de](https://campus.tum.de)
+- **Purpose**: User management, group administration, identity management, function objects
+- **Access**: Available to all TUM members with role-based permissions
 
-### Self-Service Web Portals
+### TUM Wiki
 
-ITO provides user-friendly self-service web portals that enable:
+The **TUM Wiki** provides documentation and guides for IT services:
 
-- Easy utilization of IT services
-- Configuration of services without technical support
-- Autonomous management of resources
+- Service documentation and tutorials
+- Step-by-step configuration guides
+- Best practices and FAQs
 
-## Relationship with Other IT Providers
+### LRZ Documentation
 
-### TUM IT Service Center (ITSZ)
+The **LRZ Documentation Portal** ([doku.lrz.de](https://doku.lrz.de)) provides technical documentation for LRZ-managed services:
 
-ITO supplements ITSZ services with CIT-specific offerings. ITSZ provides:
+- Server and cloud service documentation
+- Network and storage guides
+- Client management resources
 
-- University-wide email services
-- Central identity management
-- General IT support for TUM
+## IT Service Center (ITSZ)
 
-### Leibniz Supercomputing Centre (LRZ)
+The IT Service Center is TUM's central IT organization providing university-wide services:
 
-ITO extends LRZ services for research needs. LRZ provides:
+- University-wide email and collaboration services
+- Central identity management (TUM accounts, LDAP, Active Directory)
+- Network infrastructure (MWN)
+- General IT support for all TUM members
+- TUMonline administration
+- Domain and web services coordination
+
+### Contact
+
+| Channel | Details |
+|---------|---------|
+| **Phone** | +49.89.289.17123 |
+| **Email** | it-support@tum.de |
+| **Website** | [www.it.tum.de](https://www.it.tum.de) |
+| **Address** | Arcisstr. 21, 80333 München |
+
+## Leibniz Supercomputing Centre (LRZ)
+
+LRZ provides the technical infrastructure backbone for TUM and the Munich scientific community:
 
 - High-performance computing resources
-- Large-scale storage systems
-- Scientific computing support
+- Virtual and managed server hosting
+- Online storage (NAS) and backup services
+- Munich Scientific Network (MWN) operation
+- Client management services (TUM-PC, MWN-MAC)
+- Compute Cloud (IaaS)
+- Campus software licenses and framework agreements
 
-## Media and Lecture Hall Technology
+## Software & Hardware Procurement
 
-ITO supports events and teaching through:
+TUM ensures compliant IT procurement through:
 
-- **Lecture Broadcasts**: Live streaming of lectures
-- **Recordings**: Video recording and archiving
-- **Streaming Services**: On-demand video content
-- **Video Conferencing**: Support for remote collaboration
-- **Large Format Printing**: Poster and presentation printing
+- **Framework Agreements**: LRZ-negotiated contracts with major vendors
+- **Campus Licenses**: Free or reduced-price software for TUM members
+- **CIP/WAP Coordination**: DFG funding programs for IT equipment (Computer Investment Program, Workstation Investment Program)
 
-## IT Procurement
+## Data Carrier Disposal
 
-ITO ensures compliant procurement through:
+TUM provides secure disposal services for data storage media:
 
-- Established TUM-wide framework agreements
-- Managed webshops for standardized ordering
-- Hardware and software procurement support
-- Vendor relationship management
+- Hard drives, magnetic tapes, DVDs/CDs, USB drives
+- Secure destruction to protect sensitive data
+
+::: {.callout-important}
+## Data Security
+Never dispose of data carriers through regular waste. Use TUM's secure disposal service to protect sensitive data.
+:::

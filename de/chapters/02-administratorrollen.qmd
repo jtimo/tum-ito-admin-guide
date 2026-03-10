@@ -6,52 +6,50 @@ lang: de
 
 ## Überblick
 
-Jeder Lehrstuhl und jedes Servicebüro an der TUM CIT benennt bei der ITO einen EDV-Betreuer oder Lehrstuhladmin. Diese Administratoren dienen als primäre Ansprechpartner für IT-bezogene Angelegenheiten innerhalb ihrer Organisationseinheiten.
+Jede Fakultät, jeder Lehrstuhl und jede Organisationseinheit an der TUM benennt IT-Administratoren zur Verwaltung der lokalen IT-Infrastruktur und als Verbindung zu den zentralen IT-Diensten der TUM (IT-Servicezentrum und LRZ). Diese Administratoren dienen als primäre Ansprechpartner für IT-bezogene Angelegenheiten innerhalb ihrer Organisationseinheiten.
 
 ## Administratortypen
 
 ```{mermaid}
 %%| fig-cap: "Administratorhierarchie"
 flowchart TB
-    LI["Lehrstuhlinhaber"]
-    LI --> |ernennt| EA["EDV-Betreuer"]
-    LI --> |ernennt| LA["Lehrstuhladmin"]
+    LI["Fakultäts- / Lehrstuhlleitung"]
+    LI --> |ernennt| Admin["IT-Administrator<br/>(EDV-Betreuer)"]
+    LI --> |ernennt| TUMCoord["TUMonline-Beauftragte"]
 
-    EA --> |oder bestehender Admin ernennt| NEW["Neue Administratoren"]
-    LA --> |oder bestehender Admin ernennt| NEW
+    Admin --> |verwaltet| IT["Lokale IT-Infrastruktur"]
+    TUMCoord --> |verwaltet| Users["Benutzer- & Gruppenverwaltung"]
 
-    subgraph Responsibilities["Gemeinsame Verantwortlichkeiten"]
-        R1["Benutzerverwaltung"]
-        R2["Infrastrukturverwaltung"]
-        R3["Dienstkonfiguration"]
-        R4["Support-Koordination"]
+    subgraph Central["Zentrale IT-Partner"]
+        ITSZ["IT-Servicezentrum (ITSZ)"]
+        LRZ["LRZ"]
     end
 
-    EA --> Responsibilities
-    LA --> Responsibilities
+    Admin --> |koordiniert mit| Central
+    TUMCoord --> |koordiniert mit| Central
 ```
 
-### EDV-Betreuer
+### IT-Administrator (EDV-Betreuer)
 
-Der **EDV-Betreuer** ist der primäre technische Ansprechpartner für IT-Angelegenheiten:
+Der **IT-Administrator** ist der primäre technische Ansprechpartner für IT-Angelegenheiten:
 
 | Aspekt | Beschreibung |
 |--------|--------------|
-| **Ernennung** | Durch Lehrstuhlinhaber oder bestehenden EDV-Betreuer |
+| **Ernennung** | Durch Fakultäts-/Lehrstuhlleitung |
 | **Umfang** | Technische Infrastruktur und Systemverwaltung |
-| **Befugnis** | Voller Zugriff auf StrukturDB und Verwaltungstools |
+| **Befugnis** | Zugriff auf TUMonline-Adminfunktionen und LRZ-Dienste |
 | **Hauptaufgabe** | Täglicher IT-Betrieb und Benutzerunterstützung |
 
-### Lehrstuhladmin
+### TUMonline-Beauftragte
 
-Der **Lehrstuhladmin** erfüllt ähnliche Funktionen mit Fokus auf Lehrstuhlbedürfnisse:
+Die **TUMonline-Beauftragten** verwalten Benutzer und Gruppen über die zentrale Plattform der TUM:
 
 | Aspekt | Beschreibung |
 |--------|--------------|
-| **Ernennung** | Durch Lehrstuhlinhaber oder bestehenden Lehrstuhladmin |
-| **Umfang** | Lehrstuhlspezifische IT-Ressourcenverwaltung |
-| **Befugnis** | Zugriff auf StrukturDB für Lehrstuhlressourcen |
-| **Hauptaufgabe** | Benutzerkontenverwaltung und Ressourcenzuweisung |
+| **Ernennung** | Durch Fakultäts-/Lehrstuhlleitung |
+| **Umfang** | Benutzerkonto- und Gruppenverwaltung über TUMonline |
+| **Befugnis** | Zugriff auf TUMonline-Keyuser-Bereiche |
+| **Hauptaufgabe** | Benutzerlebenszyklus-Management und Zugriffskontrolle |
 
 ## Hauptverantwortlichkeiten
 
@@ -62,14 +60,14 @@ Der **Lehrstuhladmin** erfüllt ähnliche Funktionen mit Fokus auf Lehrstuhlbed�
 flowchart LR
     Request["Benutzeranfrage"]
     Request --> Admin["Administrator<br/>Prüfung"]
-    Admin --> StrukturDB["StrukturDB<br/>Verarbeitung"]
-    StrukturDB --> LDAP["LDAP<br/>Synchronisation"]
+    Admin --> TUMonline["TUMonline<br/>Verarbeitung"]
+    TUMonline --> LDAP["LDAP / AD<br/>Synchronisation"]
     LDAP --> Access["Benutzer<br/>Zugriff erteilt"]
 ```
 
 Administratoren sind verantwortlich für:
 
-- **Neue Benutzeranträge**: Bearbeitung von Anträgen für neue Benutzerkonten
+- **Benutzerkonten**: Verwaltung über TUMonline
 - **Gruppenverwaltung**: Erstellen und Verwalten von Benutzergruppen
 - **Zugriffskontrolle**: Definition und Pflege von Zugriffsberechtigungen
 - **Kontenlebenszyklus**: Verwaltung von Erstellung, Änderung und Deaktivierung
@@ -80,25 +78,25 @@ Administratoren verwalten Lehrstuhlinfrastruktur einschließlich:
 
 - **Arbeitsplätze**: Laptops, Desktops und Spezialgeräte
 - **Drucker**: Netzwerkdrucker und Druckressourcen
-- **Server**: Virtuelle Maschinen und gehostete Hardware
+- **Server**: Virtuelle Maschinen über LRZ und gehostete Hardware
 - **Netzwerkgeräte**: Switches, Access Points und Netzwerkkonfiguration
 
 ### 3. Dienstkonfiguration
 
 Konfigurationsverantwortlichkeiten umfassen:
 
-- **DNS-Einträge**: Erstellen und Verwalten von DNS-Records über StrukturDB
-- **DHCP-Einträge**: Konfiguration statischer IP-Zuweisungen
-- **VPN-Zugang**: Einrichtung von Remote-Zugriff für Benutzer
-- **Mail-Dienste**: Verwaltung von Mailinglisten und Shared Folders
+- **Netzwerkdienste**: Koordination von DNS, DHCP und VLAN mit IT-Servicezentrum
+- **VPN-Zugang**: Einrichtung von Remote-Zugriff über MWN-VPN
+- **E-Mail-Dienste**: Verwaltung von Mailverteilern und gemeinsamen Postfächern über TUMonline
+- **Speicher**: Koordination des NAS-Zugriffs mit LRZ
 
 ### 4. Support-Koordination
 
-Administratoren dienen als Verbindung zwischen Benutzern und ITO:
+Administratoren dienen als Verbindung zwischen Benutzern und zentraler IT:
 
 - **First-Level-Support**: Erste Fehlerbehebung und Problemlösung
-- **Eskalation**: Weiterleitung komplexer Probleme an den ITO-Helpdesk
-- **Kommunikation**: Weitergabe von ITO-Ankündigungen und Updates
+- **Eskalation**: Weiterleitung komplexer Probleme an IT-Servicezentrum (it-support@tum.de)
+- **Kommunikation**: Weitergabe von IT-Ankündigungen und Updates
 - **Einarbeitung**: Orientierung der Benutzer zu verfügbaren IT-Diensten
 
 ## Einarbeitung neuer Administratoren
@@ -107,24 +105,24 @@ Administratoren dienen als Verbindung zwischen Benutzern und ITO:
 
 Neue Administratoren sollten:
 
-1. **ITO kontaktieren**: Einführungsgespräch vereinbaren
-2. **StrukturDB-Zugang**: Zugangsdaten erhalten und Oberfläche kennenlernen
-3. **Dokumentation**: Das Benutzerwiki studieren
+1. **IT-Servicezentrum kontaktieren**: Einführung vereinbaren (it-support@tum.de)
+2. **TUMonline-Zugang**: Admin-Berechtigungen erhalten und Oberfläche kennenlernen
+3. **Dokumentation**: TUM Wiki und LRZ-Dokumentation studieren
 4. **Vorgänger treffen**: Wenn möglich, Übergabe mit vorherigen Administratoren
 
 ### Beratungsdienste
 
-Die ITO bietet Beratung für neue Administratoren:
+Das IT-Servicezentrum bietet Beratung für neue Administratoren:
 
 ::: {.callout-note}
 ## Beratungstermin
-Die ITO berät gerne neue EDV-Betreuer und Lehrstuhladmins zu:
+Das IT-Servicezentrum berät gerne neue IT-Administratoren zu:
 
 - Infrastrukturfragen
 - Anforderungen zur Systemintegration
-- Einführung in ITO-Systeme und Angebote
+- Einführung in TUM IT-Dienste und Tools
 
-**Kontakt**: support@ito.cit.tum.de für Terminvereinbarung
+**Kontakt**: it-support@tum.de für Terminvereinbarung
 :::
 
 ## Best Practices
@@ -151,13 +149,13 @@ Die ITO berät gerne neue EDV-Betreuer und Lehrstuhladmins zu:
 
 - Etablieren Sie Backup-Administratoren für Vertretungen
 - Dokumentieren Sie Verfahren für Übergaben
-- Halten Sie aktuelle Kontaktinformationen bei der ITO
+- Halten Sie aktuelle Kontaktinformationen beim IT-Servicezentrum
 
 ## Zugriff auf Verwaltungstools
 
 | Tool | Zweck | Zugriffsmethode |
 |------|-------|-----------------|
-| **StrukturDB** | Benutzer-/Host-Verwaltung | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
-| **VM Web-Interface** | Steuerung virtueller Maschinen | Über ITO-Portal |
-| **Benutzerwiki** | Dokumentation | Internes Wiki |
-| **ITO Helpdesk** | Support-Anfragen | support@ito.cit.tum.de |
+| **TUMonline** | Benutzer-/Gruppenverwaltung | [campus.tum.de](https://campus.tum.de) |
+| **LRZ-Dokumentation** | Service-Anleitungen | [doku.lrz.de](https://doku.lrz.de) |
+| **TUM Wiki** | Dokumentation | [wiki.tum.de](https://wiki.tum.de) |
+| **IT-Servicezentrum** | Support-Anfragen | it-support@tum.de |

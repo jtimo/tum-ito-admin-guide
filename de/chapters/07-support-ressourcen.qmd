@@ -4,19 +4,20 @@ lang: de
 
 # Support und Ressourcen
 
-## ITO Helpdesk
+## IT-Servicezentrum (ITSZ)
 
-Der ITO Helpdesk ist die zentrale Anlaufstelle für alle IT-bezogenen Fragen und Probleme innerhalb der School of CIT.
+Das IT-Servicezentrum ist die zentrale Anlaufstelle für alle IT-bezogenen Fragen und Probleme an der TUM.
 
 ### Kontaktinformationen
 
 ::: {.callout-tip}
-## ITO Helpdesk Kontakt
+## IT-Servicezentrum Kontakt
 | Kanal | Details |
 |-------|---------|
-| **E-Mail** | support@ito.cit.tum.de |
-| **Telefon** | +49 (89) 289 - 18018 |
-| **Öffnungszeiten** | Montag - Freitag, 08:00 - 18:00 Uhr |
+| **E-Mail** | it-support@tum.de |
+| **Telefon** | +49.89.289.17123 |
+| **Website** | [www.it.tum.de](https://www.it.tum.de) |
+| **Adresse** | Arcisstr. 21, 80333 München |
 :::
 
 ### Support-Anfrageprozess
@@ -27,7 +28,7 @@ flowchart TB
     Issue["Problem identifiziert"]
     Issue --> Self["Self-Service prüfen"]
     Self --> |Gelöst| Done["Problem gelöst"]
-    Self --> |Nicht gelöst| Contact["Helpdesk kontaktieren"]
+    Self --> |Nicht gelöst| Contact["IT-Servicezentrum kontaktieren"]
 
     Contact --> Email["E-Mail-Anfrage"]
     Contact --> Phone["Telefonanruf"]
@@ -44,7 +45,7 @@ flowchart TB
 
 | Information | Beschreibung | Beispiel |
 |-------------|--------------|----------|
-| **Betreff** | Klarer, spezifischer Titel | "VM startet nicht - lehrstuhl-web-01" |
+| **Betreff** | Klarer, spezifischer Titel | "Server nicht erreichbar - abt-web-01" |
 | **Beschreibung** | Detaillierte Problembeschreibung | Was passiert ist, wann, was Sie versucht haben |
 | **System** | Betroffenes System/Dienst | Servername, Dienstname |
 | **Fehlermeldungen** | Exakter Fehlertext | Kopieren/Einfügen oder Screenshot |
@@ -65,7 +66,7 @@ flowchart TB
 
 ### Überblick
 
-Die ITO bietet Beratungsdienste für Administratoren, besonders wertvoll für:
+Das IT-Servicezentrum bietet Beratungsdienste für Administratoren, besonders wertvoll für:
 
 - Neue Administratoren beim Einstieg
 - Planung von Infrastrukturänderungen
@@ -77,13 +78,13 @@ Die ITO bietet Beratungsdienste für Administratoren, besonders wertvoll für:
 ```{mermaid}
 %%| fig-cap: "Verfügbare Beratungsdienste"
 mindmap
-    root((ITO Beratung))
+    root((IT-Beratung))
         Einarbeitung
             Systemeinführung
             Tool-Schulung
             Service-Überblick
         Infrastruktur
-            VM-Planung
+            Server-Planung
             Speicherdesign
             Netzwerkarchitektur
         Integration
@@ -98,115 +99,69 @@ mindmap
 
 ### Beratung beantragen
 
-1. **E-Mail**: support@ito.cit.tum.de
+1. **E-Mail**: it-support@tum.de
 2. **Betreff**: Beratungsanfrage - [Thema]
 3. **Angeben**:
-   - Ihre Rolle und Lehrstuhl/Büro
+   - Ihre Rolle und Abteilung
    - Beratungsthema
    - Bevorzugter Zeitrahmen
    - Spezifische Fragen
-4. **Terminierung**: ITO vereinbart einen Gesprächstermin
+4. **Terminierung**: IT-Servicezentrum vereinbart einen Gesprächstermin
 
 ## Self-Service-Ressourcen
 
-### StrukturDB
+### TUMonline
 
 Das primäre Self-Service-Tool für Administratoren:
 
 | Funktion | Beschreibung |
 |----------|--------------|
-| **Benutzerverwaltung** | Benutzerkonten erstellen/ändern |
+| **Benutzerverwaltung** | Benutzerkonten und Gruppen verwalten |
+| **Funktionsobjekte** | Gemeinsame Postfächer, Kalender erstellen |
 | **Gruppenverwaltung** | Gruppen erstellen und verwalten |
-| **Host-Registrierung** | Geräte und Server registrieren |
-| **DNS/DHCP** | Netzwerkeinträge konfigurieren |
+| **Mailinglisten** | Verteilerlisten einrichten |
 
-**Zugang**: [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/)
+**Zugang**: [campus.tum.de](https://campus.tum.de)
 
-### Benutzerwiki
+### TUM Wiki
 
-Die ITO pflegt ein umfassendes Dokumentationswiki:
+Die TUM pflegt umfassende Dokumentation:
 
 - Detaillierte Service-Dokumentation
 - Schritt-für-Schritt-Anleitungen
 - Best Practices
 - FAQs und Fehlerbehebung
 
-### Web-Interface für VMs
+### LRZ-Dokumentation
 
-Administratoren können virtuelle Maschinen verwalten über:
+Das LRZ bietet technische Dokumentation unter [doku.lrz.de](https://doku.lrz.de):
 
-- VMs starten/stoppen/neustarten
-- Remote-Konsole aufrufen
-- Ressourcennutzung anzeigen
-- Snapshots beantragen
+- Server- und Cloud-Service-Anleitungen
+- Netzwerkdokumentation
+- Client-Management-Ressourcen
+- Speicher- und Backup-Dokumentation
 
 ## Schulung und Einarbeitung
 
 ### Einarbeitung neuer Administratoren
 
-Die ITO bietet Einarbeitung für neue Administratoren mit:
+Das IT-Servicezentrum bietet Einarbeitung für neue Administratoren mit:
 
-1. **ITO-Überblick**: Dienste und Organisation
-2. **StrukturDB-Schulung**: Hands-on Tool-Training
+1. **TUM IT-Überblick**: Dienste und Organisation
+2. **TUMonline-Schulung**: Hands-on Tool-Training
 3. **Service-Zugang**: Nutzung verschiedener Dienste
 4. **Best Practices**: Empfehlungen und Richtlinien
 5. **Fragen & Antworten**: Spezifische Fragen klären
 
 ### Einarbeitung planen
 
-Kontaktieren Sie support@ito.cit.tum.de um zu planen:
+Kontaktieren Sie it-support@tum.de um zu planen:
 
 - Individuelle Einarbeitungssitzung
 - Gruppenschulung für mehrere neue Admins
 - Auffrischungsschulung zu spezifischen Themen
 
-## Verwandte Dienste an der TUM
-
-### IT-Servicezentrum (ITSZ)
-
-Die zentrale TUM-IT-Organisation bietet universitätsweite Dienste:
-
-```{mermaid}
-%%| fig-cap: "IT-Servicezentrum Dienste"
-mindmap
-    root((IT-Servicezentrum))
-        Identität
-            TUM-Account
-            TUMCard
-            GuestCard
-        Kommunikation
-            E-Mail
-            Exchange
-            Kollaborationstools
-        Infrastruktur
-            Netzwerk
-            WLAN
-            VPN
-        Anwendungen
-            TUMonline
-            Moodle
-            SAP
-```
-
-| Dienst | Beschreibung |
-|--------|--------------|
-| **TUM-Account** | Zentrale Universitätsidentität |
-| **TUM E-Mail** | Universitäts-E-Mail-Konten |
-| **TUMonline** | Campus-Management-System |
-| **Identitätsmanagement** | Zentrale TUM-ID |
-| **Moodle** | Lernmanagementsystem |
-| **Allgemeiner Support** | Universitätsweiter IT-Support |
-
-::: {.callout-tip}
-## IT-Servicezentrum Kontakt
-| | |
-|---|---|
-| **Telefon** | +49.89.289.17123 |
-| **E-Mail** | it-support@tum.de |
-| **Website** | www.it.tum.de |
-:::
-
-### Leibniz-Rechenzentrum (LRZ)
+## Leibniz-Rechenzentrum (LRZ)
 
 Für Hochleistungsrechnen und fortgeschrittene Infrastrukturbedürfnisse:
 
@@ -219,7 +174,7 @@ Für Hochleistungsrechnen und fortgeschrittene Infrastrukturbedürfnisse:
 | **Cloud-Dienste** | LRZ Compute Cloud |
 | **Server-Hosting** | Gemanagte virtuelle/physische Server |
 
-### TUM IT-Governance-Struktur
+## TUM IT-Governance-Struktur
 
 Die TUM-IT-Organisation verstehen:
 
@@ -229,10 +184,12 @@ flowchart TB
     CIO["CIO"]
     CIO --> IMB["Information Management Board"]
     CIO --> DXO["Digital Transformation Office"]
-    CIO --> ITSZ["IT-Servicezentrum"]
+    CIO --> ITSZ["IT-Servicezentrum (ITSZ)"]
 
     ITSZ --> Schools["School IT-Betrieb"]
-    Schools --> ITO["ITO (School of CIT)"]
+    Schools --> Admins["Abteilungs-IT-Administratoren"]
+
+    LRZ["LRZ"] --> |stellt Infrastruktur bereit| ITSZ
 ```
 
 | Gremium | Aufgabe |
@@ -240,9 +197,9 @@ flowchart TB
 | **CIO** | Chief Information Officer |
 | **Information Management Board** | Strategische IT-Entscheidungen |
 | **Digital Transformation Office (DXO)** | Digitale Transformationsinitiativen |
-| **IT-Servicezentrum** | Zentraler IT-Betrieb |
+| **IT-Servicezentrum (ITSZ)** | Zentraler IT-Betrieb |
 
-### IT-Sicherheit an der TUM
+## IT-Sicherheit an der TUM
 
 Die TUM bietet umfassende IT-Sicherheitsressourcen:
 
@@ -267,31 +224,31 @@ Sicherheitsressourcen für Administratoren:
 
 Bei sicherheitsrelevanten Notfällen:
 
-1. **Sofort kontaktieren**: ITO Helpdesk
+1. **Sofort kontaktieren**: IT-Servicezentrum (it-support@tum.de)
 2. **Dokumentieren**: Was passiert ist und wann
 3. **Isolieren**: Wenn möglich, betroffene Systeme trennen
 4. **Bewahren**: Logs oder Beweise nicht löschen
 
 ### Dienstausfälle
 
-Bei kritischen Dienstausfällen außerhalb der Geschäftszeiten:
+Bei kritischen Dienstausfällen:
 
-- ITO-Statusseite prüfen (falls verfügbar)
-- E-Mail an support@ito.cit.tum.de mit DRINGEND im Betreff
-- Nachricht auf Helpdesk-Anrufbeantworter hinterlassen
+- E-Mail an it-support@tum.de mit DRINGEND im Betreff
+- Anrufen: +49.89.289.17123
+- [www.it.tum.de](https://www.it.tum.de) auf Statusupdates prüfen
 
 ## Feedback und Vorschläge
 
 ### Feedback geben
 
-Die ITO freut sich über Feedback zu:
+Das IT-Servicezentrum freut sich über Feedback zu:
 
 - Servicequalität
 - Dokumentationsverbesserungen
 - Neue Service-Anfragen
 - Prozessverbesserungen
 
-**Einreichen**: E-Mail an support@ito.cit.tum.de mit Betreff "Feedback"
+**Einreichen**: E-Mail an it-support@tum.de mit Betreff "Feedback"
 
 ## Kurzreferenzkarte
 
@@ -299,20 +256,14 @@ Die ITO freut sich über Feedback zu:
 
 | Zweck | Kontakt |
 |-------|---------|
-| **Allgemeiner Support** | support@ito.cit.tum.de |
-| **Telefon** | +49 (89) 289 - 18018 |
-| **Beratung** | support@ito.cit.tum.de |
+| **Allgemeiner Support** | it-support@tum.de |
+| **Telefon** | +49.89.289.17123 |
+| **Website** | [www.it.tum.de](https://www.it.tum.de) |
 
 ### Wichtige Links
 
 | Ressource | URL |
 |-----------|-----|
-| **StrukturDB** | rbgwebapp.in.tum.de/struktur |
-| **ITO Website** | www.cit.tum.de/ito |
-
-### Geschäftszeiten
-
-| Tag | Zeiten |
-|-----|--------|
-| **Montag - Freitag** | 08:00 - 18:00 Uhr |
-| **Samstag - Sonntag** | Geschlossen |
+| **TUM IT für Admins** | [www.it.tum.de/it/admins/](https://www.it.tum.de/it/admins/) |
+| **TUMonline** | [campus.tum.de](https://campus.tum.de) |
+| **LRZ-Dokumentation** | [doku.lrz.de](https://doku.lrz.de) |

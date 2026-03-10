@@ -1,98 +1,89 @@
 # User and Host Management
 
-## StrukturDB Overview
+## TUMonline Overview
 
-The **StrukturDB** is the central administrative platform for managing users, hosts, and infrastructure within ITO. It provides a comprehensive interface for EDV-Betreuer and Lehrstuhladmins to manage their chair's IT resources.
+**TUMonline** is TUM's central campus management system and the primary platform for managing users, groups, and organizational data. It provides a comprehensive interface for IT administrators to manage their department's IT resources.
 
 ### Access Information
 
 | Property | Value |
 |----------|-------|
-| **URL** | [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/) |
-| **Access** | Restricted to authorized administrators |
-| **Documentation** | ITO Benutzerwiki |
+| **URL** | [campus.tum.de](https://campus.tum.de) |
+| **Access** | Role-based permissions for authorized administrators |
+| **Documentation** | TUM Wiki, LRZ Documentation |
 
 ## Core Functions
 
 ```{mermaid}
-%%| fig-cap: "StrukturDB Core Functions"
+%%| fig-cap: "TUMonline Core Functions for IT Admins"
 mindmap
-    root((StrukturDB))
+    root((TUMonline))
         User Management
-            New User Requests
-            Account Modifications
+            Account Administration
             Access Permissions
-            Account Deactivation
+            Identity Management
         Group Management
-            Create Groups
-            Manage Members
-            LDAP Groups
+            Organizational Groups
+            Mailing Lists
             Permission Sets
-        Host Management
-            Register Devices
-            Network Configuration
-            Device Inventory
-        Infrastructure
-            Laptops
-            Desktops
-            Printers
-            Servers
+        Function Objects
+            Shared Mailboxes
+            Group Calendars
+            Service Addresses
+        Integration
+            LDAP Directory
+            Active Directory
+            Exchange
 ```
 
 ## User Management
 
-### Requesting New Users
+### User Account Lifecycle
 
 ```{mermaid}
-%%| fig-cap: "New User Request Process"
+%%| fig-cap: "User Account Lifecycle"
 sequenceDiagram
     participant Admin as Administrator
-    participant SDB as StrukturDB
-    participant LDAP as LDAP Directory
+    participant TUMo as TUMonline
+    participant LDAP as TUM LDAP / AD
     participant User as New User
 
-    Admin->>SDB: Submit new user request
-    SDB->>SDB: Validate request
-    SDB->>LDAP: Create user account
-    LDAP-->>SDB: Confirmation
-    SDB-->>Admin: Account created notification
-    Admin->>User: Communicate credentials
-    User->>LDAP: First login
+    Admin->>TUMo: Manage user account
+    TUMo->>TUMo: Process changes
+    TUMo->>LDAP: Synchronize identity
+    LDAP-->>TUMo: Confirmation
+    TUMo-->>Admin: Account updated
+    Admin->>User: Communicate access details
+    User->>LDAP: Login with TUM credentials
 ```
 
-To request a new user account:
+User management tasks include:
 
-1. Log in to StrukturDB
-2. Navigate to User Management section
-3. Fill in required user information:
-   - Full name
-   - Email address
-   - Chair/Department affiliation
-   - Required access level
-4. Submit the request
-5. System processes and creates the account
-6. Notify the user of their new credentials
+1. Managing user accounts and permissions via TUMonline
+2. Assigning users to organizational groups
+3. Configuring access levels for departmental resources
+4. Handling account changes when users join or leave
 
 ### Managing User Groups
 
-Groups in StrukturDB serve multiple purposes:
+Groups in TUMonline serve multiple purposes:
 
 | Group Type | Purpose | Example Use |
 |------------|---------|-------------|
+| **Organizational Groups** | Map organizational structure | Department members |
 | **Access Groups** | Control resource access | Printer access, file shares |
-| **Project Groups** | Organize project teams | Research project members |
+| **Mailing Lists** | Email distribution | Department announcements |
 | **LDAP Groups** | Directory integration | Authentication and authorization |
-| **Distribution Groups** | Email distribution | Mailing lists |
 
 #### Creating Groups
 
-1. Navigate to Group Management in StrukturDB
+1. Navigate to Group Management in TUMonline
 2. Select "Create New Group"
 3. Define group properties:
    - Group name (following naming conventions)
    - Description
    - Initial members
-   - Group type (LDAP, distribution, etc.)
+   - Group type
 4. Save and activate the group
 
 ### LDAP Integration
@@ -100,25 +91,25 @@ Groups in StrukturDB serve multiple purposes:
 ```{mermaid}
 %%| fig-cap: "LDAP Integration Flow"
 flowchart LR
-    SDB["StrukturDB"]
-    SDB --> |sync| LDAP["LDAP Directory"]
+    TUMo["TUMonline"]
+    TUMo --> |sync| LDAP["TUM Central LDAP"]
     LDAP --> Auth["Authentication<br/>Services"]
     LDAP --> NAS["NAS Access<br/>Control"]
-    LDAP --> VM["VM Access<br/>Control"]
+    LDAP --> AD["Active<br/>Directory"]
     LDAP --> Mail["Mail<br/>Services"]
 ```
 
-LDAP groups created through StrukturDB are automatically:
+Groups and users managed through TUMonline are automatically:
 
-- Synchronized with the central LDAP directory
-- Available for authentication across ITO services
-- Used for access control on NAS, VMs, and other resources
+- Synchronized with the central TUM LDAP directory
+- Available for authentication across TUM IT services
+- Used for access control on storage, servers, and other resources
 
 ## Host Management
 
 ### Registering Devices
 
-Administrators can register and track infrastructure through StrukturDB:
+Administrators manage device registration for network access:
 
 ```{mermaid}
 %%| fig-cap: "Device Registration Workflow"
@@ -126,13 +117,13 @@ flowchart TB
     subgraph Registration["Device Registration"]
         Device["New Device"]
         Device --> Info["Collect Information"]
-        Info --> |MAC Address<br/>Device Type<br/>Location| SDB["StrukturDB Entry"]
+        Info --> |MAC Address<br/>Device Type<br/>Location| Register["Network Registration"]
     end
 
-    subgraph Configuration["Automatic Configuration"]
-        SDB --> DNS["DNS Entry"]
-        SDB --> DHCP["DHCP Reservation"]
-        SDB --> Inventory["Inventory Record"]
+    subgraph Configuration["Network Configuration"]
+        Register --> DNS["DNS Entry"]
+        Register --> DHCP["DHCP Reservation"]
+        Register --> Inventory["Inventory Record"]
     end
 ```
 
@@ -143,12 +134,12 @@ flowchart TB
 | **Hostname** | Unique device name | `ws-mueller-01` |
 | **MAC Address** | Network interface ID | `00:1A:2B:3C:4D:5E` |
 | **Device Type** | Category | Laptop, Desktop, Printer, Server |
-| **Location** | Physical location | Room 01.234, Building MI |
+| **Location** | Physical location | Room 01.234, Building |
 | **Responsible Person** | Primary user/contact | Prof. Dr. Schmidt |
 
 ### Infrastructure Inventory
 
-StrukturDB maintains a complete inventory of:
+Administrators should maintain a complete inventory of:
 
 - **Laptops**: Mobile workstations assigned to users
 - **Desktops**: Fixed workstations in offices and labs
@@ -203,7 +194,7 @@ Automated mailing list management options:
 
 | Method | Description |
 |--------|-------------|
-| **TUMonline Groups** | Lists based on organizational groups |
+| **TUMonline Groups** | Lists based on organizational groups (auto-updated) |
 | **Manual Lists** | Traditional managed lists |
 | **Dynamic Lists** | Auto-updated based on criteria |
 
@@ -214,18 +205,18 @@ Use TUMonline-based mailing lists to avoid manual maintenance. Lists update auto
 
 ### Shared Mailboxes and Calendars
 
-Create team collaboration spaces via TUMonline Function Objects:
+Create team collaboration spaces via TUMonline Function Objects (Funktionsobjekte):
 
 | Feature | Description |
 |---------|-------------|
-| **Shared Mailboxes** | Team email addresses (e.g., info@chair.tum.de) |
+| **Shared Mailboxes** | Team email addresses (e.g., info@department.tum.de) |
 | **Group Calendars** | Shared scheduling |
 | **Management** | Via TUMonline Function Objects |
 
-### Mailing Lists vs Shared Folders Comparison
+### Mailing Lists vs Shared Mailboxes Comparison
 
-| Feature | Mailing List | Shared Folder |
-|---------|--------------|---------------|
+| Feature | Mailing List | Shared Mailbox |
+|---------|--------------|----------------|
 | **Receive emails** | All members | All members |
 | **Send as shared address** | No | Yes |
 | **Shared inbox** | No | Yes |
@@ -254,7 +245,7 @@ flowchart TB
     Functions --> Shared["Shared Mailboxes"]
 ```
 
-### Function Objects
+### Function Objects (Funktionsobjekte)
 
 TUMonline Function Objects enable creation of:
 

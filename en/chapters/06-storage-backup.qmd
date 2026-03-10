@@ -1,29 +1,29 @@
 # Storage and Backup Services
 
-## NAS Fileserver Services
+## LRZ Online Storage (NAS)
 
 ### Overview
 
-ITO provides Network Attached Storage (NAS) fileservers for chairs and service offices. These centrally managed storage systems offer secure, accessible, and backed-up file storage.
+The Leibniz Supercomputing Centre (LRZ) provides central Online Storage (NAS) for all TUM members. Every TUM member automatically receives personal storage space. Additionally, organizational units can request project storage for collaborative work.
 
 ```{mermaid}
 %%| fig-cap: "NAS Service Architecture"
 flowchart TB
     subgraph Clients["Client Access"]
         Win["Windows<br/>(SMB)"]
-        Linux["Linux<br/>(NFSv3)"]
-        Mac["macOS<br/>(SMB/NFSv3)"]
+        Linux["Linux<br/>(NFS)"]
+        Mac["macOS<br/>(SMB/NFS)"]
     end
 
     subgraph Access["Access Methods"]
-        LAN["Chair Network"]
+        LAN["MWN Network"]
         VPN["VPN Connection"]
     end
 
-    subgraph NAS["ITO NAS Infrastructure"]
+    subgraph NAS["LRZ NAS Infrastructure"]
         FS["Fileserver"]
-        LDAP["LDAP Authentication"]
-        Backup["IBM Spectrum Protect"]
+        LDAP["TUM LDAP Authentication"]
+        Backup["Backup Services"]
     end
 
     Win --> LAN
@@ -41,20 +41,25 @@ flowchart TB
     FS --> Backup
 ```
 
+### Storage Types
+
+| Type | Description | Provisioning |
+|------|-------------|-------------|
+| **Personal Storage** | Automatic for every TUM member | Automatic with TUM account |
+| **Project Storage** | For organizational units / teams | Request through IT Service Center |
+
 ### Storage Specifications
 
 | Specification | Value |
 |--------------|-------|
-| **Capacity** | Up to 10 TB per chair/service office |
-| **Protocols** | NFSv3, SMB (CIFS) |
-| **Access** | Chair network + VPN |
-| **Authentication** | ITO LDAP |
-| **Management** | Via StrukturDB |
-| **Backup** | Daily via IBM Spectrum Protect |
+| **Protocols** | NFS, SMB (CIFS) |
+| **Access** | MWN network + VPN |
+| **Authentication** | TUM Central LDAP |
+| **Backup** | Automatic via LRZ backup services |
 
 ### Access Protocols
 
-#### NFSv3 (Network File System)
+#### NFS (Network File System)
 
 | Aspect | Details |
 |--------|---------|
@@ -78,7 +83,7 @@ flowchart TB
 %%| fig-cap: "NAS Access Control Flow"
 flowchart LR
     User["User"]
-    User --> |authenticates| LDAP["ITO LDAP"]
+    User --> |authenticates| LDAP["TUM Central LDAP"]
     LDAP --> |verifies| Groups["User Groups"]
     Groups --> |determines| Access["Access Permissions"]
     Access --> |grants/denies| NAS["NAS Shares"]
@@ -86,62 +91,61 @@ flowchart LR
 
 User and group management for NAS access:
 
-- **Users**: Managed through ITO LDAP
-- **Groups**: Created and managed via StrukturDB
+- **Users**: Managed through TUM Central LDAP
+- **Groups**: Created and managed via TUMonline
 - **Permissions**: Set by administrators per share/directory
 
-### Requesting NAS Services
+### Requesting NAS Storage
 
-To request NAS storage for your chair or service office:
+To request project storage for your organizational unit:
 
-1. **Contact ITO**: Email support@ito.cit.tum.de
-2. **Schedule Consultation**: ITO will arrange a personal consultation
-3. **Define Requirements**:
+1. **Contact IT Service Center**: Email it-support@tum.de
+2. **Define Requirements**:
    - Expected storage capacity
    - Number of users
    - Access patterns
    - Security requirements
-4. **Provisioning**: ITO sets up the fileserver
-5. **Configuration**: Administrator configures user access via StrukturDB
+3. **Provisioning**: LRZ sets up the storage
+4. **Configuration**: Administrator configures user access
 
 ::: {.callout-tip}
 ## Consultation Available
-ITO offers personalized consultation for designing your fileserver setup. Contact support@ito.cit.tum.de to schedule a meeting.
+The IT Service Center offers consultation for designing your storage setup. Contact it-support@tum.de for assistance.
 :::
 
 ## Backup Services
 
-### IBM Spectrum Protect
+### LRZ Backup
 
-All NAS data is protected using **IBM Spectrum Protect** (formerly Tivoli Storage Manager):
+All NAS data is protected by LRZ backup services:
 
 ```{mermaid}
 %%| fig-cap: "Backup Architecture"
 flowchart TB
     subgraph Source["Source Data"]
-        NAS["NAS Fileserver"]
+        NAS["NAS Storage"]
     end
 
-    subgraph Backup["IBM Spectrum Protect"]
+    subgraph Backup["LRZ Backup Infrastructure"]
         Agent["Backup Agent"]
         Server["Backup Server"]
-        Tape["Tape Storage"]
+        Storage["Backup Storage"]
     end
 
-    NAS --> |daily backup| Agent
+    NAS --> |automatic backup| Agent
     Agent --> Server
-    Server --> Tape
+    Server --> Storage
 ```
 
 ### Backup Features
 
 | Feature | Description |
 |---------|-------------|
-| **Frequency** | Daily backups |
+| **Frequency** | Regular automatic backups |
 | **Type** | Incremental (only changed files) |
 | **Retention** | Multiple recovery points |
 | **Verification** | Automatic integrity checks |
-| **Storage** | Secure, offsite-capable storage |
+| **Storage** | Secure LRZ infrastructure |
 
 ### Data Restoration
 
@@ -158,23 +162,23 @@ flowchart TB
 %%| fig-cap: "Data Restoration Process"
 sequenceDiagram
     participant Admin as Administrator
-    participant ITO as ITO Support
-    participant Backup as IBM Spectrum Protect
+    participant ITSZ as IT Service Center
+    participant Backup as LRZ Backup
 
-    Admin->>ITO: Restoration Request<br/>(via email)
-    Note over Admin,ITO: Include: Path, Date, Description
+    Admin->>ITSZ: Restoration Request<br/>(via email)
+    Note over Admin,ITSZ: Include: Path, Date, Description
 
-    ITO->>Backup: Locate backup version
-    Backup-->>ITO: Identify available snapshots
-    ITO->>Backup: Initiate restoration
-    Backup-->>ITO: Restoration complete
-    ITO-->>Admin: Notification + location
+    ITSZ->>Backup: Locate backup version
+    Backup-->>ITSZ: Identify available snapshots
+    ITSZ->>Backup: Initiate restoration
+    Backup-->>ITSZ: Restoration complete
+    ITSZ-->>Admin: Notification + location
 ```
 
 #### Requesting Data Restoration
 
-1. **Email**: support@ito.cit.tum.de
-2. **Subject**: Data Restoration Request - [Chair Name]
+1. **Email**: it-support@tum.de
+2. **Subject**: Data Restoration Request - [Department Name]
 3. **Include**:
    - Full path to the file(s) or directory
    - Target date (which backup to restore from)
@@ -183,15 +187,15 @@ sequenceDiagram
 
 ::: {.callout-important}
 ## Act Quickly
-Request restoration as soon as possible. While ITO maintains multiple recovery points, earlier contact ensures best restoration options.
+Request restoration as soon as possible. While LRZ maintains multiple recovery points, earlier contact ensures best restoration options.
 :::
 
 ### Required Information for Restoration
 
 | Information | Description | Example |
 |-------------|-------------|---------|
-| **Path** | Full file/directory path | `/nas/chair1/projects/data.csv` |
-| **Date** | Backup date to restore from | `2024-01-15` |
+| **Path** | Full file/directory path | `/nas/department/projects/data.csv` |
+| **Date** | Backup date to restore from | `2025-01-15` |
 | **Type** | File or directory | Directory with all contents |
 | **Urgency** | Priority level | Standard / Urgent |
 
@@ -202,7 +206,7 @@ Request restoration as soon as possible. While ITO maintains multiple recovery p
 ```{mermaid}
 %%| fig-cap: "Recommended Folder Structure"
 flowchart TB
-    Root["Chair NAS Root"]
+    Root["Department NAS Root"]
     Root --> Projects["Projects/"]
     Root --> Users["Users/"]
     Root --> Shared["Shared/"]
@@ -250,8 +254,7 @@ Administrators should regularly monitor:
 
 | Aspect | Details |
 |--------|---------|
-| **Default Limit** | Up to 10 TB per chair |
-| **Expansion** | Contact ITO for additional needs |
+| **Expansion** | Contact IT Service Center for additional needs |
 | **Monitoring** | Regular usage reports available |
 | **Alerts** | Notification before quota exceeded |
 
@@ -259,7 +262,8 @@ Administrators should regularly monitor:
 
 | Service | Description | Contact |
 |---------|-------------|---------|
-| **NAS Setup** | New fileserver provisioning | support@ito.cit.tum.de |
-| **Access Management** | User/group permissions | StrukturDB |
-| **Data Restoration** | Backup recovery | support@ito.cit.tum.de |
-| **Quota Increase** | Additional storage | support@ito.cit.tum.de |
+| **Personal Storage** | Automatic for TUM members | Automatic |
+| **Project Storage** | For organizational units | it-support@tum.de |
+| **Access Management** | User/group permissions | TUMonline |
+| **Data Restoration** | Backup recovery | it-support@tum.de |
+| **Quota Increase** | Additional storage | it-support@tum.de |

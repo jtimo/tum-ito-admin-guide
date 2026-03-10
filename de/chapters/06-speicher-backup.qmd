@@ -4,30 +4,30 @@ lang: de
 
 # Speicher- und Backup-Dienste
 
-## NAS-Fileserver-Dienste
+## LRZ Online-Speicher (NAS)
 
 ### Überblick
 
-Die ITO stellt Lehrstühlen und Servicebüros Network Attached Storage (NAS) Fileserver zur Verfügung. Diese zentral verwalteten Speichersysteme bieten sicheren, zugänglichen und gesicherten Dateispeicher.
+Das Leibniz-Rechenzentrum (LRZ) stellt zentralen Online-Speicher (NAS) für alle TUM-Mitglieder bereit. Jedes TUM-Mitglied erhält automatisch persönlichen Speicherplatz. Zusätzlich können Organisationseinheiten Projektspeicher für gemeinsame Arbeit beantragen.
 
 ```{mermaid}
 %%| fig-cap: "NAS-Service-Architektur"
 flowchart TB
     subgraph Clients["Client-Zugriff"]
         Win["Windows<br/>(SMB)"]
-        Linux["Linux<br/>(NFSv3)"]
-        Mac["macOS<br/>(SMB/NFSv3)"]
+        Linux["Linux<br/>(NFS)"]
+        Mac["macOS<br/>(SMB/NFS)"]
     end
 
     subgraph Access["Zugriffsmethoden"]
-        LAN["Lehrstuhl-Netzwerk"]
+        LAN["MWN-Netzwerk"]
         VPN["VPN-Verbindung"]
     end
 
-    subgraph NAS["ITO NAS-Infrastruktur"]
+    subgraph NAS["LRZ NAS-Infrastruktur"]
         FS["Fileserver"]
-        LDAP["LDAP-Authentifizierung"]
-        Backup["IBM Spectrum Protect"]
+        LDAP["TUM LDAP-Authentifizierung"]
+        Backup["Backup-Dienste"]
     end
 
     Win --> LAN
@@ -45,20 +45,25 @@ flowchart TB
     FS --> Backup
 ```
 
+### Speichertypen
+
+| Typ | Beschreibung | Bereitstellung |
+|-----|--------------|----------------|
+| **Persönlicher Speicher** | Automatisch für jedes TUM-Mitglied | Automatisch mit TUM-Account |
+| **Projektspeicher** | Für Organisationseinheiten / Teams | Auf Antrag über IT-Servicezentrum |
+
 ### Speicherspezifikationen
 
 | Spezifikation | Wert |
 |---------------|------|
-| **Kapazität** | Bis zu 10 TB pro Lehrstuhl/Servicebüro |
-| **Protokolle** | NFSv3, SMB (CIFS) |
-| **Zugriff** | Lehrstuhl-Netzwerk + VPN |
-| **Authentifizierung** | ITO LDAP |
-| **Verwaltung** | Über StrukturDB |
-| **Backup** | Täglich via IBM Spectrum Protect |
+| **Protokolle** | NFS, SMB (CIFS) |
+| **Zugriff** | MWN-Netzwerk + VPN |
+| **Authentifizierung** | Zentrales TUM LDAP |
+| **Backup** | Automatisch über LRZ Backup-Dienste |
 
 ### Zugriffsprotokolle
 
-#### NFSv3 (Network File System)
+#### NFS (Network File System)
 
 | Aspekt | Details |
 |--------|---------|
@@ -82,7 +87,7 @@ flowchart TB
 %%| fig-cap: "NAS-Zugriffskontrollfluss"
 flowchart LR
     User["Benutzer"]
-    User --> |authentifiziert| LDAP["ITO LDAP"]
+    User --> |authentifiziert| LDAP["Zentrales TUM LDAP"]
     LDAP --> |verifiziert| Groups["Benutzergruppen"]
     Groups --> |bestimmt| Access["Zugriffsberechtigungen"]
     Access --> |gewährt/verweigert| NAS["NAS-Freigaben"]
@@ -90,62 +95,61 @@ flowchart LR
 
 Benutzer- und Gruppenverwaltung für NAS-Zugriff:
 
-- **Benutzer**: Verwaltet über ITO LDAP
-- **Gruppen**: Erstellt und verwaltet über StrukturDB
+- **Benutzer**: Verwaltet über zentrales TUM LDAP
+- **Gruppen**: Erstellt und verwaltet über TUMonline
 - **Berechtigungen**: Von Administratoren pro Freigabe/Verzeichnis gesetzt
 
-### NAS-Dienste beantragen
+### NAS-Speicher beantragen
 
-Um NAS-Speicher für Ihren Lehrstuhl oder Ihr Servicebüro zu beantragen:
+Um Projektspeicher für Ihre Organisationseinheit zu beantragen:
 
-1. **ITO kontaktieren**: E-Mail an support@ito.cit.tum.de
-2. **Beratung vereinbaren**: ITO arrangiert ein persönliches Gespräch
-3. **Anforderungen definieren**:
+1. **IT-Servicezentrum kontaktieren**: E-Mail an it-support@tum.de
+2. **Anforderungen definieren**:
    - Erwartete Speicherkapazität
    - Benutzeranzahl
    - Zugriffsmuster
    - Sicherheitsanforderungen
-4. **Bereitstellung**: ITO richtet den Fileserver ein
-5. **Konfiguration**: Administrator konfiguriert Benutzerzugriff über StrukturDB
+3. **Bereitstellung**: LRZ richtet den Speicher ein
+4. **Konfiguration**: Administrator konfiguriert Benutzerzugriff
 
 ::: {.callout-tip}
 ## Beratung verfügbar
-Die ITO bietet persönliche Beratung zur Konzipierung Ihres Fileserver-Setups. Kontaktieren Sie support@ito.cit.tum.de für einen Termin.
+Das IT-Servicezentrum bietet Beratung zur Konzipierung Ihres Speicher-Setups. Kontaktieren Sie it-support@tum.de für Unterstützung.
 :::
 
 ## Backup-Dienste
 
-### IBM Spectrum Protect
+### LRZ Backup
 
-Alle NAS-Daten werden mit **IBM Spectrum Protect** (früher Tivoli Storage Manager) gesichert:
+Alle NAS-Daten werden durch LRZ Backup-Dienste geschützt:
 
 ```{mermaid}
 %%| fig-cap: "Backup-Architektur"
 flowchart TB
     subgraph Source["Quelldaten"]
-        NAS["NAS-Fileserver"]
+        NAS["NAS-Speicher"]
     end
 
-    subgraph Backup["IBM Spectrum Protect"]
+    subgraph Backup["LRZ Backup-Infrastruktur"]
         Agent["Backup-Agent"]
         Server["Backup-Server"]
-        Tape["Bandspeicher"]
+        Storage["Backup-Speicher"]
     end
 
-    NAS --> |tägliches Backup| Agent
+    NAS --> |automatisches Backup| Agent
     Agent --> Server
-    Server --> Tape
+    Server --> Storage
 ```
 
 ### Backup-Funktionen
 
 | Funktion | Beschreibung |
 |----------|--------------|
-| **Frequenz** | Tägliche Backups |
+| **Frequenz** | Regelmäßige automatische Backups |
 | **Typ** | Inkrementell (nur geänderte Dateien) |
 | **Aufbewahrung** | Mehrere Wiederherstellungspunkte |
 | **Verifizierung** | Automatische Integritätsprüfungen |
-| **Speicherung** | Sichere, offsite-fähige Speicherung |
+| **Speicherung** | Sichere LRZ-Infrastruktur |
 
 ### Datenwiederherstellung
 
@@ -162,23 +166,23 @@ flowchart TB
 %%| fig-cap: "Datenwiederherstellungsprozess"
 sequenceDiagram
     participant Admin as Administrator
-    participant ITO as ITO Support
-    participant Backup as IBM Spectrum Protect
+    participant ITSZ as IT-Servicezentrum
+    participant Backup as LRZ Backup
 
-    Admin->>ITO: Wiederherstellungsanfrage<br/>(per E-Mail)
-    Note over Admin,ITO: Enthält: Pfad, Datum, Beschreibung
+    Admin->>ITSZ: Wiederherstellungsanfrage<br/>(per E-Mail)
+    Note over Admin,ITSZ: Enthält: Pfad, Datum, Beschreibung
 
-    ITO->>Backup: Backup-Version suchen
-    Backup-->>ITO: Verfügbare Snapshots identifizieren
-    ITO->>Backup: Wiederherstellung starten
-    Backup-->>ITO: Wiederherstellung abgeschlossen
-    ITO-->>Admin: Benachrichtigung + Speicherort
+    ITSZ->>Backup: Backup-Version suchen
+    Backup-->>ITSZ: Verfügbare Snapshots identifizieren
+    ITSZ->>Backup: Wiederherstellung starten
+    Backup-->>ITSZ: Wiederherstellung abgeschlossen
+    ITSZ-->>Admin: Benachrichtigung + Speicherort
 ```
 
 #### Datenwiederherstellung beantragen
 
-1. **E-Mail**: support@ito.cit.tum.de
-2. **Betreff**: Datenwiederherstellungsanfrage - [Lehrstuhlname]
+1. **E-Mail**: it-support@tum.de
+2. **Betreff**: Datenwiederherstellungsanfrage - [Abteilungsname]
 3. **Angeben**:
    - Vollständiger Pfad zur Datei/zum Verzeichnis
    - Zieldatum (aus welchem Backup wiederherstellen)
@@ -187,15 +191,15 @@ sequenceDiagram
 
 ::: {.callout-important}
 ## Schnell handeln
-Beantragen Sie die Wiederherstellung so schnell wie möglich. Obwohl die ITO mehrere Wiederherstellungspunkte pflegt, gewährleistet frühere Kontaktaufnahme bessere Wiederherstellungsoptionen.
+Beantragen Sie die Wiederherstellung so schnell wie möglich. Obwohl LRZ mehrere Wiederherstellungspunkte pflegt, gewährleistet frühere Kontaktaufnahme bessere Wiederherstellungsoptionen.
 :::
 
 ### Erforderliche Informationen für Wiederherstellung
 
 | Information | Beschreibung | Beispiel |
 |-------------|--------------|----------|
-| **Pfad** | Vollständiger Datei-/Verzeichnispfad | `/nas/lehrstuhl1/projekte/daten.csv` |
-| **Datum** | Backup-Datum für Wiederherstellung | `2024-01-15` |
+| **Pfad** | Vollständiger Datei-/Verzeichnispfad | `/nas/abteilung/projekte/daten.csv` |
+| **Datum** | Backup-Datum für Wiederherstellung | `2025-01-15` |
 | **Typ** | Datei oder Verzeichnis | Verzeichnis mit gesamtem Inhalt |
 | **Dringlichkeit** | Prioritätsstufe | Standard / Dringend |
 
@@ -206,7 +210,7 @@ Beantragen Sie die Wiederherstellung so schnell wie möglich. Obwohl die ITO meh
 ```{mermaid}
 %%| fig-cap: "Empfohlene Ordnerstruktur"
 flowchart TB
-    Root["Lehrstuhl NAS Root"]
+    Root["Abteilung NAS Root"]
     Root --> Projects["Projekte/"]
     Root --> Users["Benutzer/"]
     Root --> Shared["Gemeinsam/"]
@@ -254,8 +258,7 @@ Administratoren sollten regelmäßig überwachen:
 
 | Aspekt | Details |
 |--------|---------|
-| **Standardlimit** | Bis zu 10 TB pro Lehrstuhl |
-| **Erweiterung** | ITO für zusätzlichen Bedarf kontaktieren |
+| **Erweiterung** | IT-Servicezentrum für zusätzlichen Bedarf kontaktieren |
 | **Monitoring** | Regelmäßige Nutzungsberichte verfügbar |
 | **Warnungen** | Benachrichtigung vor Quota-Überschreitung |
 
@@ -263,7 +266,8 @@ Administratoren sollten regelmäßig überwachen:
 
 | Dienst | Beschreibung | Kontakt |
 |--------|--------------|---------|
-| **NAS-Einrichtung** | Neue Fileserver-Bereitstellung | support@ito.cit.tum.de |
-| **Zugriffsverwaltung** | Benutzer-/Gruppenberechtigungen | StrukturDB |
-| **Datenwiederherstellung** | Backup-Wiederherstellung | support@ito.cit.tum.de |
-| **Quota-Erhöhung** | Zusätzlicher Speicher | support@ito.cit.tum.de |
+| **Persönlicher Speicher** | Automatisch für TUM-Mitglieder | Automatisch |
+| **Projektspeicher** | Für Organisationseinheiten | it-support@tum.de |
+| **Zugriffsverwaltung** | Benutzer-/Gruppenberechtigungen | TUMonline |
+| **Datenwiederherstellung** | Backup-Wiederherstellung | it-support@tum.de |
+| **Quota-Erhöhung** | Zusätzlicher Speicher | it-support@tum.de |

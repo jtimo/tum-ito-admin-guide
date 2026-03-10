@@ -2,134 +2,161 @@
 lang: de
 ---
 
-# ITO Organisation
+# TUM IT-Organisation
 
 ## Überblick
 
-Die **IT Operations (ITO)** ist der dedizierte IT-Dienstleister für die School of Computation, Information and Technology (CIT) an der Technischen Universität München (TUM). Die ITO ergänzt und erweitert die Angebote des zentralen IT-Servicezentrums (ITSZ) der TUM sowie des Leibniz-Rechenzentrums (LRZ) der Bayerischen Akademie der Wissenschaften.
+Die **Technische Universität München (TUM)** stellt umfassende IT-Dienste für alle Schools, Fakultäten und Organisationseinheiten durch zwei zentrale Anbieter bereit: das **IT-Servicezentrum (ITSZ)** und das **Leibniz-Rechenzentrum (LRZ)**. Gemeinsam liefern sie die zentrale IT-Infrastruktur und Dienste, die Forschung, Lehre und Verwaltung an der gesamten Universität unterstützen.
 
 ## Organisationsstruktur
 
 ```{mermaid}
-%%| fig-cap: "Organisatorische Einordnung der ITO"
+%%| fig-cap: "TUM IT-Organisationsstruktur"
 flowchart TB
-    TUM["Technische Universität München"]
-    TUM --> Schools["Schools & Departments"]
-    Schools --> CIT["School of Computation,<br/>Information and Technology"]
-    CIT --> ITO["ITO - IT Operations"]
+    CIO["CIO"]
+    CIO --> IMB["Information Management Board"]
+    CIO --> DXO["Digital Transformation Office"]
+    CIO --> ITSZ["IT-Servicezentrum (ITSZ)"]
 
-    subgraph External["Externe Partner"]
-        LRZ["Leibniz-Rechenzentrum<br/>(LRZ)"]
-        ITSZ["TUM IT-Servicezentrum<br/>(ITSZ)"]
+    ITSZ --> Schools["School IT-Betrieb"]
+
+    subgraph TUMSchools["TUM Schools & Fakultäten"]
+        Schools --> CIT["School of CIT"]
+        Schools --> ENG["School of Engineering"]
+        Schools --> NAT["School of Natural Sciences"]
+        Schools --> OTHER["Weitere Schools..."]
     end
 
-    ITO <--> |Zusammenarbeit| LRZ
-    ITO <--> |Zusammenarbeit| ITSZ
+    subgraph External["Infrastrukturpartner"]
+        LRZ["Leibniz-Rechenzentrum<br/>(LRZ)"]
+    end
+
+    ITSZ <--> |Zusammenarbeit| LRZ
 ```
 
-## Auftrag und Verantwortlichkeiten
+## IT-Governance
 
-Die ITO bietet spezialisierte und maßgeschneiderte IT-Dienste für:
+Die IT-Governance-Struktur der TUM gewährleistet strategische Ausrichtung und effiziente Diensterbringung:
 
-- **Studierende** der School of CIT
-- **Mitarbeitende** (Forschende, Lehrende und Personal)
-- **Systemadministratoren** (EDV-Betreuer und Lehrstuhladmins)
+| Gremium | Aufgabe |
+|---------|---------|
+| **CIO** | Chief Information Officer, strategische IT-Führung |
+| **Information Management Board** | Strategische IT-Entscheidungen und Priorisierung |
+| **Digital Transformation Office (DXO)** | Digitale Transformationsinitiativen |
+| **IT-Servicezentrum (ITSZ)** | Zentraler IT-Betrieb und Diensterbringung |
 
-### Kernfunktionen
+## Zentrale IT-Dienste
 
-| Funktion | Beschreibung |
-|----------|--------------|
-| **Infrastruktur** | Bereitstellung und Entwicklung leistungsfähiger IT-Infrastruktur |
-| **Individuelle Lösungen** | Entwicklung maßgeschneiderter IT-Services und Anwendungen |
-| **Prozessoptimierung** | Lösungen zur Effizienzsteigerung von Arbeitsprozessen |
-| **Internet-Dienste** | Verwaltung autonomer Systeme und mehrerer Domains |
-| **Self-Service-Portale** | Benutzerfreundliche Web-Portale zur einfachen Konfiguration |
-| **Medientechnik** | Unterstützung für Vorlesungsübertragungen, Streaming und Videokonferenzen |
-| **Beschaffung** | Konforme IT-Beschaffung im Rahmen von Rahmenverträgen |
-| **Support** | Zentraler Helpdesk für alle IT-Fragen |
-
-## Service-Portfolio
+Das IT-Servicezentrum und LRZ bieten ein breites Spektrum an Diensten für alle TUM-Mitglieder:
 
 ```{mermaid}
-%%| fig-cap: "ITO Service-Portfolio"
+%%| fig-cap: "TUM Zentrale IT-Dienste"
 mindmap
-    root((ITO Dienste))
-        Infrastruktur
-            Virtuelle Server
-            Colocation
-            Arbeitsplatzsysteme
-        Netzwerk
-            DNS-Verwaltung
-            DHCP-Dienste
+    root((TUM IT-Dienste))
+        E-Mail & Kollaboration
+            Exchange
+            Mailverteiler
+            Gemeinsame Postfächer
+        Netzwerk & Identität
+            MWN-Netzwerk
             VPN-Zugang
+            LDAP / Active Directory
+        Server-Infrastruktur
+            Virtuelle Server
+            Server Housing
+            Compute Cloud
         Speicher
-            NAS-Fileserver
-            Backup-Lösungen
-        Support
-            Helpdesk
-            Beratung
-            Schulung
-        Medien
-            Vorlesungsaufzeichnung
-            Video-Streaming
-            Konferenzen
-        Beschaffung
-            Hardware
-            Software
+            Online-Speicher NAS
+            Backup-Dienste
+        Client-Management
+            TUM-PC
+            MWN-MAC
+            Baramundi
+        Web-Dienste
+            Gemanagte Webserver
+            Domain-Verwaltung
+        Software & Lizenzen
+            Campuslizenzen
             Rahmenverträge
+        Zertifikate
+            Nutzerzertifikate
+            Serverzertifikate
 ```
 
 ## Wichtige Systeme und Werkzeuge
 
-### StrukturDB
+### TUMonline
 
-Die **StrukturDB** ist die zentrale Verwaltungsplattform für ITO-Administratoren:
+**TUMonline** ist das zentrale Campus-Management-System der TUM und die primäre Verwaltungsplattform:
 
-- **URL**: [https://rbgwebapp.in.tum.de/struktur/](https://rbgwebapp.in.tum.de/struktur/)
-- **Zweck**: Benutzerverwaltung, Host-Registrierung, Gruppenadministration
-- **Zugriff**: Beschränkt auf autorisierte EDV-Betreuer und Lehrstuhladmins
+- **URL**: [campus.tum.de](https://campus.tum.de)
+- **Zweck**: Benutzerverwaltung, Gruppenadministration, Identitätsmanagement, Funktionsobjekte
+- **Zugriff**: Verfügbar für alle TUM-Mitglieder mit rollenbasierten Berechtigungen
 
-### Self-Service Web-Portale
+### TUM Wiki
 
-Die ITO bietet benutzerfreundliche Self-Service-Portale für:
+Das **TUM Wiki** bietet Dokumentation und Anleitungen für IT-Dienste:
 
-- Einfache Nutzung von IT-Diensten
-- Konfiguration von Diensten ohne technischen Support
-- Eigenständige Verwaltung von Ressourcen
+- Service-Dokumentation und Tutorials
+- Schritt-für-Schritt-Konfigurationsanleitungen
+- Best Practices und FAQs
 
-## Beziehung zu anderen IT-Anbietern
+### LRZ-Dokumentation
 
-### TUM IT-Servicezentrum (ITSZ)
+Das **LRZ-Dokumentationsportal** ([doku.lrz.de](https://doku.lrz.de)) bietet technische Dokumentation für LRZ-verwaltete Dienste:
 
-Die ITO ergänzt ITSZ-Dienste mit CIT-spezifischen Angeboten. Das ITSZ bietet:
+- Server- und Cloud-Service-Dokumentation
+- Netzwerk- und Speicheranleitungen
+- Client-Management-Ressourcen
 
-- Universitätsweite E-Mail-Dienste
-- Zentrales Identitätsmanagement
-- Allgemeinen IT-Support für die TUM
+## IT-Servicezentrum (ITSZ)
 
-### Leibniz-Rechenzentrum (LRZ)
+Das IT-Servicezentrum ist die zentrale IT-Organisation der TUM mit universitätsweiten Diensten:
 
-Die ITO erweitert LRZ-Dienste für Forschungsbedürfnisse. Das LRZ bietet:
+- Universitätsweite E-Mail- und Kollaborationsdienste
+- Zentrales Identitätsmanagement (TUM-Accounts, LDAP, Active Directory)
+- Netzwerkinfrastruktur (MWN)
+- Allgemeiner IT-Support für alle TUM-Mitglieder
+- TUMonline-Administration
+- Domain- und Web-Dienste-Koordination
 
-- Hochleistungsrechnen (HPC)
-- Großspeichersysteme
-- Unterstützung für wissenschaftliches Rechnen
+### Kontakt
 
-## Medien- und Hörsaaltechnik
+| Kanal | Details |
+|-------|---------|
+| **Telefon** | +49.89.289.17123 |
+| **E-Mail** | it-support@tum.de |
+| **Website** | [www.it.tum.de](https://www.it.tum.de) |
+| **Adresse** | Arcisstr. 21, 80333 München |
 
-Die ITO unterstützt Veranstaltungen und Lehre durch:
+## Leibniz-Rechenzentrum (LRZ)
 
-- **Vorlesungsübertragungen**: Live-Streaming von Vorlesungen
-- **Aufzeichnungen**: Videoaufzeichnung und -archivierung
-- **Streaming-Dienste**: Video-on-Demand-Inhalte
-- **Videokonferenzen**: Unterstützung für Remote-Zusammenarbeit
-- **Großformatdruck**: Poster- und Präsentationsdruck
+Das LRZ stellt das technische Infrastruktur-Rückgrat für die TUM und die Münchner Wissenschaftsgemeinschaft bereit:
 
-## IT-Beschaffung
+- Hochleistungsrechenressourcen
+- Virtuelles und gemanagtes Server-Hosting
+- Online-Speicher (NAS) und Backup-Dienste
+- Münchner Wissenschaftsnetz (MWN) Betrieb
+- Client-Management-Dienste (TUM-PC, MWN-MAC)
+- Compute Cloud (IaaS)
+- Campus-Softwarelizenzen und Rahmenverträge
 
-Die ITO gewährleistet konforme Beschaffung durch:
+## Software- & Hardware-Beschaffung
 
-- Etablierte TUM-weite Rahmenverträge
-- Verwaltete Webshops für standardisierte Bestellungen
-- Unterstützung bei Hardware- und Software-Beschaffung
-- Lieferantenbeziehungsmanagement
+Die TUM gewährleistet konforme IT-Beschaffung durch:
+
+- **Rahmenverträge**: Vom LRZ ausgehandelte Verträge mit großen Herstellern
+- **Campuslizenzen**: Kostenlose oder vergünstigte Software für TUM-Mitglieder
+- **CIP/WAP-Koordination**: DFG-Förderprogramme für IT-Ausstattung (Computer-Investitionsprogramm, Workstation-Investitionsprogramm)
+
+## Entsorgung von Datenträgern
+
+Die TUM bietet sichere Entsorgungsdienste für Datenspeichermedien:
+
+- Festplatten, Magnetbänder, DVDs/CDs, USB-Sticks
+- Sichere Zerstörung zum Schutz sensibler Daten
+
+::: {.callout-important}
+## Datensicherheit
+Datenträger niemals über den normalen Müll entsorgen. Nutzen Sie den sicheren Entsorgungsdienst der TUM zum Schutz sensibler Daten.
+:::

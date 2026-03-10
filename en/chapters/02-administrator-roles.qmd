@@ -2,52 +2,50 @@
 
 ## Overview
 
-Each chair (Lehrstuhl) and service office (Servicebüro) at TUM CIT designates an IT administrator to liaise with ITO. These administrators serve as the primary contact points for IT-related matters within their organizational units.
+Each department, chair, and organizational unit at TUM designates IT administrators to manage local IT infrastructure and serve as the liaison with TUM's central IT services (IT Service Center and LRZ). These administrators are the primary contact points for IT-related matters within their organizational units.
 
 ## Administrator Types
 
 ```{mermaid}
 %%| fig-cap: "Administrator Hierarchy"
 flowchart TB
-    LI["Chair Holder<br/>(Lehrstuhlinhaber)"]
-    LI --> |appoints| EA["EDV-Betreuer<br/>(IT Supervisor)"]
-    LI --> |appoints| LA["Lehrstuhladmin<br/>(Chair Administrator)"]
+    LI["Department / Chair Head"]
+    LI --> |appoints| Admin["IT Administrator<br/>(EDV-Betreuer)"]
+    LI --> |appoints| TUMCoord["TUMonline Coordinator<br/>(TUMonline-Beauftragte)"]
 
-    EA --> |or existing admin appoints| NEW["New Administrators"]
-    LA --> |or existing admin appoints| NEW
+    Admin --> |manages| IT["Local IT Infrastructure"]
+    TUMCoord --> |manages| Users["User & Group Administration"]
 
-    subgraph Responsibilities["Shared Responsibilities"]
-        R1["User Management"]
-        R2["Infrastructure Management"]
-        R3["Service Configuration"]
-        R4["Support Coordination"]
+    subgraph Central["Central IT Partners"]
+        ITSZ["IT Service Center (ITSZ)"]
+        LRZ["LRZ"]
     end
 
-    EA --> Responsibilities
-    LA --> Responsibilities
+    Admin --> |coordinates with| Central
+    TUMCoord --> |coordinates with| Central
 ```
 
-### EDV-Betreuer (IT Supervisor)
+### IT Administrator (EDV-Betreuer)
 
-The **EDV-Betreuer** is the primary technical contact for IT matters:
+The **IT Administrator** is the primary technical contact for IT matters:
 
 | Aspect | Description |
 |--------|-------------|
-| **Appointment** | Designated by Chair Holder or existing EDV-Betreuer |
+| **Appointment** | Designated by department/chair head |
 | **Scope** | Technical infrastructure and systems management |
-| **Authority** | Full access to StrukturDB and administrative tools |
+| **Authority** | Access to TUMonline admin functions and LRZ services |
 | **Primary Role** | Day-to-day IT operations and user support |
 
-### Lehrstuhladmin (Chair Administrator)
+### TUMonline Coordinator (TUMonline-Beauftragte)
 
-The **Lehrstuhladmin** serves similar functions with focus on departmental needs:
+The **TUMonline Coordinator** manages users and groups through TUM's central platform:
 
 | Aspect | Description |
 |--------|-------------|
-| **Appointment** | Designated by Chair Holder or existing Lehrstuhladmin |
-| **Scope** | Chair-specific IT resource management |
-| **Authority** | Access to StrukturDB for chair resources |
-| **Primary Role** | User account management and resource allocation |
+| **Appointment** | Designated by department/chair head |
+| **Scope** | User account and group management via TUMonline |
+| **Authority** | Access to TUMonline keyuser areas |
+| **Primary Role** | User lifecycle management and access control |
 
 ## Key Responsibilities
 
@@ -58,43 +56,43 @@ The **Lehrstuhladmin** serves similar functions with focus on departmental needs
 flowchart LR
     Request["User Request"]
     Request --> Admin["Administrator<br/>Review"]
-    Admin --> StrukturDB["StrukturDB<br/>Processing"]
-    StrukturDB --> LDAP["LDAP<br/>Synchronization"]
+    Admin --> TUMonline["TUMonline<br/>Processing"]
+    TUMonline --> LDAP["LDAP / AD<br/>Synchronization"]
     LDAP --> Access["User<br/>Access Granted"]
 ```
 
 Administrators are responsible for:
 
-- **New User Requests**: Processing requests for new user accounts
+- **User Accounts**: Managing user accounts via TUMonline
 - **Group Management**: Creating and managing user groups
 - **Access Control**: Defining and maintaining access permissions
 - **Account Lifecycle**: Managing account creation, modification, and termination
 
 ### 2. Infrastructure Management
 
-Administrators manage chair infrastructure including:
+Administrators manage departmental infrastructure including:
 
 - **Workstations**: Laptops, desktops, and specialized equipment
 - **Printers**: Network printers and printing resources
-- **Servers**: Virtual machines and hosted hardware
+- **Servers**: Virtual machines via LRZ and hosted hardware
 - **Network Equipment**: Switches, access points, and network configuration
 
 ### 3. Service Configuration
 
 Configuration responsibilities include:
 
-- **DNS Entries**: Creating and managing DNS records via StrukturDB
-- **DHCP Entries**: Configuring static IP assignments
-- **VPN Access**: Setting up remote access for users
-- **Mail Services**: Managing mailing lists and shared folders
+- **Network Services**: Coordinating DNS, DHCP, and VLAN configuration with IT Service Center
+- **VPN Access**: Setting up remote access for users via MWN VPN
+- **Email Services**: Managing mailing lists and shared mailboxes via TUMonline
+- **Storage**: Coordinating NAS access with LRZ
 
 ### 4. Support Coordination
 
-Administrators serve as liaison between users and ITO:
+Administrators serve as liaison between users and central IT:
 
 - **First-Level Support**: Initial troubleshooting and issue resolution
-- **Escalation**: Forwarding complex issues to ITO helpdesk
-- **Communication**: Relaying ITO announcements and updates
+- **Escalation**: Forwarding complex issues to IT Service Center (it-support@tum.de)
+- **Communication**: Relaying IT announcements and updates
 - **Training**: Orienting users to available IT services
 
 ## Onboarding New Administrators
@@ -103,24 +101,24 @@ Administrators serve as liaison between users and ITO:
 
 New administrators should:
 
-1. **Contact ITO**: Schedule an introduction meeting
-2. **Access StrukturDB**: Obtain credentials and familiarize with the interface
-3. **Review Documentation**: Study the Benutzerwiki (user wiki)
+1. **Contact IT Service Center**: Schedule an introduction (it-support@tum.de)
+2. **Access TUMonline**: Obtain admin permissions and familiarize with the interface
+3. **Review Documentation**: Study the TUM Wiki and LRZ documentation
 4. **Meet Predecessors**: If possible, coordinate handover with previous administrators
 
 ### Consulting Services
 
-ITO offers consulting for new administrators:
+The IT Service Center offers consulting for new administrators:
 
 ::: {.callout-note}
 ## Consulting Appointment
-ITO gladly advises new EDV-Betreuer and Lehrstuhladmins on:
+The IT Service Center gladly advises new IT administrators on:
 
 - Infrastructure questions
 - System integration requirements
-- Introduction to ITO systems and offerings
+- Introduction to TUM IT services and tools
 
-**Contact**: support@ito.cit.tum.de to schedule an appointment
+**Contact**: it-support@tum.de to schedule an appointment
 :::
 
 ## Best Practices
@@ -147,13 +145,13 @@ ITO gladly advises new EDV-Betreuer and Lehrstuhladmins on:
 
 - Establish backup administrators for coverage
 - Document procedures for handover
-- Maintain up-to-date contact information with ITO
+- Maintain up-to-date contact information with IT Service Center
 
 ## Administrative Tools Access
 
 | Tool | Purpose | Access Method |
 |------|---------|---------------|
-| **StrukturDB** | User/Host management | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
-| **VM Web Interface** | Virtual machine control | Via ITO portal |
-| **Benutzerwiki** | Documentation | Internal wiki |
-| **ITO Helpdesk** | Support requests | support@ito.cit.tum.de |
+| **TUMonline** | User/group management | [campus.tum.de](https://campus.tum.de) |
+| **LRZ Documentation** | Service guides | [doku.lrz.de](https://doku.lrz.de) |
+| **TUM Wiki** | Documentation | [wiki.tum.de](https://wiki.tum.de) |
+| **IT Service Center** | Support requests | it-support@tum.de |

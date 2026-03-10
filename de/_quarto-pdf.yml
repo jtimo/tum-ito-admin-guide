@@ -3,9 +3,9 @@ project:
   output-dir: ../_pdf-de
 
 book:
-  title: "TUM ITO Administratorhandbuch"
+  title: "TUM IT Administratorhandbuch"
   subtitle: "Ein umfassendes Handbuch für IT-Administratoren an der Technischen Universität München"
-  author: "Basierend auf ITO - IT Operations (CIT) Dokumentation"
+  author: "Basierend auf TUM IT-Servicezentrum (ITSZ) & LRZ Dokumentation"
   date: today
   date-format: "D. MMMM YYYY"
   lang: de
@@ -39,6 +39,6 @@ format:
     header-includes: |
       \usepackage{fancyhdr}
       \pagestyle{fancy}
-      \fancyhead[L]{TUM ITO Administratorhandbuch}
+      \fancyhead[L]{TUM IT Administratorhandbuch}
       \fancyhead[R]{\thepage}
       \fancyfoot[C]{}

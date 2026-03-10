@@ -5,21 +5,23 @@ This chapter provides a quick reference card for common administrative tasks and
 ## Contact Information
 
 ::: {.callout-tip}
-## ITO Helpdesk
+## IT Service Center
 | | |
 |---|---|
-| **Email** | support@ito.cit.tum.de |
-| **Phone** | +49 (89) 289 - 18018 |
-| **Hours** | Mon-Fri 08:00 - 18:00 |
+| **Email** | it-support@tum.de |
+| **Phone** | +49.89.289.17123 |
+| **Website** | [www.it.tum.de](https://www.it.tum.de) |
+| **Address** | Arcisstr. 21, 80333 München |
 :::
 
 ## Essential URLs
 
 | Resource | URL |
 |----------|-----|
-| **StrukturDB** | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
-| **ITO Main Page** | [www.cit.tum.de/ito](https://www.cit.tum.de/ito) |
-| **For Administrators** | [www.cit.tum.de/ito/fuer-administrierende](https://www.cit.tum.de/ito/fuer-administrierende/) |
+| **TUM IT for Admins** | [www.it.tum.de/it/admins/](https://www.it.tum.de/it/admins/) |
+| **TUMonline** | [campus.tum.de](https://campus.tum.de) |
+| **LRZ Documentation** | [doku.lrz.de](https://doku.lrz.de) |
+| **TUM Wiki** | [wiki.tum.de](https://wiki.tum.de) |
 
 ## Service Request Matrix
 
@@ -29,71 +31,72 @@ flowchart TB
     Task["What do you need?"]
 
     Task --> User["User/Group<br/>Management"]
-    Task --> Network["Network<br/>Configuration"]
+    Task --> Network["Network<br/>Services"]
     Task --> Infra["Infrastructure"]
     Task --> Storage["Storage"]
     Task --> Other["Other"]
 
-    User --> StrukturDB1["StrukturDB<br/>(Self-service)"]
-    Network --> |DNS/DHCP| StrukturDB2["StrukturDB<br/>(Self-service)"]
-    Network --> |Subdomain/VPN| Email1["Email ITO"]
-    Infra --> |VM Request| Wiki["Benutzerwiki"]
-    Infra --> |Hardware Hosting| Email2["Email ITO"]
-    Storage --> |NAS Setup| Email3["Email ITO"]
-    Storage --> |Restore Data| Email4["Email ITO"]
-    Other --> Email5["Email ITO"]
+    User --> TUMonline1["TUMonline<br/>(Self-service)"]
+    Network --> |DNS/Firewall| ITSZ1["IT Service Center<br/>/ LRZ"]
+    Network --> |VPN| LRZ1["LRZ<br/>(Self-service)"]
+    Infra --> |Virtual Server| LRZ2["LRZ"]
+    Infra --> |Hardware Hosting| LRZ3["LRZ"]
+    Storage --> |NAS Setup| ITSZ2["IT Service Center"]
+    Storage --> |Restore Data| ITSZ3["IT Service Center"]
+    Other --> ITSZ4["IT Service Center"]
 ```
 
 ## Quick Task Reference
 
-### User Management (StrukturDB)
+### User Management (TUMonline)
 
 | Task | Where | Steps |
 |------|-------|-------|
-| **Create User** | StrukturDB → Users | Fill form, submit |
-| **Create Group** | StrukturDB → Groups | Define name, members |
-| **Add to Group** | StrukturDB → Groups → Edit | Select users, save |
-| **Register Host** | StrukturDB → Hosts | Enter MAC, hostname |
+| **Manage User** | TUMonline → User Admin | Navigate to user, modify |
+| **Create Group** | TUMonline → Groups | Define name, members |
+| **Create Mailing List** | TUMonline → Groups | Create group, enable mail |
+| **Create Shared Mailbox** | TUMonline → Function Objects | Create function object |
 
 ### Network Services
 
-| Task | Method | Information Needed |
-|------|--------|-------------------|
-| **DNS Entry** | StrukturDB | Hostname, IP address |
-| **DHCP Static** | StrukturDB | MAC address, hostname |
-| **Subdomain** | Email ITO | Requested name, justification |
-| **VPN Setup** | Email ITO | Chair name, user count |
+| Task | Method | Contact |
+|------|--------|---------|
+| **DNS Entry** | IT Service Center | it-support@tum.de |
+| **Domain Setup** | IT Service Center | it-support@tum.de |
+| **VPN Access** | LRZ Self-Service | Via LRZ portal |
+| **Firewall** | LRZ | Via LRZ |
 
 ### Infrastructure
 
-| Task | Method | Information Needed |
-|------|--------|-------------------|
-| **Request VM** | Benutzerwiki | Purpose, resources, OS |
-| **VM Snapshot** | ITO Support | VM name, reason |
-| **Hardware Hosting** | Email ITO | Hardware specs, timeline |
+| Task | Method | Contact |
+|------|--------|---------|
+| **Virtual Server** | LRZ | Via LRZ portal |
+| **Server Housing** | LRZ | Via LRZ |
+| **Compute Cloud** | LRZ | Via LRZ portal |
+| **TUM-PC Setup** | IT Service Center | it-support@tum.de |
 
 ### Storage & Backup
 
-| Task | Method | Information Needed |
-|------|--------|-------------------|
-| **NAS Setup** | Email ITO | Capacity needs, users |
-| **Data Restore** | Email ITO | Path, date, description |
-| **Quota Increase** | Email ITO | Current usage, needs |
+| Task | Method | Contact |
+|------|--------|---------|
+| **Project Storage** | IT Service Center | it-support@tum.de |
+| **Data Restore** | IT Service Center | it-support@tum.de |
+| **Quota Increase** | IT Service Center | it-support@tum.de |
 
 ## Common Procedures
 
-### Adding a New User
+### Managing Users via TUMonline
 
 ```
-1. Login to StrukturDB
-2. Navigate to User Management
-3. Click "New User Request"
-4. Fill required fields:
-   - Name
-   - Email
-   - Chair affiliation
-5. Submit request
-6. User receives credentials
+1. Login to TUMonline (campus.tum.de)
+2. Navigate to your admin area
+3. Select user management
+4. Make required changes:
+   - Group assignments
+   - Access permissions
+   - Function objects
+5. Save changes
+6. Changes sync to LDAP/AD automatically
 ```
 
 ### Registering a New Device
@@ -103,85 +106,87 @@ flowchart TB
    - MAC address
    - Device type
    - Intended hostname
-2. Login to StrukturDB
-3. Navigate to Host Management
-4. Create new host entry
-5. Save → DHCP/DNS auto-configured
+2. Contact IT Service Center or use
+   network registration tools
+3. Provide device details
+4. Device receives network configuration
+5. Document in department inventory
 ```
 
 ### Requesting Data Restoration
 
 ```
-1. Email: support@ito.cit.tum.de
+1. Email: it-support@tum.de
 2. Subject: Data Restoration Request
 3. Include:
    - Full path to data
    - Date to restore from
    - Brief description
-4. Wait for ITO confirmation
+4. Wait for confirmation
 ```
 
 ## Standard Specifications
 
-### Virtual Machine Defaults
+### LRZ Virtual Servers
 
-| Resource | Default | Expandable |
-|----------|---------|------------|
-| **vCPUs** | 2 | Yes |
-| **RAM** | 2-4 GB | Yes |
-| **Storage** | As needed | Yes |
-| **Backup** | Daily | Included |
+| Aspect | Options |
+|--------|---------|
+| **OS** | SLES, Debian, Windows Server |
+| **Management** | Self-managed or LRZ-managed |
+| **Availability** | High-availability infrastructure |
+| **Backup** | Included |
 
-### NAS Fileserver
+### LRZ Online Storage (NAS)
 
 | Specification | Value |
 |--------------|-------|
-| **Capacity** | Up to 10 TB |
-| **Protocols** | NFSv3, SMB |
-| **Backup** | Daily (IBM Spectrum Protect) |
-| **Access** | Chair network + VPN |
+| **Personal Storage** | Automatic for TUM members |
+| **Project Storage** | On request |
+| **Protocols** | NFS, SMB |
+| **Backup** | Automatic via LRZ |
+| **Access** | MWN network + VPN |
 
 ## Troubleshooting Quick Guide
 
 ### Device Not Getting IP
 
-1. Check MAC address in StrukturDB
-2. Verify host entry exists
-3. Check physical connection
-4. Try `ipconfig /release` then `/renew` (Windows)
-5. Contact ITO if issue persists
+1. Check device network registration
+2. Verify physical connection
+3. Try `ipconfig /release` then `/renew` (Windows)
+4. Check cable/WiFi connection
+5. Contact IT Service Center if issue persists
 
 ### Cannot Access NAS
 
 1. Verify VPN connection (if remote)
-2. Check user is in correct group
+2. Check user is in correct group (TUMonline)
 3. Verify correct path/share name
 4. Try re-authenticating
-5. Contact ITO if issue persists
+5. Contact IT Service Center if issue persists
 
-### VM Not Accessible
+### Server Not Accessible
 
-1. Check VM status in web interface
-2. Try restart from web interface
+1. Check server status via LRZ portal
+2. Verify DNS entry exists
 3. Check network connectivity
-4. Verify DNS entry exists
-5. Contact ITO if issue persists
+4. Try restart if authorized
+5. Contact IT Service Center / LRZ if issue persists
 
 ## Checklists
 
 ### New Administrator Checklist
 
-- [ ] Contact ITO for orientation
-- [ ] Obtain StrukturDB access
-- [ ] Review Benutzerwiki documentation
+- [ ] Contact IT Service Center for orientation
+- [ ] Obtain TUMonline admin access
+- [ ] Review TUM Wiki and LRZ documentation
 - [ ] Meet with predecessor (if applicable)
-- [ ] Verify contact info with ITO
-- [ ] Review chair infrastructure inventory
+- [ ] Verify contact info with IT Service Center
+- [ ] Review department infrastructure inventory
 - [ ] Understand current user base
 
 ### User Offboarding Checklist
 
-- [ ] Disable/remove user account
+- [ ] Update user account in TUMonline
 - [ ] Remove from all groups
 - [ ] Revoke VPN access
 - [ ] Transfer data ownership
@@ -191,37 +196,28 @@ flowchart TB
 
 - [ ] Collect MAC address
 - [ ] Determine hostname
-- [ ] Register in StrukturDB
-- [ ] Verify DHCP working
+- [ ] Register with network administration
+- [ ] Verify network access working
 - [ ] Configure device
 - [ ] Document in inventory
-
-## Keyboard Quick Reference
-
-### StrukturDB Navigation
-
-| Action | Shortcut/Location |
-|--------|------------------|
-| **Search** | Top search bar |
-| **New User** | Users → New |
-| **New Group** | Groups → New |
-| **New Host** | Hosts → New |
 
 ## Glossary
 
 | Term | Definition |
 |------|------------|
-| **CIT** | School of Computation, Information and Technology |
+| **AD** | Active Directory |
+| **DFN** | German Research Network (Deutsches Forschungsnetz) |
 | **DHCP** | Dynamic Host Configuration Protocol |
 | **DNS** | Domain Name System |
-| **ESX** | VMware virtualization platform |
-| **ITO** | IT Operations |
+| **ITSZ** | IT Service Center (IT-Servicezentrum) |
 | **LDAP** | Lightweight Directory Access Protocol |
 | **LRZ** | Leibniz Supercomputing Centre |
+| **MWN** | Munich Scientific Network (Münchner Wissenschaftsnetz) |
 | **NAS** | Network Attached Storage |
-| **NFSv3** | Network File System version 3 |
+| **NFS** | Network File System |
 | **SMB** | Server Message Block (Windows file sharing) |
-| **StrukturDB** | ITO's central management database |
 | **TUM** | Technical University of Munich |
+| **TUMonline** | TUM's central campus management system |
 | **VM** | Virtual Machine |
 | **VPN** | Virtual Private Network |
+| **WSUS** | Windows Server Update Services |

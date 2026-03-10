@@ -9,21 +9,23 @@ Dieses Kapitel bietet eine Kurzreferenz für häufige administrative Aufgaben un
 ## Kontaktinformationen
 
 ::: {.callout-tip}
-## ITO Helpdesk
+## IT-Servicezentrum
 | | |
 |---|---|
-| **E-Mail** | support@ito.cit.tum.de |
-| **Telefon** | +49 (89) 289 - 18018 |
-| **Öffnungszeiten** | Mo-Fr 08:00 - 18:00 |
+| **E-Mail** | it-support@tum.de |
+| **Telefon** | +49.89.289.17123 |
+| **Website** | [www.it.tum.de](https://www.it.tum.de) |
+| **Adresse** | Arcisstr. 21, 80333 München |
 :::
 
 ## Wichtige URLs
 
 | Ressource | URL |
 |-----------|-----|
-| **StrukturDB** | [rbgwebapp.in.tum.de/struktur](https://rbgwebapp.in.tum.de/struktur/) |
-| **ITO Hauptseite** | [www.cit.tum.de/ito](https://www.cit.tum.de/ito) |
-| **Für Administrierende** | [www.cit.tum.de/ito/fuer-administrierende](https://www.cit.tum.de/ito/fuer-administrierende/) |
+| **TUM IT für Admins** | [www.it.tum.de/it/admins/](https://www.it.tum.de/it/admins/) |
+| **TUMonline** | [campus.tum.de](https://campus.tum.de) |
+| **LRZ-Dokumentation** | [doku.lrz.de](https://doku.lrz.de) |
+| **TUM Wiki** | [wiki.tum.de](https://wiki.tum.de) |
 
 ## Service-Anfrage-Matrix
 
@@ -33,71 +35,72 @@ flowchart TB
     Task["Was benötigen Sie?"]
 
     Task --> User["Benutzer-/Gruppen-<br/>verwaltung"]
-    Task --> Network["Netzwerk-<br/>konfiguration"]
+    Task --> Network["Netzwerk-<br/>dienste"]
     Task --> Infra["Infrastruktur"]
     Task --> Storage["Speicher"]
     Task --> Other["Sonstiges"]
 
-    User --> StrukturDB1["StrukturDB<br/>(Self-Service)"]
-    Network --> |DNS/DHCP| StrukturDB2["StrukturDB<br/>(Self-Service)"]
-    Network --> |Subdomain/VPN| Email1["E-Mail an ITO"]
-    Infra --> |VM-Anfrage| Wiki["Benutzerwiki"]
-    Infra --> |Hardware-Hosting| Email2["E-Mail an ITO"]
-    Storage --> |NAS-Einrichtung| Email3["E-Mail an ITO"]
-    Storage --> |Daten wiederherstellen| Email4["E-Mail an ITO"]
-    Other --> Email5["E-Mail an ITO"]
+    User --> TUMonline1["TUMonline<br/>(Self-Service)"]
+    Network --> |DNS/Firewall| ITSZ1["IT-Servicezentrum<br/>/ LRZ"]
+    Network --> |VPN| LRZ1["LRZ<br/>(Self-Service)"]
+    Infra --> |Virtueller Server| LRZ2["LRZ"]
+    Infra --> |Hardware-Hosting| LRZ3["LRZ"]
+    Storage --> |NAS-Einrichtung| ITSZ2["IT-Servicezentrum"]
+    Storage --> |Daten wiederherstellen| ITSZ3["IT-Servicezentrum"]
+    Other --> ITSZ4["IT-Servicezentrum"]
 ```
 
 ## Kurzübersicht Aufgaben
 
-### Benutzerverwaltung (StrukturDB)
+### Benutzerverwaltung (TUMonline)
 
 | Aufgabe | Wo | Schritte |
 |---------|-----|----------|
-| **Benutzer erstellen** | StrukturDB → Benutzer | Formular ausfüllen, absenden |
-| **Gruppe erstellen** | StrukturDB → Gruppen | Name, Mitglieder definieren |
-| **Zu Gruppe hinzufügen** | StrukturDB → Gruppen → Bearbeiten | Benutzer auswählen, speichern |
-| **Host registrieren** | StrukturDB → Hosts | MAC, Hostname eingeben |
+| **Benutzer verwalten** | TUMonline → Benutzeradmin | Zu Benutzer navigieren, ändern |
+| **Gruppe erstellen** | TUMonline → Gruppen | Name, Mitglieder definieren |
+| **Mailverteiler erstellen** | TUMonline → Gruppen | Gruppe erstellen, Mail aktivieren |
+| **Gemeinsames Postfach** | TUMonline → Funktionsobjekte | Funktionsobjekt erstellen |
 
 ### Netzwerkdienste
 
-| Aufgabe | Methode | Benötigte Informationen |
-|---------|---------|------------------------|
-| **DNS-Eintrag** | StrukturDB | Hostname, IP-Adresse |
-| **DHCP statisch** | StrukturDB | MAC-Adresse, Hostname |
-| **Subdomain** | E-Mail an ITO | Gewünschter Name, Begründung |
-| **VPN-Einrichtung** | E-Mail an ITO | Lehrstuhlname, Benutzeranzahl |
+| Aufgabe | Methode | Kontakt |
+|---------|---------|---------|
+| **DNS-Eintrag** | IT-Servicezentrum | it-support@tum.de |
+| **Domain-Einrichtung** | IT-Servicezentrum | it-support@tum.de |
+| **VPN-Zugang** | LRZ Self-Service | Über LRZ-Portal |
+| **Firewall** | LRZ | Über LRZ |
 
 ### Infrastruktur
 
-| Aufgabe | Methode | Benötigte Informationen |
-|---------|---------|------------------------|
-| **VM beantragen** | Benutzerwiki | Zweck, Ressourcen, OS |
-| **VM-Snapshot** | ITO Support | VM-Name, Grund |
-| **Hardware-Hosting** | E-Mail an ITO | Hardware-Specs, Zeitplan |
+| Aufgabe | Methode | Kontakt |
+|---------|---------|---------|
+| **Virtueller Server** | LRZ | Über LRZ-Portal |
+| **Server Housing** | LRZ | Über LRZ |
+| **Compute Cloud** | LRZ | Über LRZ-Portal |
+| **TUM-PC-Einrichtung** | IT-Servicezentrum | it-support@tum.de |
 
 ### Speicher & Backup
 
-| Aufgabe | Methode | Benötigte Informationen |
-|---------|---------|------------------------|
-| **NAS-Einrichtung** | E-Mail an ITO | Kapazitätsbedarf, Benutzer |
-| **Datenwiederherstellung** | E-Mail an ITO | Pfad, Datum, Beschreibung |
-| **Quota-Erhöhung** | E-Mail an ITO | Aktuelle Nutzung, Bedarf |
+| Aufgabe | Methode | Kontakt |
+|---------|---------|---------|
+| **Projektspeicher** | IT-Servicezentrum | it-support@tum.de |
+| **Datenwiederherstellung** | IT-Servicezentrum | it-support@tum.de |
+| **Quota-Erhöhung** | IT-Servicezentrum | it-support@tum.de |
 
 ## Häufige Verfahren
 
-### Neuen Benutzer hinzufügen
+### Benutzer über TUMonline verwalten
 
 ```
-1. In StrukturDB anmelden
-2. Zu Benutzerverwaltung navigieren
-3. "Neuer Benutzerantrag" klicken
-4. Pflichtfelder ausfüllen:
-   - Name
-   - E-Mail
-   - Lehrstuhlzugehörigkeit
-5. Antrag absenden
-6. Benutzer erhält Zugangsdaten
+1. In TUMonline anmelden (campus.tum.de)
+2. Zum Admin-Bereich navigieren
+3. Benutzerverwaltung auswählen
+4. Erforderliche Änderungen vornehmen:
+   - Gruppenzuweisungen
+   - Zugriffsberechtigungen
+   - Funktionsobjekte
+5. Änderungen speichern
+6. Änderungen werden automatisch mit LDAP/AD synchronisiert
 ```
 
 ### Neues Gerät registrieren
@@ -107,85 +110,87 @@ flowchart TB
    - MAC-Adresse
    - Gerätetyp
    - Vorgesehener Hostname
-2. In StrukturDB anmelden
-3. Zu Hostverwaltung navigieren
-4. Neuen Host-Eintrag erstellen
-5. Speichern → DHCP/DNS automatisch konfiguriert
+2. IT-Servicezentrum kontaktieren oder
+   Netzwerkregistrierungstools verwenden
+3. Gerätedetails angeben
+4. Gerät erhält Netzwerkkonfiguration
+5. Im Abteilungsinventar dokumentieren
 ```
 
 ### Datenwiederherstellung beantragen
 
 ```
-1. E-Mail: support@ito.cit.tum.de
+1. E-Mail: it-support@tum.de
 2. Betreff: Datenwiederherstellungsanfrage
 3. Angeben:
    - Vollständiger Pfad zu Daten
    - Datum für Wiederherstellung
    - Kurze Beschreibung
-4. Auf ITO-Bestätigung warten
+4. Auf Bestätigung warten
 ```
 
 ## Standardspezifikationen
 
-### VM-Standardwerte
+### LRZ Virtuelle Server
 
-| Ressource | Standard | Erweiterbar |
-|-----------|----------|-------------|
-| **vCPUs** | 2 | Ja |
-| **RAM** | 2-4 GB | Ja |
-| **Speicher** | Nach Bedarf | Ja |
-| **Backup** | Täglich | Inklusive |
+| Aspekt | Optionen |
+|--------|----------|
+| **BS** | SLES, Debian, Windows Server |
+| **Verwaltung** | Selbstverwaltet oder LRZ-verwaltet |
+| **Verfügbarkeit** | Hochverfügbare Infrastruktur |
+| **Backup** | Inklusive |
 
-### NAS-Fileserver
+### LRZ Online-Speicher (NAS)
 
 | Spezifikation | Wert |
 |---------------|------|
-| **Kapazität** | Bis zu 10 TB |
-| **Protokolle** | NFSv3, SMB |
-| **Backup** | Täglich (IBM Spectrum Protect) |
-| **Zugriff** | Lehrstuhl-Netzwerk + VPN |
+| **Persönlicher Speicher** | Automatisch für TUM-Mitglieder |
+| **Projektspeicher** | Auf Anfrage |
+| **Protokolle** | NFS, SMB |
+| **Backup** | Automatisch über LRZ |
+| **Zugriff** | MWN-Netzwerk + VPN |
 
 ## Fehlerbehebung Kurzanleitung
 
 ### Gerät erhält keine IP
 
-1. MAC-Adresse in StrukturDB prüfen
-2. Verifizieren, dass Host-Eintrag existiert
-3. Physische Verbindung prüfen
-4. `ipconfig /release` dann `/renew` versuchen (Windows)
-5. ITO kontaktieren wenn Problem bestehen bleibt
+1. Geräte-Netzwerkregistrierung prüfen
+2. Physische Verbindung prüfen
+3. `ipconfig /release` dann `/renew` versuchen (Windows)
+4. Kabel-/WLAN-Verbindung prüfen
+5. IT-Servicezentrum kontaktieren wenn Problem bestehen bleibt
 
 ### Kein NAS-Zugriff
 
 1. VPN-Verbindung verifizieren (bei Remote)
-2. Prüfen ob Benutzer in korrekter Gruppe ist
+2. Prüfen ob Benutzer in korrekter Gruppe ist (TUMonline)
 3. Korrekten Pfad/Freigabenamen verifizieren
 4. Erneut authentifizieren versuchen
-5. ITO kontaktieren wenn Problem bestehen bleibt
+5. IT-Servicezentrum kontaktieren wenn Problem bestehen bleibt
 
-### VM nicht erreichbar
+### Server nicht erreichbar
 
-1. VM-Status im Web-Interface prüfen
-2. Neustart über Web-Interface versuchen
+1. Server-Status über LRZ-Portal prüfen
+2. DNS-Eintrag verifizieren
 3. Netzwerkkonnektivität prüfen
-4. Verifizieren, dass DNS-Eintrag existiert
-5. ITO kontaktieren wenn Problem bestehen bleibt
+4. Neustart versuchen falls autorisiert
+5. IT-Servicezentrum / LRZ kontaktieren wenn Problem bestehen bleibt
 
 ## Checklisten
 
 ### Checkliste neuer Administrator
 
-- [ ] ITO für Einarbeitung kontaktieren
-- [ ] StrukturDB-Zugang erhalten
-- [ ] Benutzerwiki-Dokumentation durchlesen
+- [ ] IT-Servicezentrum für Einarbeitung kontaktieren
+- [ ] TUMonline-Admin-Zugang erhalten
+- [ ] TUM Wiki und LRZ-Dokumentation durchlesen
 - [ ] Mit Vorgänger treffen (falls zutreffend)
-- [ ] Kontaktdaten bei ITO verifizieren
-- [ ] Lehrstuhl-Infrastrukturinventar prüfen
+- [ ] Kontaktdaten beim IT-Servicezentrum verifizieren
+- [ ] Abteilungs-Infrastrukturinventar prüfen
 - [ ] Aktuelle Benutzerbasis verstehen
 
 ### Checkliste Benutzer-Offboarding
 
-- [ ] Benutzerkonto deaktivieren/entfernen
+- [ ] Benutzerkonto in TUMonline aktualisieren
 - [ ] Aus allen Gruppen entfernen
 - [ ] VPN-Zugang widerrufen
 - [ ] Dateneigentum übertragen
@@ -195,37 +200,28 @@ flowchart TB
 
 - [ ] MAC-Adresse erfassen
 - [ ] Hostname festlegen
-- [ ] In StrukturDB registrieren
-- [ ] DHCP-Funktion verifizieren
+- [ ] Bei Netzwerkadministration registrieren
+- [ ] Netzwerkzugang verifizieren
 - [ ] Gerät konfigurieren
 - [ ] Im Inventar dokumentieren
-
-## StrukturDB-Navigation
-
-| Aktion | Shortcut/Ort |
-|--------|--------------|
-| **Suche** | Obere Suchleiste |
-| **Neuer Benutzer** | Benutzer → Neu |
-| **Neue Gruppe** | Gruppen → Neu |
-| **Neuer Host** | Hosts → Neu |
 
 ## Glossar
 
 | Begriff | Definition |
 |---------|------------|
-| **CIT** | School of Computation, Information and Technology |
+| **AD** | Active Directory |
+| **DFN** | Deutsches Forschungsnetz |
 | **DHCP** | Dynamic Host Configuration Protocol |
 | **DNS** | Domain Name System |
-| **EDV-Betreuer** | IT-Betreuer am Lehrstuhl |
-| **ESX** | VMware Virtualisierungsplattform |
-| **ITO** | IT Operations |
+| **ITSZ** | IT-Servicezentrum |
 | **LDAP** | Lightweight Directory Access Protocol |
-| **Lehrstuhladmin** | Lehrstuhl-Administrator |
 | **LRZ** | Leibniz-Rechenzentrum |
+| **MWN** | Münchner Wissenschaftsnetz |
 | **NAS** | Network Attached Storage |
-| **NFSv3** | Network File System Version 3 |
+| **NFS** | Network File System |
 | **SMB** | Server Message Block (Windows-Dateifreigabe) |
-| **StrukturDB** | Zentrale Verwaltungsdatenbank der ITO |
 | **TUM** | Technische Universität München |
+| **TUMonline** | Zentrales Campus-Management-System der TUM |
 | **VM** | Virtuelle Maschine |
 | **VPN** | Virtual Private Network |
+| **WSUS** | Windows Server Update Services |

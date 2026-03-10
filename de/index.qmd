@@ -1,49 +1,48 @@
 ---
-title: "TUM ITO Administratorhandbuch"
+title: "TUM IT Administratorhandbuch"
 lang: de
 ---
 
 # Einführung {.unnumbered}
 
-Willkommen zum **TUM ITO System-Administrator Referenzhandbuch**. Dieses umfassende Handbuch wurde für IT-Administratoren (EDV-Betreuer) und Lehrstuhladmins an der School of Computation, Information and Technology (CIT) der Technischen Universität München entwickelt.
+Willkommen zum **TUM IT System-Administrator Referenzhandbuch**. Dieses umfassende Handbuch wurde für IT-Administratoren aller Fakultäten, Lehrstühle und Organisationseinheiten der Technischen Universität München entwickelt und behandelt die zentralen IT-Dienste des IT-Servicezentrums (ITSZ) und des Leibniz-Rechenzentrums (LRZ).
 
 ## Über dieses Handbuch
 
 Dieses Referenzwerk bietet detaillierte Informationen zu:
 
-- **ITO-Organisation**: Struktur und Rolle der IT Operations innerhalb der TUM
+- **TUM IT-Organisation**: Struktur und Rolle der zentralen IT-Dienste an der TUM
 - **Administrator-Verantwortlichkeiten**: Rollen, Aufgaben und Best Practices
-- **Benutzerverwaltung**: Verwaltung von Benutzern, Gruppen und Zugriffen über die StrukturDB
-- **Infrastrukturdienste**: Virtuelle Maschinen, Server-Hosting und Hardware-Management
-- **Netzwerkdienste**: DNS, DHCP, VPN und Domain-Verwaltung
-- **Speicher und Backup**: NAS-Fileserver und Datensicherung mit IBM Spectrum Protect
+- **Benutzerverwaltung**: Verwaltung von Benutzern, Gruppen und Zugriffen über TUMonline
+- **Infrastrukturdienste**: Virtuelle Server, Hosting, Client-Management und Web-Dienste über LRZ
+- **Netzwerkdienste**: MWN, VPN, Firewall, Identitätsmanagement und Zertifikate
+- **Speicher und Backup**: LRZ Online-Speicher (NAS) und Datensicherung
 - **Support-Ressourcen**: Kontaktinformationen und Beratungsdienste
 
-## ITO Übersicht
+## TUM IT Übersicht
 
 ```{mermaid}
-%%| fig-cap: "ITO Service-Ökosystem"
+%%| fig-cap: "TUM IT Service-Ökosystem"
 flowchart TB
     subgraph TUM["Technische Universität München"]
-        subgraph CIT["School of CIT"]
-            ITO["ITO - IT Operations"]
-        end
-        ITSZ["IT-Servicezentrum (ITSZ)"]
+        CIO["CIO"]
+        CIO --> ITSZ["IT-Servicezentrum (ITSZ)"]
+        CIO --> DXO["Digital Transformation Office"]
     end
     LRZ["Leibniz-Rechenzentrum (LRZ)"]
 
-    ITO --> |ergänzt| ITSZ
-    ITO --> |erweitert| LRZ
+    ITSZ --> |koordiniert| Schools["Alle TUM Schools &<br/>Fakultäten"]
+    LRZ --> |stellt Infrastruktur bereit| Schools
 
-    subgraph Services["ITO Dienstleistungen"]
-        S1["Studierende"]
-        S2["Mitarbeitende"]
-        S3["Administrierende"]
+    subgraph Services["Zentrale IT-Dienste"]
+        S1["E-Mail & Kollaboration"]
+        S2["Netzwerk & Identität"]
+        S3["Server & Speicher"]
+        S4["Client-Management"]
     end
 
-    ITO --> S1
-    ITO --> S2
-    ITO --> S3
+    ITSZ --> Services
+    LRZ --> Services
 ```
 
 ## Zielgruppe
@@ -52,8 +51,8 @@ Dieses Handbuch richtet sich an:
 
 | Rolle | Beschreibung |
 |-------|--------------|
-| **EDV-Betreuer** | IT-Betreuer für technische Infrastruktur |
-| **Lehrstuhladmin** | Lehrstuhl-Administratoren für IT-Bedürfnisse |
+| **IT-Administratoren** | Technisches Personal für Lehrstuhl-IT-Infrastruktur |
+| **TUMonline-Beauftragte** | Administratoren für Benutzer- und Gruppenverwaltung über TUMonline |
 | **Neue Administratoren** | Neu ernannte IT-Administratoren |
 
 ## Nutzung dieses Handbuchs
@@ -62,11 +61,20 @@ Dieses Handbuch richtet sich an:
 2. **Tägliche Arbeit**: Kapitel 3-6 für spezifische Dienstverwaltung
 3. **Schnellreferenz**: Kapitel 8 bietet eine praktische Kurzübersicht
 
+## Wichtige Ressourcen
+
+| Ressource | URL |
+|-----------|-----|
+| **TUM IT für Admins** | [www.it.tum.de/it/admins/](https://www.it.tum.de/it/admins/) |
+| **TUMonline** | [campus.tum.de](https://campus.tum.de) |
+| **LRZ-Dokumentation** | [doku.lrz.de](https://doku.lrz.de) |
+
 ## Kontaktinformationen
 
 ::: {.callout-tip}
-## ITO Helpdesk
-- **Öffnungszeiten**: Montag - Freitag, 08:00 - 18:00 Uhr
-- **Telefon**: +49 (89) 289 - 18018
-- **E-Mail**: support@ito.cit.tum.de
+## TUM IT Support
+- **Telefon**: +49.89.289.17123
+- **E-Mail**: it-support@tum.de
+- **Website**: [www.it.tum.de](https://www.it.tum.de)
+- **Adresse**: Arcisstr. 21, 80333 München
 :::
