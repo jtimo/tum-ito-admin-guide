@@ -10,7 +10,29 @@
 |----------|-------|
 | **URL** | [campus.tum.de](https://campus.tum.de) |
 | **Access** | Role-based permissions for authorized administrators |
-| **Documentation** | TUM Wiki, LRZ Documentation |
+| **Documentation** | [TUM Docs Wiki](https://wiki.tum.de) with illustrated guides |
+
+### Training Resources
+
+TUMonline offers extensive training materials:
+
+| Resource | Audience | Format |
+|----------|----------|--------|
+| **TUM Docs Wiki** | All users | Illustrated step-by-step guides |
+| **Video Tutorials** | Role holders (coordinators, guest admins) | Video |
+| **YouTube Screencasts** | Students | Video |
+| **"IT-Ratgeber" Brochure** | Students | PDF guide |
+| **"TUMonline: Einführung für Mitarbeitende"** | Employees | Brochure |
+| **"TUMonline Basics"** | Employees | Video tutorial |
+| **On-Demand Training** | Administrators | Scheduled sessions |
+
+### Organizational Structure
+
+TUMonline administration follows a **Keyuser structure** supported by the Campus Management Team:
+
+- **TUMonline-Beauftragte** (TUMonline coordinators) at each organizational unit
+- **Keyuser areas** for specialized management functions
+- **Guest administrators** for managing external users
 
 ## Core Functions
 
@@ -29,7 +51,8 @@ mindmap
         Function Objects
             Shared Mailboxes
             Group Calendars
-            Service Addresses
+            Room Management
+            Projector Booking
         Integration
             LDAP Directory
             Active Directory
@@ -156,12 +179,17 @@ All TUM members (students, employees, guests) automatically receive a personal T
 | Feature | Description |
 |---------|-------------|
 | **Availability** | Automatic for all TUM members |
-| **Lifetime** | Can be used as forwarding address for life |
+| **Lifetime Forwarding** | Can be used as a forwarding address for life, even after leaving TUM |
 | **Format** | firstname.lastname@tum.de |
+
+::: {.callout-tip}
+## Lifetime Forwarding
+The TUM email address serves as a permanent forwarding address. Even after leaving TUM, former members can continue using it to forward emails to their new address.
+:::
 
 ### Exchange Services
 
-Microsoft Exchange provides comprehensive email and collaboration:
+Microsoft Exchange is TUM's central email platform providing comprehensive email and collaboration:
 
 ```{mermaid}
 %%| fig-cap: "Exchange Service Features"
@@ -171,10 +199,17 @@ mindmap
             Personal Mailbox
             Shared Mailboxes
             Distribution Lists
+            S/MIME Signing
         Calendar
             Personal Calendar
             Group Calendars
             Room Booking
+            Meeting Requests
+        Access Methods
+            Outlook Desktop
+            Outlook Web App
+            IMAP Clients
+            Mobile Devices
         Collaboration
             Shared Contacts
             Tasks
@@ -183,44 +218,101 @@ mindmap
 
 | Feature | Description |
 |---------|-------------|
-| **Email** | Full email functionality |
-| **Calendar** | Personal and shared calendars |
+| **Email** | Full email functionality with storage quota |
+| **Calendar** | Personal and shared calendars, room booking, meeting automation |
 | **Shared Mailboxes** | Team email addresses |
-| **Access** | Outlook, Web, Mobile |
+| **Access** | Outlook, Outlook Web App (OWA), IMAP clients, mobile sync |
+| **Security** | S/MIME email signing and encryption |
+| **Linux** | Access via IMAP clients or web interface |
+| **Mass Mailing** | Daily sending limits apply |
+
+::: {.callout-note}
+## Email Encryption with S/MIME
+S/MIME allows signing and encrypting emails. Both sender and recipient must have S/MIME certificates for encrypted communication. User certificates are available through TUM's DFN-PKI portal (see Chapter 5 - Certificates).
+:::
 
 ### Mailing Lists (Mailverteiler)
 
-Automated mailing list management options:
+TUM provides three distinct mailing list solutions:
 
-| Method | Description |
-|--------|-------------|
-| **TUMonline Groups** | Lists based on organizational groups (auto-updated) |
-| **Manual Lists** | Traditional managed lists |
-| **Dynamic Lists** | Auto-updated based on criteria |
+```{mermaid}
+%%| fig-cap: "Mailing List Options"
+flowchart TB
+    Need["Need a Mailing List?"]
+    Need --> Q1{"TUM members<br/>only?"}
+
+    Q1 --> |Yes| Q2{"Dynamic<br/>membership?"}
+    Q1 --> |No| Mailman["Mailman (LRZ)<br/>External recipients supported"]
+
+    Q2 --> |Yes| FO["TUMonline<br/>Funktionsobjekte<br/>(auto-updated)"]
+    Q2 --> |No| Direct["TUMonline<br/>Direct Distribution"]
+```
+
+#### 1. TUMonline Funktionsobjekte (Dynamic Lists)
+
+| Feature | Description |
+|---------|-------------|
+| **Type** | Dynamic mailing lists that stay current automatically |
+| **Visibility** | Appear in TUM-wide Exchange address book |
+| **Members** | Must be active TUM members (external addresses possible as exception) |
+| **Management** | Via "Funktionsobjekte-Verwalter" role in TUMonline |
+| **Best for** | Ongoing department/team communication |
+
+#### 2. TUMonline Direct Email Distribution
+
+| Feature | Description |
+|---------|-------------|
+| **Type** | Send emails directly to selected target groups |
+| **Filtering** | Recipients can be filtered by TUMonline attributes (position, department, etc.) |
+| **Best for** | One-time or irregular mass communications |
+
+#### 3. Mailman (LRZ)
+
+| Feature | Description |
+|---------|-------------|
+| **Type** | Traditional mailing list and newsletter system |
+| **Provider** | Free service from LRZ |
+| **External** | Supports both TUM members AND external partners |
+| **Subscription** | Mandatory Double-Opt-In registration |
+| **Best for** | Newsletters, communication with external recipients |
 
 ::: {.callout-tip}
 ## Automatic List Management
-Use TUMonline-based mailing lists to avoid manual maintenance. Lists update automatically as people join or leave organizational units.
+Use TUMonline Funktionsobjekte for dynamic lists that update automatically as people join or leave organizational units. For communication with external parties, use Mailman via LRZ.
 :::
 
-### Shared Mailboxes and Calendars
+#### Faculty Mailing List Coordinators
 
-Create team collaboration spaces via TUMonline Function Objects (Funktionsobjekte):
+Each faculty has a designated **Mailverteiler VerwalterIn** (mailing list administrator) who can assist with list creation and management. For TUM-wide campaigns, contact:
+
+- **Staff communications**: Corporate Communication Center
+- **Student communications**: Student Service Center
+
+### Shared Mailboxes and Calendars (Funktionsobjekte)
+
+TUMonline Function Objects (Funktionsobjekte) are shared resources for improving organizational collaboration:
 
 | Feature | Description |
 |---------|-------------|
 | **Shared Mailboxes** | Team email addresses (e.g., info@department.tum.de) |
 | **Group Calendars** | Shared scheduling |
+| **Room Management** | Room and resource booking |
+| **Projector Booking** | Equipment reservation |
 | **Management** | Via TUMonline Function Objects |
+| **Training** | Video training sessions available for administrators |
 
-### Mailing Lists vs Shared Mailboxes Comparison
+::: {.callout-note}
+## Function Objects vs. Mailing Lists
 
-| Feature | Mailing List | Shared Mailbox |
-|---------|--------------|----------------|
+| Feature | Mailing List | Function Object (Shared Mailbox) |
+|---------|--------------|----------------------------------|
 | **Receive emails** | All members | All members |
 | **Send as shared address** | No | Yes |
 | **Shared inbox** | No | Yes |
+| **Calendar** | No | Yes |
+| **Room/Resource booking** | No | Yes |
 | **Best for** | Announcements | Team collaboration |
+:::
 
 ## TUMonline Integration
 
@@ -237,31 +329,41 @@ flowchart TB
     TUMonline --> Email["Email Services"]
     TUMonline --> Groups["Group Management"]
     TUMonline --> Functions["Function Objects"]
+    TUMonline --> SysAcc["System Accounts"]
 
     Identity --> AD["Active Directory"]
     Identity --> LDAP["LDAP Directory"]
     Email --> Exchange["Exchange"]
     Groups --> Lists["Mailing Lists"]
-    Functions --> Shared["Shared Mailboxes"]
+    Functions --> Shared["Shared Mailboxes<br/>& Calendars"]
+    SysAcc --> Devices["Printers, Scanners,<br/>Automated Services"]
 ```
 
-### Function Objects (Funktionsobjekte)
+### System Accounts
 
-TUMonline Function Objects enable creation of:
+System Accounts (Systemkennung) are non-personal credentials for devices and automated services:
 
-- Shared mailboxes
-- Group calendars
-- Team collaboration spaces
-- Service desk addresses
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Enable printers, scanners, and services to use TUM IT services |
+| **Exchange** | Do NOT appear in the TUM Exchange address book |
+| **Email** | NOT email mailboxes -- emails are redirected to the responsible person |
+| **Request** | Via online form in TUMonline (specify email redirection in remarks) |
+
+::: {.callout-important}
+## System Accounts vs. Shared Mailboxes
+System Accounts cannot receive emails. If you need a shared email address (e.g., sekretariat@xyz.tum.de), request a **Shared Mailbox** via Function Objects instead.
+:::
 
 ### Administrator Resources
 
 | Resource | Purpose |
 |----------|---------|
 | **TUMonline Portal** | User and group management |
-| **TUMonline Documentation** | Guides and tutorials |
+| **TUM Docs Wiki** | Illustrated guides and tutorials |
 | **TUMonline-Beauftragte** | Local TUMonline coordinators |
 | **Keyuser Areas** | Specialized management areas |
+| **Video Tutorials** | Training for role holders |
 
 ## Best Practices
 

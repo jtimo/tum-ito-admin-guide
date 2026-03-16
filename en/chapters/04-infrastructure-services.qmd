@@ -37,7 +37,7 @@ LRZ provides virtualized high-availability server instances:
 | Aspect | Options |
 |--------|---------|
 | **Operating Systems** | SLES, Debian, Windows Server |
-| **Management** | Self-managed or optional LRZ management |
+| **Management** | Self-managed or optional LRZ management (OS installation and maintenance) |
 | **Availability** | High-availability infrastructure |
 | **Location** | LRZ security zone |
 
@@ -48,7 +48,7 @@ LRZ offers attended housing for your own Linux servers or clusters:
 | Feature | Description |
 |---------|-------------|
 | **Location** | LRZ data center (secured environment) |
-| **Hardware Maintenance** | Handled by LRZ |
+| **Hardware Maintenance** | Handled by LRZ (hardware operation) |
 | **OS Maintenance** | Handled by LRZ |
 | **Applications** | Customer responsibility |
 
@@ -56,7 +56,7 @@ LRZ offers attended housing for your own Linux servers or clusters:
 
 LRZ provides WSUS for Windows computers in the Munich Scientific Network (MWN):
 
-- Centralized Windows updates
+- Centralized Microsoft Windows updates for all MWN systems
 - Managed update distribution
 - Network-efficient patching
 
@@ -96,11 +96,38 @@ flowchart TB
 
 ### Internet Domains
 
-For setting up internet domains for your department or project:
+Domain registration at TUM is restricted to TUM departments, associations, and organizations that operate exclusively or primarily for TUM.
 
-- Domain registration and management via IT Service Center
-- DNS configuration
-- Integration with TUM infrastructure
+#### Domain Application Process
+
+```{mermaid}
+%%| fig-cap: "Domain Request Process"
+flowchart TB
+    Need["Need a Domain?"]
+    Need --> Type{"Domain type?"}
+
+    Type --> |"Under tum.de<br/>or external"| Form["Submit application form<br/>via TUM secure wiki portal"]
+    Type --> |"Subdomain under<br/>faculty domain"| Prodekan["Contact Prodekan<br/>Informationsmanagement"]
+
+    Form --> Review["Review against<br/>Domain Allocation Guidelines"]
+    Review --> Q1{"Hosted in MWN?"}
+
+    Q1 --> |Yes| Approved["Domain activated"]
+    Q1 --> |"No (external hosting)"| CIO["Requires CIO approval"]
+```
+
+| Requirement | Description |
+|-------------|-------------|
+| **Eligibility** | TUM departments, associations, TUM-managed organizations |
+| **tum.de domains** | Apply via application form on secure wiki portal |
+| **Faculty subdomains** | Contact the Prodekan Informationsmanagement of your school |
+| **External hosting** | Requires specific justification and mandatory CIO approval |
+| **Guidelines** | Must follow "Richtlinien zur Vergabe von Domains" and "Richtlinien für Webserver" |
+
+::: {.callout-tip}
+## TYPO3 as Alternative
+TUM offers a centralized TYPO3 content management platform with special terms of service. Consider this option before requesting a domain -- contact the TYPO3 team for details.
+:::
 
 ### Managed Web Servers
 
@@ -116,7 +143,7 @@ LRZ provides managed web server hosting:
 
 Options for creating web presence:
 
-1. **TUM Web Infrastructure**: Standard TUM-hosted websites
+1. **TUM TYPO3 Platform**: Centralized CMS with TUM design templates (recommended)
 2. **Managed Webserver**: LRZ-hosted custom sites
 3. **Self-Hosted**: On your own virtual or housed server
 
@@ -133,7 +160,7 @@ The TUM Web-Styleguide provides official design guidelines for TUM online system
 
 ### Managed Windows PC (TUM-PC)
 
-IT Service Center and LRZ provide managed Windows PC services:
+IT Service Center and LRZ jointly provide managed Windows PC services:
 
 ```{mermaid}
 %%| fig-cap: "TUM-PC Management Architecture"
@@ -178,31 +205,45 @@ LRZ Client Management for Apple provides:
 
 Some TUM departments use Baramundi for client management:
 
-- Complementary to TUM-PC
-- Cross-department networking opportunities
-- Contact IT Service Center for coordination
+- Supplementary client management software
+- Cross-department networking and configuration support
+- Contact IT Service Center for contract coordination with other TUM users
 
 ### TeamViewer
 
 Remote desktop support tool for administrators:
 
-| Use Case | Description |
-|----------|-------------|
-| **Remote Maintenance** | Support users remotely |
-| **Troubleshooting** | Diagnose issues without physical presence |
-| **Software Installation** | Deploy software remotely |
+| Feature | Description |
+|---------|-------------|
+| **Purpose** | Remote access to user computers for support |
+| **Usage** | User runs a special TeamViewer file to enable remote session |
+| **Licensing** | Licenses must be purchased locally by faculties or departments |
+| **No Campus License** | There is no university-wide TeamViewer license |
+
+::: {.callout-important}
+## TeamViewer Licensing
+TeamViewer licenses are NOT covered by a campus-wide agreement. Each faculty or department must procure its own licenses independently.
+:::
 
 ## Software & Hardware
 
 ### Framework Agreements & Campus Licenses
 
-LRZ maintains agreements with numerous vendors:
+LRZ and TUM have established framework agreements (Rahmenverträge) with major hardware and software vendors:
 
-| Benefit | Description |
-|---------|-------------|
+| Aspect | Description |
+|--------|-------------|
+| **Purpose** | Procurement without additional competitive bidding (VOL compliance) |
 | **Cost** | Free or significantly reduced prices |
 | **Availability** | Many common software packages |
-| **Compliance** | Properly licensed software |
+| **Compliance** | Properly licensed for academic and work use |
+
+**Where to find details:**
+
+| Resource | URL |
+|----------|-----|
+| **Specific Framework Agreements** | Available on the internal IT wiki |
+| **Free/Discounted Software** | [wiki.tum.de/display/software](https://wiki.tum.de/display/software) |
 
 Common software available through campus licenses:
 
@@ -215,24 +256,42 @@ Common software available through campus licenses:
 
 The IT Service Center coordinates DFG funding programs for IT equipment:
 
-- Großgeräte (large equipment)
-- CIP (Computer Investment Program)
-- WAP (Workstation Investment Program)
+- **Großgeräte** (large equipment)
+- **CIP** (Computer Investment Program -- Computerinvestitionsprogramm)
+- **WAP** (Workstation Investment Program -- Arbeitsplatzrechnerprogramm)
 
 ### Data Carrier Disposal
 
-Secure disposal of data storage media at TUM:
+TUM provides secure disposal of data storage media through a certified process:
+
+#### Accepted Media
 
 | Media Type | Disposal Method |
 |------------|-----------------|
-| **Hard Drives** | Secure destruction |
-| **Magnetic Tapes** | Degaussing and destruction |
+| **Hard Drives** | Must be removed from computers before e-waste disposal |
+| **Magnetic Tapes** | Secure mechanical destruction |
 | **DVDs/CDs** | Shredding |
-| **USB Drives** | Secure wiping and destruction |
+| **USB Drives** | Secure destruction |
+| **Memory Cards** | Secure destruction |
+
+#### Disposal Process
+
+- **Certified Company**: Cintas performs on-site mechanical destruction
+- **Security Level**: DIN 32757-1, Security Level 4
+- **Method**: Locked collection containers with narrow slots; when full, destroyed on-site by mobile high-capacity shredder
+
+#### Collection Locations
+
+| Location | Address | Notes |
+|----------|---------|-------|
+| **Campus Garching** | Boltzmannstr. 3 (RBG Informatik) | Permanent collection |
+| **Weihenstephan** | Maximus-von-Imhof-Forum 3 (ITW) | Permanent collection |
+| **TUM City Center** | Arcisstr. 21 (Wertstofflager) | **Tuesdays 9:30 - 12:00 only** |
+| **Klinikum rechts der Isar** | Multiple internal collection points | Contact facility management |
 
 ::: {.callout-important}
 ## Data Security
-Never dispose of data carriers through regular waste. Use TUM's secure disposal service to protect sensitive data.
+Never dispose of data carriers through regular waste or standard e-waste bins. Devices often contain personal data recoverable with specialized software. Always use TUM's certified disposal containers.
 :::
 
 ## Summary
@@ -245,5 +304,8 @@ Never dispose of data carriers through regular waste. Use TUM's secure disposal 
 | **Managed TUM-PC** | Standardized Windows workstations | IT Service Center |
 | **MWN-MAC** | Managed Apple workstations | LRZ |
 | **Managed Webserver** | Web hosting | LRZ |
-| **Campus Licenses** | Software procurement | LRZ |
+| **Internet Domains** | Web presence | IT Service Center |
+| **TYPO3 Platform** | TUM-branded websites | TYPO3 Team |
+| **Campus Licenses** | Software procurement | [wiki.tum.de/display/software](https://wiki.tum.de/display/software) |
 | **CIP/WAP** | Equipment funding | IT Service Center |
+| **Data Disposal** | Secure media destruction | Collection locations above |

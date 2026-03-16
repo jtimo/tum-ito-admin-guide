@@ -41,21 +41,23 @@ flowchart TB
 | Feature | Description |
 |---------|-------------|
 | **Coverage** | All TUM buildings and campuses |
-| **Upstream** | German Research Network (DFN) |
+| **Upstream** | German Research Network (DFN) with internet access |
 | **Partners** | LMU, Hochschule München, FH Weihenstephan |
+| **Documentation** | [LRZ Network Documentation](https://doku.lrz.de/netz-10613425.html) |
 
 ### Local Network Planning
 
-The IT Service Center offers free assistance with local network planning:
+The IT Service Center and LRZ offer **free** assistance with local network planning:
 
 - Network design consultation
 - Infrastructure requirements analysis
 - Capacity planning
 - Integration with MWN
+- Assistance with [connecting to MWN](http://www.lrz.de/services/netz/anschluss/)
 
 ### Network Maintenance
 
-LRZ provides network infrastructure maintenance:
+LRZ provides network infrastructure maintenance including:
 
 | Service | Description |
 |---------|-------------|
@@ -66,7 +68,7 @@ LRZ provides network infrastructure maintenance:
 
 ### Firewall / Routing Filters
 
-Free firewall services available for VLAN-based networks:
+Free firewall-as-a-service available for VLAN-based networks:
 
 | Feature | Description |
 |---------|-------------|
@@ -74,6 +76,7 @@ Free firewall services available for VLAN-based networks:
 | **Requirement** | VLAN-based local network |
 | **Cost** | Free |
 | **Configuration** | Customizable rules |
+| **Documentation** | [LRZ Firewall/pfSense](http://www.lrz.de/services/security/vfw-pfsense/) |
 
 ::: {.callout-note}
 ## VLAN Requirement
@@ -82,18 +85,19 @@ Firewall services require your network to be operated as a VLAN. Contact the IT 
 
 ### Open Network Access for Events
 
-For conferences, workshops, and events:
+For conferences, workshops, and events requiring guest network access:
 
 | Feature | Description |
 |---------|-------------|
-| **Purpose** | Temporary guest access |
-| **Requirements** | No VPN client needed |
-| **Validation** | Simplified or none |
+| **Purpose** | Temporary guest access for event participants |
+| **Requirements** | No VPN client needed by guests |
+| **Validation** | Simplified or no validation |
 | **Use Cases** | Conferences, workshops, symposia |
+| **Documentation** | [LRZ MWN-Events](http://www.lrz.de/services/netz/wlan/mwn-events/) |
 
-Request event network access through LRZ.
+Request event network access through LRZ in advance of the event.
 
-## DNS Services
+## DNS and Domain Services
 
 ### Domain Name System Management
 
@@ -109,23 +113,15 @@ flowchart LR
     IP --> Server["Department Server"]
 ```
 
-### Domain Management
+### Domain and DNS Management
 
-For setting up internet domains for your department or project, contact the IT Service Center:
-
-| Request | Contact |
-|---------|---------|
-| **New Domain** | IT Service Center |
-| **DNS Configuration** | IT Service Center / LRZ |
-| **Subdomain** | IT Service Center |
+For DNS configuration and domain setup, contact the IT Service Center. See Chapter 4 (Internet Domains) for the full domain application process including eligibility requirements and approval workflow.
 
 ## DHCP Services
 
-### Dynamic Host Configuration Protocol
-
 DHCP automatically assigns IP addresses to devices on the network. Network registration for static IP assignments is coordinated through the IT Service Center and LRZ network administration tools.
 
-### Network Registration
+### Network Device Registration
 
 To register devices on the network:
 
@@ -188,7 +184,7 @@ With VPN connected, users can:
 
 ### TUM Central Directory (LDAP)
 
-The central TUM directory enables access to up-to-date personnel data:
+The central TUM directory enables access to up-to-date personnel data for authentication, authorization, and data queries:
 
 ```{mermaid}
 %%| fig-cap: "LDAP Integration Architecture"
@@ -224,21 +220,23 @@ flowchart TB
 
 | Use Case | Description |
 |----------|-------------|
-| **Authentication** | Verify user identity |
-| **Authorization** | Check user permissions |
+| **Authentication** | Verify user identity against central directory |
+| **Authorization** | Check user permissions and group memberships |
 | **Data Queries** | Retrieve personnel information |
-| **Data Sync** | Synchronize data to local systems (with approval) |
+| **Data Sync** | Partially integrate data into local systems (requires approval) |
+| **Documentation** | [TUM Authentication Services Wiki](https://wiki.tum.de/display/docs/Authentifizierungsdienste) |
 
 ### Active Directory (AD)
 
-Central Active Directory service provided by LRZ:
+Central Active Directory service provided by LRZ for identity, rights, and resource management:
 
 | Feature | Description |
 |---------|-------------|
 | **Provider** | LRZ |
-| **Provisioning** | Users and groups from TUMonline |
-| **Management** | Local administrators manage rights |
+| **Provisioning** | Users and groups automatically from TUMonline |
+| **Management** | Local administrators manage rights for their units |
 | **Hardware** | Own hardware can be connected (e.g., department storage) |
+| **Documentation** | [AD Documentation](https://wiki.tum.de/display/activedirectory/Dokumentation) |
 
 ```{mermaid}
 %%| fig-cap: "Active Directory Flow"
@@ -256,41 +254,56 @@ flowchart LR
 
 ### System Accounts
 
-For non-personal computer systems (printers, scanners, services):
+For non-personal computer systems (printers, scanners, automated services):
 
 | Feature | Description |
 |---------|-------------|
-| **Purpose** | Machine-to-machine authentication |
+| **Purpose** | Machine-to-machine authentication for devices |
 | **Examples** | Printers, scanners, automated services |
-| **Management** | Request through IT Service Center |
+| **Exchange** | Do NOT appear in TUM Exchange address book |
+| **Email** | NOT mailboxes -- emails redirect to the responsible person |
+| **Request** | Via online form in TUMonline |
+
+::: {.callout-note}
+## System Accounts Are Not Mailboxes
+System Accounts cannot be used for receiving email. For shared email functionality (e.g., sekretariat@xyz.tum.de), request a Shared Mailbox via TUMonline Function Objects instead.
+:::
 
 ## Certificates
 
 ### User Certificates (Nutzerzertifikate)
 
-Digital certificates for users serve as digital identity proof:
+TUM issues X.509 user certificates through the DFN (German Research Network) and GÉANT PKI system:
 
-| Use Case | Description |
-|----------|-------------|
-| **Email Signing** | Prove email authenticity |
-| **Document Signing** | Sign documents digitally |
-| **Authentication** | Strong identity verification |
-| **Encryption** | Encrypt communications |
+| Aspect | Description |
+|--------|-------------|
+| **Standard** | X.509 certificates via DFN/GÉANT PKI |
+| **Email Signing** | S/MIME protocol (Outlook, Thunderbird compatible) |
+| **Email Encryption** | Both sender and recipient need S/MIME certificates |
+| **Identity Verification** | Internet identity proof for websites and services |
+| **Process** | 1) Request via DFN-PKI portal, 2) Import into email client |
+
+::: {.callout-important}
+## Limitations of User Certificates
+TUM user certificates are **NOT suitable** for:
+
+- Qualified electronic signatures (eIDAS)
+- Document signing within TUM contexts requiring qualified signatures
+- They do not meet qualified signature requirements
+:::
 
 ### Server Certificates (Serverzertifikate)
 
-TUM provides free certificates for servers through DFN-PKI:
+TUM provides free certificates for servers:
 
-| Feature | Description |
-|---------|-------------|
-| **Provider** | DFN-PKI (German Research Network) |
-| **Cost** | Free for TUM members |
-| **Use Cases** | HTTPS, email servers, other services |
-| **Validity** | Standard certificate lifetimes |
+| Option | Description |
+|--------|-------------|
+| **Let's Encrypt** (recommended) | Easier to set up, more reliable, faster, based on secure validation, extensive software support |
+| **DFN-PKI** | Traditional certificates through German Research Network, free for TUM members |
 
 ::: {.callout-tip}
-## Certificate Request
-Request server certificates through the DFN-PKI portal with your TUM credentials.
+## Let's Encrypt Recommended
+TUM actively recommends **Let's Encrypt** certificates for server services wherever technically feasible. They are easier to set up, more reliable, and faster than traditional DFN-PKI certificates. See [TUM Wiki](https://wiki.tum.de/x/8QWJRg) for setup instructions.
 :::
 
 ## Network Troubleshooting Guide
@@ -310,19 +323,19 @@ Request server certificates through the DFN-PKI portal with your TUM credentials
 2. **Check IP configuration** (`ipconfig` / `ip addr`)
 3. **Test DNS resolution** (`nslookup hostname`)
 4. **Verify routing** (`traceroute`)
-5. **Contact IT Service Center** if issues persist
+5. **Contact IT Service Center** if issues persist (+49.89.289.17123)
 
 ## Summary Table
 
 | Service | Management | Request Method |
 |---------|------------|----------------|
-| **Network Planning** | IT Service Center | it-support@tum.de |
-| **DNS/Domains** | IT Service Center | it-support@tum.de |
+| **Network Planning** | IT Service Center / LRZ | it-support@tum.de |
+| **DNS/Domains** | IT Service Center | Application form (see Ch. 4) |
 | **Firewall** | LRZ | Via LRZ |
 | **Event Network** | LRZ | Request in advance |
 | **VPN** | LRZ | Self-service |
 | **LDAP Integration** | TUM Central | IT Service Center |
 | **Active Directory** | LRZ | Via TUMonline |
-| **System Accounts** | IT Service Center | it-support@tum.de |
+| **System Accounts** | TUMonline | Online form |
 | **User Certificates** | DFN-PKI | Self-service portal |
-| **Server Certificates** | DFN-PKI | Self-service portal |
+| **Server Certificates** | Let's Encrypt / DFN-PKI | Self-service |

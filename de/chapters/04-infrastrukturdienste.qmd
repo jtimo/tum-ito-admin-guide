@@ -41,7 +41,7 @@ Das LRZ bietet virtualisierte hochverfügbare Serverinstanzen:
 | Aspekt | Optionen |
 |--------|----------|
 | **Betriebssysteme** | SLES, Debian, Windows Server |
-| **Verwaltung** | Selbstverwaltet oder optional LRZ-verwaltet |
+| **Verwaltung** | Selbstverwaltet oder optional LRZ-verwaltet (BS-Installation und -Wartung) |
 | **Verfügbarkeit** | Hochverfügbare Infrastruktur |
 | **Standort** | LRZ-Sicherheitsbereich |
 
@@ -52,7 +52,7 @@ Das LRZ bietet Attended Housing für eigene Linux-Server oder Cluster:
 | Merkmal | Beschreibung |
 |---------|--------------|
 | **Standort** | LRZ-Rechenzentrum (gesicherte Umgebung) |
-| **Hardware-Wartung** | Vom LRZ übernommen |
+| **Hardware-Wartung** | Vom LRZ übernommen (Hardware-Betrieb) |
 | **BS-Wartung** | Vom LRZ übernommen |
 | **Anwendungen** | Kundenverantwortung |
 
@@ -60,7 +60,7 @@ Das LRZ bietet Attended Housing für eigene Linux-Server oder Cluster:
 
 Das LRZ stellt WSUS für Windows-Computer im Münchner Wissenschaftsnetz (MWN) bereit:
 
-- Zentralisierte Windows-Updates
+- Zentralisierte Microsoft Windows-Updates für alle MWN-Systeme
 - Verwaltete Update-Verteilung
 - Netzwerkeffizientes Patching
 
@@ -83,7 +83,7 @@ flowchart TB
     Start["Infrastruktur benötigt?"]
     Start --> Q1{"Ressourcenintensives<br/>Rechnen?"}
 
-    Q1 --> |Ja| LRZ["LRZ HPC-<br/>Ressourcen"]
+    Q1 --> |Ja| HPC["LRZ HPC-<br/>Ressourcen"]
     Q1 --> |Nein| Q2{"Physische Hardware-<br/>kontrolle benötigt?"}
 
     Q2 --> |Ja| Housing["LRZ Server<br/>Housing"]
@@ -100,11 +100,38 @@ flowchart TB
 
 ### Internetdomains
 
-Zur Einrichtung von Internetdomains für Ihre Abteilung oder Ihr Projekt:
+Die Domainregistrierung an der TUM ist beschränkt auf TUM-Einrichtungen, Vereine und Organisationen, die ausschließlich oder überwiegend für die TUM tätig sind.
 
-- Domainregistrierung und -verwaltung über IT-Servicezentrum
-- DNS-Konfiguration
-- Integration mit TUM-Infrastruktur
+#### Domain-Beantragungsprozess
+
+```{mermaid}
+%%| fig-cap: "Domain-Beantragungsprozess"
+flowchart TB
+    Need["Domain benötigt?"]
+    Need --> Type{"Domain-Typ?"}
+
+    Type --> |"Unter tum.de<br/>oder extern"| Form["Antragsformular einreichen<br/>über TUM Secure Wiki Portal"]
+    Type --> |"Subdomain unter<br/>Fakultätsdomain"| Prodekan["Prodekan<br/>Informationsmanagement kontaktieren"]
+
+    Form --> Review["Prüfung gegen<br/>Domain-Vergaberichtlinien"]
+    Review --> Q1{"Im MWN gehostet?"}
+
+    Q1 --> |Ja| Approved["Domain aktiviert"]
+    Q1 --> |"Nein (externes Hosting)"| CIO["CIO-Genehmigung erforderlich"]
+```
+
+| Anforderung | Beschreibung |
+|-------------|--------------|
+| **Berechtigung** | TUM-Einrichtungen, Vereine, TUM-verwaltete Organisationen |
+| **tum.de-Domains** | Antrag über Antragsformular im Secure Wiki Portal |
+| **Fakultäts-Subdomains** | Prodekan Informationsmanagement der jeweiligen School kontaktieren |
+| **Externes Hosting** | Erfordert spezifische Begründung und zwingende CIO-Genehmigung |
+| **Richtlinien** | "Richtlinien zur Vergabe von Domains" und "Richtlinien für Webserver" beachten |
+
+::: {.callout-tip}
+## TYPO3 als Alternative
+Die TUM bietet eine zentrale TYPO3 Content-Management-Plattform mit speziellen Nutzungsbedingungen. Prüfen Sie diese Option vor einer Domain-Beantragung -- kontaktieren Sie das TYPO3-Team für Details.
+:::
 
 ### Gemanagte Webserver
 
@@ -120,7 +147,7 @@ Das LRZ bietet gemanagtes Webserver-Hosting:
 
 Optionen zur Erstellung einer Webpräsenz:
 
-1. **TUM Web-Infrastruktur**: Standard TUM-gehostete Webseiten
+1. **TUM TYPO3-Plattform**: Zentrales CMS mit TUM-Design-Vorlagen (empfohlen)
 2. **Gemanagter Webserver**: LRZ-gehostete eigene Seiten
 3. **Selbst-gehostet**: Auf eigenem virtuellen oder gehosteten Server
 
@@ -137,7 +164,7 @@ Der TUM Web-Styleguide bietet offizielle Designrichtlinien für TUM-Onlinesystem
 
 ### Gemanagter Windows-Rechner (TUM-PC)
 
-IT-Servicezentrum und LRZ bieten gemanagte Windows-PC-Dienste:
+IT-Servicezentrum und LRZ bieten gemeinsam gemanagte Windows-PC-Dienste:
 
 ```{mermaid}
 %%| fig-cap: "TUM-PC Management-Architektur"
@@ -182,31 +209,45 @@ LRZ Client Management für Apple bietet:
 
 Einige TUM-Bereiche nutzen Baramundi für das Client-Management:
 
-- Ergänzend zum TUM-PC
-- Bereichsübergreifende Vernetzungsmöglichkeiten
-- IT-Servicezentrum für Koordination kontaktieren
+- Ergänzende Client-Management-Software
+- Bereichsübergreifende Vernetzung und Konfigurationsunterstützung
+- IT-Servicezentrum für Vertragskoordination mit anderen TUM-Nutzern kontaktieren
 
 ### TeamViewer
 
 Remote-Desktop-Support-Tool für Administratoren:
 
-| Anwendungsfall | Beschreibung |
-|----------------|--------------|
-| **Remote-Wartung** | Benutzer aus der Ferne unterstützen |
-| **Fehlerbehebung** | Probleme ohne physische Präsenz diagnostizieren |
-| **Software-Installation** | Software remote bereitstellen |
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Zweck** | Remote-Zugriff auf Benutzercomputer für Support |
+| **Nutzung** | Benutzer startet eine spezielle TeamViewer-Datei für Remote-Sitzung |
+| **Lizenzierung** | Lizenzen müssen lokal von Fakultäten oder Abteilungen beschafft werden |
+| **Keine Campuslizenz** | Es gibt KEINE universitätsweite TeamViewer-Lizenz |
+
+::: {.callout-important}
+## TeamViewer-Lizenzierung
+TeamViewer-Lizenzen werden NICHT durch eine campusweite Vereinbarung abgedeckt. Jede Fakultät oder Abteilung muss eigene Lizenzen eigenständig beschaffen.
+:::
 
 ## Software & Hardware
 
 ### Rahmenverträge & Campuslizenzen
 
-Das LRZ unterhält Verträge mit zahlreichen Herstellern:
+LRZ und TUM haben Rahmenverträge mit großen Hardware- und Software-Herstellern abgeschlossen:
 
-| Vorteil | Beschreibung |
-|---------|--------------|
+| Aspekt | Beschreibung |
+|--------|--------------|
+| **Zweck** | Beschaffung ohne zusätzliche Ausschreibung (VOL-konform) |
 | **Kosten** | Kostenlos oder stark reduzierte Preise |
 | **Verfügbarkeit** | Viele gängige Softwarepakete |
-| **Compliance** | Ordnungsgemäß lizenzierte Software |
+| **Compliance** | Ordnungsgemäß lizenzierte Software für akademische und dienstliche Nutzung |
+
+**Wo Details zu finden sind:**
+
+| Ressource | URL |
+|-----------|-----|
+| **Spezifische Rahmenverträge** | Verfügbar im internen IT-Wiki |
+| **Kostenlose/Vergünstigte Software** | [wiki.tum.de/display/software](https://wiki.tum.de/display/software) |
 
 Übliche Software über Campuslizenzen verfügbar:
 
@@ -219,24 +260,42 @@ Das LRZ unterhält Verträge mit zahlreichen Herstellern:
 
 Das IT-Servicezentrum koordiniert DFG-Förderprogramme für IT-Ausstattung:
 
-- Großgeräte
-- CIP (Computer-Investitionsprogramm)
-- WAP (Workstation-Investitionsprogramm)
+- **Großgeräte** (wissenschaftliche IT-Großgeräte)
+- **CIP** (Computerinvestitionsprogramm)
+- **WAP** (Arbeitsplatzrechnerprogramm)
 
 ### Entsorgung von Datenträgern
 
-Sichere Entsorgung von Datenspeichermedien an der TUM:
+Die TUM bietet sichere Entsorgung von Datenspeichermedien durch ein zertifiziertes Verfahren:
+
+#### Akzeptierte Medien
 
 | Medientyp | Entsorgungsmethode |
 |-----------|-------------------|
-| **Festplatten** | Sichere Zerstörung |
-| **Magnetbänder** | Entmagnetisierung und Zerstörung |
+| **Festplatten** | Müssen vor der Elektronikschrott-Entsorgung aus Computern entfernt werden |
+| **Magnetbänder** | Sichere mechanische Zerstörung |
 | **DVDs/CDs** | Schreddern |
-| **USB-Sticks** | Sicheres Löschen und Zerstörung |
+| **USB-Sticks** | Sichere Zerstörung |
+| **Speicherkarten** | Sichere Zerstörung |
+
+#### Entsorgungsprozess
+
+- **Zertifiziertes Unternehmen**: Cintas führt mechanische Zerstörung vor Ort durch
+- **Sicherheitsstufe**: DIN 32757-1, Sicherheitsstufe 4
+- **Methode**: Verschlossene Sammelbehälter mit schmalem Schlitz; bei Vollmeldung Zerstörung vor Ort durch mobilen Hochleistungsschredder
+
+#### Sammelstellen
+
+| Standort | Adresse | Hinweise |
+|----------|---------|----------|
+| **Campus Garching** | Boltzmannstr. 3 (RBG Informatik) | Permanente Sammlung |
+| **Weihenstephan** | Maximus-von-Imhof-Forum 3 (ITW) | Permanente Sammlung |
+| **TUM Innenstadt** | Arcisstr. 21 (Wertstofflager) | **Nur Dienstags 9:30 - 12:00 Uhr** |
+| **Klinikum rechts der Isar** | Mehrere interne Sammelstellen | Gebäudeverwaltung kontaktieren |
 
 ::: {.callout-important}
 ## Datensicherheit
-Datenträger niemals über den normalen Müll entsorgen. Nutzen Sie den sicheren Entsorgungsdienst der TUM zum Schutz sensibler Daten.
+Datenträger niemals über den normalen Müll oder Standard-Elektronikschrott-Behälter entsorgen. Geräte enthalten oft personenbezogene Daten, die mit Spezialsoftware wiederherstellbar sind. Nutzen Sie immer die zertifizierten Sammelbehälter der TUM.
 :::
 
 ## Zusammenfassung
@@ -249,5 +308,8 @@ Datenträger niemals über den normalen Müll entsorgen. Nutzen Sie den sicheren
 | **Gemanagter TUM-PC** | Standardisierte Windows-Arbeitsplätze | IT-Servicezentrum |
 | **MWN-MAC** | Gemanagte Apple-Arbeitsplätze | LRZ |
 | **Gemanagter Webserver** | Web-Hosting | LRZ |
-| **Campuslizenzen** | Softwarebeschaffung | LRZ |
+| **Internetdomains** | Webpräsenz | IT-Servicezentrum |
+| **TYPO3-Plattform** | TUM-gebrandete Websites | TYPO3-Team |
+| **Campuslizenzen** | Softwarebeschaffung | [wiki.tum.de/display/software](https://wiki.tum.de/display/software) |
 | **CIP/WAP** | Ausstattungsförderung | IT-Servicezentrum |
+| **Datenträgerentsorgung** | Sichere Medienvernichtung | Sammelstellen oben |

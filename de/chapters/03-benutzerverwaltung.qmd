@@ -14,7 +14,29 @@ lang: de
 |-------------|------|
 | **URL** | [campus.tum.de](https://campus.tum.de) |
 | **Zugang** | Rollenbasierte Berechtigungen für autorisierte Administratoren |
-| **Dokumentation** | TUM Wiki, LRZ-Dokumentation |
+| **Dokumentation** | [TUM Docs Wiki](https://wiki.tum.de) mit illustrierten Anleitungen |
+
+### Schulungsressourcen
+
+TUMonline bietet umfangreiche Schulungsmaterialien:
+
+| Ressource | Zielgruppe | Format |
+|-----------|------------|--------|
+| **TUM Docs Wiki** | Alle Nutzenden | Illustrierte Schritt-für-Schritt-Anleitungen |
+| **Video-Tutorials** | Rolleninhaber (Beauftragte, Gastadmins) | Video |
+| **YouTube Screencasts** | Studierende | Video |
+| **"IT-Ratgeber" Broschüre** | Studierende | PDF-Anleitung |
+| **"TUMonline: Einführung für Mitarbeitende"** | Mitarbeitende | Broschüre |
+| **"TUMonline Basics"** | Mitarbeitende | Video-Tutorial |
+| **On-Demand-Schulung** | Administratoren | Terminierte Sitzungen |
+
+### Organisationsstruktur
+
+Die TUMonline-Administration folgt einer **Keyuser-Struktur**, unterstützt vom Campus Management Team:
+
+- **TUMonline-Beauftragte** an jeder Organisationseinheit
+- **Keyuser-Bereiche** für spezialisierte Verwaltungsfunktionen
+- **Gastadministratoren** für die Verwaltung externer Nutzer
 
 ## Kernfunktionen
 
@@ -33,7 +55,8 @@ mindmap
         Funktionsobjekte
             Gemeinsame Postfächer
             Gruppenkalender
-            Service-Adressen
+            Raumverwaltung
+            Projektorenbuchung
         Integration
             LDAP-Verzeichnis
             Active Directory
@@ -160,12 +183,17 @@ Alle TUM-Mitglieder (Studierende, Mitarbeitende, Gäste) erhalten automatisch ei
 | Merkmal | Beschreibung |
 |---------|--------------|
 | **Verfügbarkeit** | Automatisch für alle TUM-Mitglieder |
-| **Lebensdauer** | Kann lebenslang als Weiterleitungsadresse genutzt werden |
+| **Lebenslange Weiterleitung** | Kann auch nach Verlassen der TUM lebenslang als Weiterleitungsadresse genutzt werden |
 | **Format** | vorname.nachname@tum.de |
+
+::: {.callout-tip}
+## Lebenslange Weiterleitung
+Die TUM-E-Mail-Adresse dient als permanente Weiterleitungsadresse. Auch nach dem Verlassen der TUM können ehemalige Mitglieder sie weiterhin nutzen, um E-Mails an ihre neue Adresse weiterzuleiten.
+:::
 
 ### Exchange-Dienste
 
-Microsoft Exchange bietet umfassende E-Mail- und Kollaborationsfunktionen:
+Microsoft Exchange ist die zentrale E-Mail-Plattform der TUM mit umfassenden Kollaborationsfunktionen:
 
 ```{mermaid}
 %%| fig-cap: "Exchange Service-Funktionen"
@@ -175,10 +203,17 @@ mindmap
             Persönliches Postfach
             Gemeinsame Postfächer
             Verteilerlisten
+            S/MIME-Signierung
         Kalender
             Persönlicher Kalender
             Gruppenkalender
             Raumbuchung
+            Besprechungsanfragen
+        Zugriffsmethoden
+            Outlook Desktop
+            Outlook Web App
+            IMAP-Clients
+            Mobile Geräte
         Kollaboration
             Gemeinsame Kontakte
             Aufgaben
@@ -187,44 +222,101 @@ mindmap
 
 | Merkmal | Beschreibung |
 |---------|--------------|
-| **E-Mail** | Volle E-Mail-Funktionalität |
-| **Kalender** | Persönliche und gemeinsame Kalender |
+| **E-Mail** | Volle E-Mail-Funktionalität mit Speicherkontingent |
+| **Kalender** | Persönliche und gemeinsame Kalender, Raumbuchung, Besprechungsautomatisierung |
 | **Gemeinsame Postfächer** | Team-E-Mail-Adressen |
-| **Zugang** | Outlook, Web, Mobil |
+| **Zugang** | Outlook, Outlook Web App (OWA), IMAP-Clients, Mobile-Sync |
+| **Sicherheit** | S/MIME E-Mail-Signierung und -Verschlüsselung |
+| **Linux** | Zugang über IMAP-Clients oder Web-Interface |
+| **Massenmails** | Tägliche Sendelimits gelten |
+
+::: {.callout-note}
+## E-Mail-Verschlüsselung mit S/MIME
+S/MIME ermöglicht das Signieren und Verschlüsseln von E-Mails. Sowohl Sender als auch Empfänger benötigen S/MIME-Zertifikate für verschlüsselte Kommunikation. Nutzerzertifikate sind über das DFN-PKI-Portal der TUM verfügbar (siehe Kapitel 5 - Zertifikate).
+:::
 
 ### Mailverteiler anlegen
 
-Automatisierte Mailinglisten-Verwaltungsoptionen:
+Die TUM bietet drei verschiedene Mailinglisten-Lösungen:
 
-| Methode | Beschreibung |
+```{mermaid}
+%%| fig-cap: "Mailinglisten-Optionen"
+flowchart TB
+    Need["Mailingliste benötigt?"]
+    Need --> Q1{"Nur TUM-<br/>Mitglieder?"}
+
+    Q1 --> |Ja| Q2{"Dynamische<br/>Mitgliedschaft?"}
+    Q1 --> |Nein| Mailman["Mailman (LRZ)<br/>Externe Empfänger möglich"]
+
+    Q2 --> |Ja| FO["TUMonline<br/>Funktionsobjekte<br/>(automatisch aktualisiert)"]
+    Q2 --> |Nein| Direct["TUMonline<br/>Direkter E-Mail-Versand"]
+```
+
+#### 1. TUMonline Funktionsobjekte (Dynamische Listen)
+
+| Merkmal | Beschreibung |
 |---------|--------------|
-| **TUMonline-Gruppen** | Listen basierend auf Organisationsgruppen (automatisch aktualisiert) |
-| **Manuelle Listen** | Traditionell verwaltete Listen |
-| **Dynamische Listen** | Automatisch aktualisiert nach Kriterien |
+| **Typ** | Dynamische Mailinglisten, die automatisch aktuell bleiben |
+| **Sichtbarkeit** | Erscheinen im TUM-weiten Exchange-Adressbuch |
+| **Mitglieder** | Müssen aktive TUM-Mitglieder sein (externe Adressen als Ausnahme möglich) |
+| **Verwaltung** | Über die Rolle "Funktionsobjekte-Verwalter" in TUMonline |
+| **Ideal für** | Laufende Abteilungs-/Teamkommunikation |
+
+#### 2. TUMonline Direkter E-Mail-Versand
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Typ** | E-Mails direkt an ausgewählte Zielgruppen senden |
+| **Filterung** | Empfänger können nach TUMonline-Attributen gefiltert werden (Position, Abteilung, etc.) |
+| **Ideal für** | Einmalige oder unregelmäßige Massenkommunikation |
+
+#### 3. Mailman (LRZ)
+
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Typ** | Traditionelles Mailinglisten- und Newsletter-System |
+| **Anbieter** | Kostenloser Dienst vom LRZ |
+| **Extern** | Unterstützt sowohl TUM-Mitglieder ALS AUCH externe Partner |
+| **Anmeldung** | Verpflichtende Double-Opt-In-Registrierung |
+| **Ideal für** | Newsletter, Kommunikation mit externen Empfängern |
 
 ::: {.callout-tip}
 ## Automatische Listenverwaltung
-Nutzen Sie TUMonline-basierte Mailinglisten, um manuelle Pflege zu vermeiden. Listen aktualisieren sich automatisch, wenn Personen Organisationseinheiten beitreten oder verlassen.
+Nutzen Sie TUMonline-Funktionsobjekte für dynamische Listen, die sich automatisch aktualisieren. Für Kommunikation mit externen Teilnehmern nutzen Sie Mailman über LRZ.
 :::
 
-### Gemeinsame Postfächer und Kalender
+#### Fakultäts-Mailverteiler-Koordinatoren
 
-Team-Kollaborationsräume über TUMonline-Funktionsobjekte erstellen:
+Jede Fakultät hat eine/n designierte/n **Mailverteiler VerwalterIn**, die/der bei Listenerstellung und -verwaltung unterstützt. Für TUM-weite Kampagnen kontaktieren Sie:
+
+- **Mitarbeiterkommunikation**: Corporate Communication Center
+- **Studierendenkommunikation**: Student Service Center
+
+### Gemeinsame Postfächer und Kalender (Funktionsobjekte)
+
+TUMonline-Funktionsobjekte sind gemeinsame Ressourcen zur Verbesserung der organisatorischen Zusammenarbeit:
 
 | Merkmal | Beschreibung |
 |---------|--------------|
 | **Gemeinsame Postfächer** | Team-E-Mail-Adressen (z.B. info@abteilung.tum.de) |
 | **Gruppenkalender** | Gemeinsame Terminplanung |
+| **Raumverwaltung** | Raum- und Ressourcenbuchung |
+| **Projektorenbuchung** | Gerätereservierung |
 | **Verwaltung** | Über TUMonline-Funktionsobjekte |
+| **Schulung** | Video-Schulungen für Administratoren verfügbar |
 
-### Mailinglisten vs. Gemeinsame Postfächer Vergleich
+::: {.callout-note}
+## Funktionsobjekte vs. Mailinglisten
 
-| Funktion | Mailingliste | Gemeinsames Postfach |
-|----------|--------------|----------------------|
+| Funktion | Mailingliste | Funktionsobjekt (Gem. Postfach) |
+|----------|--------------|----------------------------------|
 | **E-Mails empfangen** | Alle Mitglieder | Alle Mitglieder |
 | **Als gemeinsame Adresse senden** | Nein | Ja |
 | **Gemeinsamer Posteingang** | Nein | Ja |
+| **Kalender** | Nein | Ja |
+| **Raum-/Ressourcenbuchung** | Nein | Ja |
 | **Ideal für** | Ankündigungen | Teamzusammenarbeit |
+:::
 
 ## TUMonline-Integration
 
@@ -241,31 +333,41 @@ flowchart TB
     TUMonline --> Email["E-Mail-Dienste"]
     TUMonline --> Groups["Gruppenverwaltung"]
     TUMonline --> Functions["Funktionsobjekte"]
+    TUMonline --> SysAcc["System-Accounts"]
 
     Identity --> AD["Active Directory"]
     Identity --> LDAP["LDAP-Verzeichnis"]
     Email --> Exchange["Exchange"]
     Groups --> Lists["Mailinglisten"]
-    Functions --> Shared["Gemeinsame Postfächer"]
+    Functions --> Shared["Gemeinsame Postfächer<br/>& Kalender"]
+    SysAcc --> Devices["Drucker, Scanner,<br/>Automatisierte Dienste"]
 ```
 
-### Funktionsobjekte
+### System-Accounts
 
-TUMonline-Funktionsobjekte ermöglichen die Erstellung von:
+System-Accounts (Systemkennung) sind nicht-personenbezogene Zugangsdaten für Geräte und automatisierte Dienste:
 
-- Gemeinsamen Postfächern
-- Gruppenkalendern
-- Team-Kollaborationsräumen
-- Service-Desk-Adressen
+| Merkmal | Beschreibung |
+|---------|--------------|
+| **Zweck** | Drucker, Scanner und Dienste für TUM IT-Dienste aktivieren |
+| **Exchange** | Erscheinen NICHT im TUM Exchange-Adressbuch |
+| **E-Mail** | KEINE E-Mail-Postfächer -- E-Mails werden an die verantwortliche Person umgeleitet |
+| **Beantragung** | Über Online-Formular in TUMonline (E-Mail-Umleitung im Bemerkungsfeld angeben) |
+
+::: {.callout-important}
+## System-Accounts vs. Gemeinsame Postfächer
+System-Accounts können keine E-Mails empfangen. Wenn Sie eine gemeinsame E-Mail-Adresse benötigen (z.B. sekretariat@xyz.tum.de), beantragen Sie stattdessen ein **Gemeinsames Postfach** über Funktionsobjekte.
+:::
 
 ### Administrator-Ressourcen
 
 | Ressource | Zweck |
 |-----------|-------|
 | **TUMonline-Portal** | Benutzer- und Gruppenverwaltung |
-| **TUMonline-Dokumentation** | Anleitungen und Tutorials |
+| **TUM Docs Wiki** | Illustrierte Anleitungen und Tutorials |
 | **TUMonline-Beauftragte** | Lokale TUMonline-Koordinatoren |
 | **Keyuser-Bereiche** | Spezialisierte Verwaltungsbereiche |
+| **Video-Tutorials** | Schulung für Rolleninhaber |
 
 ## Best Practices
 

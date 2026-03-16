@@ -4,7 +4,12 @@
 
 ### Overview
 
-The Leibniz Supercomputing Centre (LRZ) provides central Online Storage (NAS) for all TUM members. Every TUM member automatically receives personal storage space. Additionally, organizational units can request project storage for collaborative work.
+The Leibniz Supercomputing Centre (LRZ) provides central Online Storage (NAS) -- a secure, highly available storage system for all TUM members. Every TUM member automatically receives personal storage space. Additionally, organizational units can request project storage for collaborative work.
+
+::: {.callout-tip}
+## Training Video
+An 18-minute instructional video "Daten sicher speichern, teilen und synchronisieren" (Securely store, share, and synchronize data) is available through TUM IT resources for an overview of storage services.
+:::
 
 ```{mermaid}
 %%| fig-cap: "NAS Service Architecture"
@@ -13,11 +18,13 @@ flowchart TB
         Win["Windows<br/>(SMB)"]
         Linux["Linux<br/>(NFS)"]
         Mac["macOS<br/>(SMB/NFS)"]
+        Browser["Browser<br/>(WebDisk)"]
     end
 
     subgraph Access["Access Methods"]
         LAN["MWN Network"]
         VPN["VPN Connection"]
+        WebDAV["WebDAV"]
     end
 
     subgraph NAS["LRZ NAS Infrastructure"]
@@ -29,6 +36,7 @@ flowchart TB
     Win --> LAN
     Linux --> LAN
     Mac --> LAN
+    Browser --> LAN
 
     Win --> VPN
     Linux --> VPN
@@ -36,6 +44,7 @@ flowchart TB
 
     LAN --> FS
     VPN --> FS
+    WebDAV --> FS
 
     FS --> LDAP
     FS --> Backup
@@ -45,37 +54,59 @@ flowchart TB
 
 | Type | Description | Provisioning |
 |------|-------------|-------------|
-| **Personal Storage** | Automatic for every TUM member | Automatic with TUM account |
-| **Project Storage** | For organizational units / teams | Request through IT Service Center |
+| **Personal Storage** | Secure, highly available storage for every TUM member | Automatic with TUM account |
+| **Project Storage (Projektlaufwerke)** | Shared storage for organizational units and teams | Request through IT Service Center |
+
+### Directory Types
+
+The NAS provides several types of directories:
+
+| Directory Type | Description |
+|----------------|-------------|
+| **Personal Directory** | Private storage for individual users |
+| **Project Drives (Projektlaufwerke)** | Shared storage for teams and projects |
+| **Temporary Directories** | Short-term storage (may have retention limits) |
+| **Public Directories** | Accessible to group members |
+| **www-public Directories** | Content accessible via web for file downloads |
+
+### Access Methods
+
+| Method | Platform | Description |
+|--------|----------|-------------|
+| **SMB/CIFS** | Windows, macOS | Native network drive mapping |
+| **NFS** | Linux/Unix | Native mount via `/etc/fstab` |
+| **WebDAV** | Any platform | Access via WebDAV-compatible clients |
+| **WebDisk (Browser)** | Any platform | Browser-based file access with snapshot support |
+
+#### Platform-Specific Access
+
+| Platform | Recommended Protocol | Notes |
+|----------|---------------------|-------|
+| **Windows** | SMB | Map as network drive |
+| **macOS** | SMB or NFS | Connect via Finder or mount |
+| **Linux** | NFS | Mount in `/etc/fstab` |
+| **Browser** | WebDisk | No client software needed |
+
+### NAS Partial Administrators
+
+Organizational units can designate **partial administrators** for NAS storage management. Partial administrators can:
+
+- Manage access permissions for their unit's storage
+- Set up directory structures
+- Configure access for individual users and groups
+
+Setup instructions for NAS partial administrators are available in the IT Service Center FAQ.
 
 ### Storage Specifications
 
 | Specification | Value |
 |--------------|-------|
-| **Protocols** | NFS, SMB (CIFS) |
-| **Access** | MWN network + VPN |
+| **Protocols** | NFS, SMB (CIFS), WebDAV |
+| **Browser Access** | WebDisk |
+| **Network Access** | MWN network + VPN |
 | **Authentication** | TUM Central LDAP |
 | **Backup** | Automatic via LRZ backup services |
-
-### Access Protocols
-
-#### NFS (Network File System)
-
-| Aspect | Details |
-|--------|---------|
-| **Best for** | Linux/Unix systems |
-| **Features** | Native Unix permissions |
-| **Performance** | Excellent for Linux workloads |
-| **Configuration** | Mount points defined in `/etc/fstab` |
-
-#### SMB/CIFS (Server Message Block)
-
-| Aspect | Details |
-|--------|---------|
-| **Best for** | Windows systems, macOS |
-| **Features** | Windows-native sharing |
-| **Performance** | Excellent for Windows workloads |
-| **Configuration** | Mapped network drives |
+| **Limitations** | File size limits and file name length restrictions apply |
 
 ### Access Control
 
@@ -93,17 +124,18 @@ User and group management for NAS access:
 
 - **Users**: Managed through TUM Central LDAP
 - **Groups**: Created and managed via TUMonline
-- **Permissions**: Set by administrators per share/directory
+- **Permissions**: Set by administrators or partial administrators per share/directory
+- **Windows permissions**: Can be configured directly on Windows clients
 
-### Requesting NAS Storage
+### Requesting Project Storage
 
-To request project storage for your organizational unit:
+To request project storage (Projektlaufwerk) for your organizational unit:
 
 1. **Contact IT Service Center**: Email it-support@tum.de
 2. **Define Requirements**:
    - Expected storage capacity
    - Number of users
-   - Access patterns
+   - Access patterns and permissions
    - Security requirements
 3. **Provisioning**: LRZ sets up the storage
 4. **Configuration**: Administrator configures user access
@@ -113,7 +145,7 @@ To request project storage for your organizational unit:
 The IT Service Center offers consultation for designing your storage setup. Contact it-support@tum.de for assistance.
 :::
 
-## Backup Services
+## Backup and File Recovery
 
 ### LRZ Backup
 
@@ -147,16 +179,26 @@ flowchart TB
 | **Verification** | Automatic integrity checks |
 | **Storage** | Secure LRZ infrastructure |
 
-### Data Restoration
+### File Recovery Options
 
-#### When to Request Restoration
+There are two ways to recover files:
 
-- Accidental file deletion
-- File corruption
-- Need to access previous version
-- Recovery after system issues
+#### 1. WebDisk Snapshots (Self-Service)
 
-#### Restoration Process
+Users can recover accidentally deleted files themselves using WebDisk's snapshot feature:
+
+- Access WebDisk via browser
+- Navigate to the snapshot/version history
+- Restore previous versions of files
+
+::: {.callout-tip}
+## Self-Service Recovery
+Before contacting IT support for file restoration, check if you can recover the file yourself via WebDisk snapshots. This is faster and doesn't require a support ticket.
+:::
+
+#### 2. IT Service Center Restoration (Assisted)
+
+For files not recoverable via WebDisk:
 
 ```{mermaid}
 %%| fig-cap: "Data Restoration Process"
@@ -227,10 +269,11 @@ flowchart TB
 | Practice | Description |
 |----------|-------------|
 | **Organized Structure** | Use logical folder hierarchy |
-| **Clear Naming** | Use descriptive file and folder names |
+| **Clear Naming** | Use descriptive file and folder names (mind length limits) |
 | **Regular Cleanup** | Archive or delete obsolete data |
 | **Access Control** | Apply appropriate permissions |
 | **Documentation** | Document folder purposes |
+| **Use www-public** | For files that need web download access |
 
 ### What NOT to Store
 
@@ -245,7 +288,7 @@ flowchart TB
 
 Administrators should regularly monitor:
 
-- Current storage usage
+- Current storage usage (check via WebDisk or mount point)
 - Usage trends over time
 - Large files and directories
 - Inactive data candidates for archiving
@@ -264,6 +307,7 @@ Administrators should regularly monitor:
 |---------|-------------|---------|
 | **Personal Storage** | Automatic for TUM members | Automatic |
 | **Project Storage** | For organizational units | it-support@tum.de |
-| **Access Management** | User/group permissions | TUMonline |
-| **Data Restoration** | Backup recovery | it-support@tum.de |
+| **Access Management** | User/group permissions | TUMonline + partial admins |
+| **Self-Service Recovery** | WebDisk snapshots | Self-service |
+| **Assisted Recovery** | Full backup restoration | it-support@tum.de |
 | **Quota Increase** | Additional storage | it-support@tum.de |

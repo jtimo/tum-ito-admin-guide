@@ -8,7 +8,12 @@ lang: de
 
 ### Überblick
 
-Das Leibniz-Rechenzentrum (LRZ) stellt zentralen Online-Speicher (NAS) für alle TUM-Mitglieder bereit. Jedes TUM-Mitglied erhält automatisch persönlichen Speicherplatz. Zusätzlich können Organisationseinheiten Projektspeicher für gemeinsame Arbeit beantragen.
+Das Leibniz-Rechenzentrum (LRZ) stellt zentralen Online-Speicher (NAS) bereit -- ein sicheres, hochverfügbares Speichersystem für alle TUM-Mitglieder. Jedes TUM-Mitglied erhält automatisch persönlichen Speicherplatz. Zusätzlich können Organisationseinheiten Projektspeicher für gemeinsame Arbeit beantragen.
+
+::: {.callout-tip}
+## Schulungsvideo
+Ein 18-minütiges Schulungsvideo "Daten sicher speichern, teilen und synchronisieren" ist über die TUM IT-Ressourcen verfügbar und bietet einen Überblick über die Speicherdienste.
+:::
 
 ```{mermaid}
 %%| fig-cap: "NAS-Service-Architektur"
@@ -17,11 +22,13 @@ flowchart TB
         Win["Windows<br/>(SMB)"]
         Linux["Linux<br/>(NFS)"]
         Mac["macOS<br/>(SMB/NFS)"]
+        Browser["Browser<br/>(WebDisk)"]
     end
 
     subgraph Access["Zugriffsmethoden"]
         LAN["MWN-Netzwerk"]
         VPN["VPN-Verbindung"]
+        WebDAV["WebDAV"]
     end
 
     subgraph NAS["LRZ NAS-Infrastruktur"]
@@ -33,6 +40,7 @@ flowchart TB
     Win --> LAN
     Linux --> LAN
     Mac --> LAN
+    Browser --> LAN
 
     Win --> VPN
     Linux --> VPN
@@ -40,6 +48,7 @@ flowchart TB
 
     LAN --> FS
     VPN --> FS
+    WebDAV --> FS
 
     FS --> LDAP
     FS --> Backup
@@ -49,37 +58,59 @@ flowchart TB
 
 | Typ | Beschreibung | Bereitstellung |
 |-----|--------------|----------------|
-| **Persönlicher Speicher** | Automatisch für jedes TUM-Mitglied | Automatisch mit TUM-Account |
-| **Projektspeicher** | Für Organisationseinheiten / Teams | Auf Antrag über IT-Servicezentrum |
+| **Persönlicher Speicher** | Sicherer, hochverfügbarer Speicher für jedes TUM-Mitglied | Automatisch mit TUM-Account |
+| **Projektspeicher (Projektlaufwerke)** | Gemeinsamer Speicher für Teams und Projekte | Auf Antrag über IT-Servicezentrum |
+
+### Verzeichnistypen
+
+Der NAS bietet verschiedene Verzeichnistypen:
+
+| Verzeichnistyp | Beschreibung |
+|----------------|--------------|
+| **Persönliches Verzeichnis** | Privater Speicher für einzelne Benutzer |
+| **Projektlaufwerke** | Gemeinsamer Speicher für Teams und Projekte |
+| **Temporäre Verzeichnisse** | Kurzzeitspeicher (kann Aufbewahrungsfristen haben) |
+| **Öffentliche Verzeichnisse** | Zugänglich für Gruppenmitglieder |
+| **www-public Verzeichnisse** | Inhalte über Web für Dateidownloads zugänglich |
+
+### Zugriffsmethoden
+
+| Methode | Plattform | Beschreibung |
+|---------|-----------|--------------|
+| **SMB/CIFS** | Windows, macOS | Natives Netzlaufwerk-Mapping |
+| **NFS** | Linux/Unix | Nativer Mount über `/etc/fstab` |
+| **WebDAV** | Alle Plattformen | Zugriff über WebDAV-kompatible Clients |
+| **WebDisk (Browser)** | Alle Plattformen | Browserbasierter Dateizugriff mit Snapshot-Unterstützung |
+
+#### Plattformspezifischer Zugriff
+
+| Plattform | Empfohlenes Protokoll | Hinweise |
+|-----------|----------------------|----------|
+| **Windows** | SMB | Als Netzlaufwerk verbinden |
+| **macOS** | SMB oder NFS | Über Finder oder Mount |
+| **Linux** | NFS | Mount in `/etc/fstab` |
+| **Browser** | WebDisk | Keine Client-Software nötig |
+
+### NAS-Teiladministratoren
+
+Organisationseinheiten können **Teiladministratoren** für die NAS-Speicherverwaltung benennen. Teiladministratoren können:
+
+- Zugriffsberechtigungen für den Speicher ihrer Einheit verwalten
+- Verzeichnisstrukturen einrichten
+- Zugriff für einzelne Benutzer und Gruppen konfigurieren
+
+Einrichtungsanleitungen für NAS-Teiladministratoren sind in den FAQ des IT-Servicezentrums verfügbar.
 
 ### Speicherspezifikationen
 
 | Spezifikation | Wert |
 |---------------|------|
-| **Protokolle** | NFS, SMB (CIFS) |
-| **Zugriff** | MWN-Netzwerk + VPN |
+| **Protokolle** | NFS, SMB (CIFS), WebDAV |
+| **Browser-Zugriff** | WebDisk |
+| **Netzwerkzugriff** | MWN-Netzwerk + VPN |
 | **Authentifizierung** | Zentrales TUM LDAP |
 | **Backup** | Automatisch über LRZ Backup-Dienste |
-
-### Zugriffsprotokolle
-
-#### NFS (Network File System)
-
-| Aspekt | Details |
-|--------|---------|
-| **Ideal für** | Linux/Unix-Systeme |
-| **Funktionen** | Native Unix-Berechtigungen |
-| **Performance** | Exzellent für Linux-Workloads |
-| **Konfiguration** | Mount-Punkte in `/etc/fstab` |
-
-#### SMB/CIFS (Server Message Block)
-
-| Aspekt | Details |
-|--------|---------|
-| **Ideal für** | Windows-Systeme, macOS |
-| **Funktionen** | Windows-natives Sharing |
-| **Performance** | Exzellent für Windows-Workloads |
-| **Konfiguration** | Verbundene Netzlaufwerke |
+| **Einschränkungen** | Dateigrößen- und Dateinamenslängen-Beschränkungen gelten |
 
 ### Zugriffskontrolle
 
@@ -97,17 +128,18 @@ Benutzer- und Gruppenverwaltung für NAS-Zugriff:
 
 - **Benutzer**: Verwaltet über zentrales TUM LDAP
 - **Gruppen**: Erstellt und verwaltet über TUMonline
-- **Berechtigungen**: Von Administratoren pro Freigabe/Verzeichnis gesetzt
+- **Berechtigungen**: Von Administratoren oder Teiladministratoren pro Freigabe/Verzeichnis gesetzt
+- **Windows-Berechtigungen**: Können direkt auf Windows-Clients konfiguriert werden
 
-### NAS-Speicher beantragen
+### Projektspeicher beantragen
 
-Um Projektspeicher für Ihre Organisationseinheit zu beantragen:
+Um Projektspeicher (Projektlaufwerk) für Ihre Organisationseinheit zu beantragen:
 
 1. **IT-Servicezentrum kontaktieren**: E-Mail an it-support@tum.de
 2. **Anforderungen definieren**:
    - Erwartete Speicherkapazität
    - Benutzeranzahl
-   - Zugriffsmuster
+   - Zugriffsmuster und Berechtigungen
    - Sicherheitsanforderungen
 3. **Bereitstellung**: LRZ richtet den Speicher ein
 4. **Konfiguration**: Administrator konfiguriert Benutzerzugriff
@@ -117,7 +149,7 @@ Um Projektspeicher für Ihre Organisationseinheit zu beantragen:
 Das IT-Servicezentrum bietet Beratung zur Konzipierung Ihres Speicher-Setups. Kontaktieren Sie it-support@tum.de für Unterstützung.
 :::
 
-## Backup-Dienste
+## Backup und Dateiwiederherstellung
 
 ### LRZ Backup
 
@@ -151,16 +183,26 @@ flowchart TB
 | **Verifizierung** | Automatische Integritätsprüfungen |
 | **Speicherung** | Sichere LRZ-Infrastruktur |
 
-### Datenwiederherstellung
+### Optionen zur Dateiwiederherstellung
 
-#### Wann Wiederherstellung beantragen
+Es gibt zwei Wege zur Dateiwiederherstellung:
 
-- Versehentliches Löschen von Dateien
-- Dateibeschädigung
-- Zugriff auf frühere Version benötigt
-- Wiederherstellung nach Systemproblemen
+#### 1. WebDisk-Snapshots (Self-Service)
 
-#### Wiederherstellungsprozess
+Benutzer können versehentlich gelöschte Dateien selbst wiederherstellen über die Snapshot-Funktion der WebDisk:
+
+- WebDisk über Browser aufrufen
+- Zum Snapshot/Versionshistorie navigieren
+- Frühere Versionen von Dateien wiederherstellen
+
+::: {.callout-tip}
+## Self-Service-Wiederherstellung
+Bevor Sie den IT-Support für Dateiwiederherstellung kontaktieren, prüfen Sie ob Sie die Datei selbst über WebDisk-Snapshots wiederherstellen können. Das ist schneller und erfordert kein Support-Ticket.
+:::
+
+#### 2. IT-Servicezentrum Wiederherstellung (Unterstützt)
+
+Für Dateien, die nicht über WebDisk wiederherstellbar sind:
 
 ```{mermaid}
 %%| fig-cap: "Datenwiederherstellungsprozess"
@@ -231,10 +273,11 @@ flowchart TB
 | Praxis | Beschreibung |
 |--------|--------------|
 | **Organisierte Struktur** | Logische Ordnerhierarchie verwenden |
-| **Klare Benennung** | Beschreibende Datei- und Ordnernamen |
+| **Klare Benennung** | Beschreibende Datei- und Ordnernamen (Längenbeschränkungen beachten) |
 | **Regelmäßiges Aufräumen** | Veraltete Daten archivieren oder löschen |
 | **Zugriffskontrolle** | Angemessene Berechtigungen anwenden |
 | **Dokumentation** | Ordnerzwecke dokumentieren |
+| **www-public nutzen** | Für Dateien, die Web-Download-Zugriff benötigen |
 
 ### Was NICHT gespeichert werden sollte
 
@@ -249,7 +292,7 @@ flowchart TB
 
 Administratoren sollten regelmäßig überwachen:
 
-- Aktuelle Speichernutzung
+- Aktuelle Speichernutzung (prüfen über WebDisk oder Mount-Point)
 - Nutzungstrends über Zeit
 - Große Dateien und Verzeichnisse
 - Kandidaten für Archivierung inaktiver Daten
@@ -268,6 +311,7 @@ Administratoren sollten regelmäßig überwachen:
 |--------|--------------|---------|
 | **Persönlicher Speicher** | Automatisch für TUM-Mitglieder | Automatisch |
 | **Projektspeicher** | Für Organisationseinheiten | it-support@tum.de |
-| **Zugriffsverwaltung** | Benutzer-/Gruppenberechtigungen | TUMonline |
-| **Datenwiederherstellung** | Backup-Wiederherstellung | it-support@tum.de |
+| **Zugriffsverwaltung** | Benutzer-/Gruppenberechtigungen | TUMonline + Teiladmins |
+| **Self-Service-Wiederherstellung** | WebDisk-Snapshots | Self-Service |
+| **Unterstützte Wiederherstellung** | Vollständige Backup-Wiederherstellung | it-support@tum.de |
 | **Quota-Erhöhung** | Zusätzlicher Speicher | it-support@tum.de |

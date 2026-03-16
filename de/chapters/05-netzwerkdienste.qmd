@@ -45,21 +45,23 @@ flowchart TB
 | Merkmal | Beschreibung |
 |---------|--------------|
 | **Abdeckung** | Alle TUM-Gebäude und Standorte |
-| **Upstream** | Deutsches Forschungsnetz (DFN) |
+| **Upstream** | Deutsches Forschungsnetz (DFN) mit Internetzugang |
 | **Partner** | LMU, Hochschule München, FH Weihenstephan |
+| **Dokumentation** | [LRZ Netzwerkdokumentation](https://doku.lrz.de/netz-10613425.html) |
 
 ### Planung von lokalen Netzen
 
-Das IT-Servicezentrum bietet kostenlose Unterstützung bei der Netzwerkplanung:
+Das IT-Servicezentrum und LRZ bieten **kostenlose** Unterstützung bei der Netzwerkplanung:
 
 - Netzwerkdesign-Beratung
 - Infrastrukturanforderungsanalyse
 - Kapazitätsplanung
 - Integration ins MWN
+- Unterstützung beim [MWN-Anschluss](http://www.lrz.de/services/netz/anschluss/)
 
 ### Betreuung von Netzen
 
-Das LRZ bietet Netzwerkinfrastruktur-Wartung:
+Das LRZ bietet Netzwerkinfrastruktur-Wartung einschließlich:
 
 | Dienst | Beschreibung |
 |--------|--------------|
@@ -70,7 +72,7 @@ Das LRZ bietet Netzwerkinfrastruktur-Wartung:
 
 ### Firewall / Routing-Filter
 
-Kostenlose Firewall-Dienste für VLAN-basierte Netzwerke:
+Kostenlose Firewall-as-a-Service für VLAN-basierte Netzwerke:
 
 | Merkmal | Beschreibung |
 |---------|--------------|
@@ -78,6 +80,7 @@ Kostenlose Firewall-Dienste für VLAN-basierte Netzwerke:
 | **Anforderung** | VLAN-basiertes lokales Netzwerk |
 | **Kosten** | Kostenlos |
 | **Konfiguration** | Anpassbare Regeln |
+| **Dokumentation** | [LRZ Firewall/pfSense](http://www.lrz.de/services/security/vfw-pfsense/) |
 
 ::: {.callout-note}
 ## VLAN-Anforderung
@@ -86,18 +89,19 @@ Firewall-Dienste erfordern, dass Ihr Netzwerk als VLAN betrieben wird. Kontaktie
 
 ### Offener Netzwerkzugang bei Veranstaltungen
 
-Für Konferenzen, Workshops und Veranstaltungen:
+Für Konferenzen, Workshops und Veranstaltungen mit Gast-Netzwerkzugang:
 
 | Merkmal | Beschreibung |
 |---------|--------------|
-| **Zweck** | Temporärer Gastzugang |
-| **Anforderungen** | Kein VPN-Client erforderlich |
+| **Zweck** | Temporärer Gastzugang für Veranstaltungsteilnehmer |
+| **Anforderungen** | Kein VPN-Client für Gäste erforderlich |
 | **Validierung** | Vereinfacht oder keine |
 | **Anwendungsfälle** | Konferenzen, Workshops, Symposien |
+| **Dokumentation** | [LRZ MWN-Events](http://www.lrz.de/services/netz/wlan/mwn-events/) |
 
-Veranstaltungsnetzwerkzugang über LRZ beantragen.
+Veranstaltungsnetzwerkzugang rechtzeitig vor der Veranstaltung über LRZ beantragen.
 
-## DNS-Dienste
+## DNS- und Domain-Dienste
 
 ### Domain Name System Verwaltung
 
@@ -113,23 +117,15 @@ flowchart LR
     IP --> Server["Abteilungs-Server"]
 ```
 
-### Domain-Verwaltung
+### Domain- und DNS-Verwaltung
 
-Für die Einrichtung von Internetdomains für Ihre Abteilung oder Ihr Projekt kontaktieren Sie das IT-Servicezentrum:
-
-| Anfrage | Kontakt |
-|---------|---------|
-| **Neue Domain** | IT-Servicezentrum |
-| **DNS-Konfiguration** | IT-Servicezentrum / LRZ |
-| **Subdomain** | IT-Servicezentrum |
+Für DNS-Konfiguration und Domain-Einrichtung kontaktieren Sie das IT-Servicezentrum. Siehe Kapitel 4 (Internetdomains) für den vollständigen Domain-Beantragungsprozess einschließlich Berechtigungsanforderungen und Genehmigungsworkflow.
 
 ## DHCP-Dienste
 
-### Dynamic Host Configuration Protocol
-
 DHCP weist Geräten im Netzwerk automatisch IP-Adressen zu. Die Netzwerkregistrierung für statische IP-Zuweisungen wird über das IT-Servicezentrum und LRZ-Netzwerkadministrationstools koordiniert.
 
-### Netzwerkregistrierung
+### Netzwerk-Geräteregistrierung
 
 Um Geräte im Netzwerk zu registrieren:
 
@@ -192,7 +188,7 @@ Mit verbundenem VPN können Benutzer:
 
 ### Zentrales Verzeichnis der TUM (LDAP)
 
-Das zentrale TUM-Verzeichnis ermöglicht Zugriff auf aktuelle Personendaten:
+Das zentrale TUM-Verzeichnis ermöglicht Zugriff auf aktuelle Personendaten für Authentifizierung, Autorisierung und Datenabfragen:
 
 ```{mermaid}
 %%| fig-cap: "LDAP-Integrationsarchitektur"
@@ -228,21 +224,23 @@ flowchart TB
 
 | Anwendungsfall | Beschreibung |
 |----------------|--------------|
-| **Authentifizierung** | Benutzeridentität verifizieren |
-| **Autorisierung** | Benutzerberechtigungen prüfen |
+| **Authentifizierung** | Benutzeridentität gegen zentrales Verzeichnis verifizieren |
+| **Autorisierung** | Benutzerberechtigungen und Gruppenmitgliedschaften prüfen |
 | **Datenabfragen** | Personaldaten abrufen |
-| **Datensynchronisation** | Daten in lokale Systeme übernehmen (mit Genehmigung) |
+| **Datensynchronisation** | Daten teilweise in lokale Systeme übernehmen (Genehmigung erforderlich) |
+| **Dokumentation** | [TUM Authentifizierungsdienste Wiki](https://wiki.tum.de/display/docs/Authentifizierungsdienste) |
 
 ### Active Directory (AD)
 
-Zentraler Active Directory-Dienst vom LRZ:
+Zentraler Active Directory-Dienst vom LRZ für Identitäts-, Rechte- und Ressourcenverwaltung:
 
 | Merkmal | Beschreibung |
 |---------|--------------|
 | **Anbieter** | LRZ |
-| **Provisionierung** | Benutzer und Gruppen aus TUMonline |
-| **Verwaltung** | Lokale Administratoren verwalten Rechte |
+| **Provisionierung** | Benutzer und Gruppen automatisch aus TUMonline |
+| **Verwaltung** | Lokale Administratoren verwalten Rechte für ihre Einheiten |
 | **Hardware** | Eigene Hardware kann angebunden werden (z.B. Abteilungs-Storage) |
+| **Dokumentation** | [AD-Dokumentation](https://wiki.tum.de/display/activedirectory/Dokumentation) |
 
 ```{mermaid}
 %%| fig-cap: "Active Directory Ablauf"
@@ -260,41 +258,56 @@ flowchart LR
 
 ### System-Accounts
 
-Für nicht-personenbezogene Computersysteme (Drucker, Scanner, Dienste):
+Für nicht-personenbezogene Computersysteme (Drucker, Scanner, automatisierte Dienste):
 
 | Merkmal | Beschreibung |
 |---------|--------------|
-| **Zweck** | Maschine-zu-Maschine-Authentifizierung |
+| **Zweck** | Maschine-zu-Maschine-Authentifizierung für Geräte |
 | **Beispiele** | Drucker, Scanner, automatisierte Dienste |
-| **Verwaltung** | Über IT-Servicezentrum beantragen |
+| **Exchange** | Erscheinen NICHT im TUM Exchange-Adressbuch |
+| **E-Mail** | KEINE Postfächer -- E-Mails werden an verantwortliche Person umgeleitet |
+| **Beantragung** | Über Online-Formular in TUMonline |
+
+::: {.callout-note}
+## System-Accounts sind keine Postfächer
+System-Accounts können nicht für den E-Mail-Empfang genutzt werden. Für gemeinsame E-Mail-Funktionalität (z.B. sekretariat@xyz.tum.de) stattdessen ein Gemeinsames Postfach über TUMonline-Funktionsobjekte beantragen.
+:::
 
 ## Zertifikate
 
 ### Nutzerzertifikate
 
-Digitale Zertifikate für Benutzer dienen als digitaler Identitätsnachweis:
+Die TUM stellt X.509-Nutzerzertifikate über das DFN (Deutsches Forschungsnetz) und GÉANT PKI-System aus:
 
-| Anwendungsfall | Beschreibung |
-|----------------|--------------|
-| **E-Mail-Signatur** | E-Mail-Authentizität nachweisen |
-| **Dokumentensignatur** | Dokumente digital signieren |
-| **Authentifizierung** | Starke Identitätsverifizierung |
-| **Verschlüsselung** | Kommunikation verschlüsseln |
+| Aspekt | Beschreibung |
+|--------|--------------|
+| **Standard** | X.509-Zertifikate über DFN/GÉANT PKI |
+| **E-Mail-Signierung** | S/MIME-Protokoll (Outlook, Thunderbird kompatibel) |
+| **E-Mail-Verschlüsselung** | Sender und Empfänger benötigen S/MIME-Zertifikate |
+| **Identitätsnachweis** | Internet-Identitätsnachweis für Websites und Dienste |
+| **Prozess** | 1) Antrag über DFN-PKI-Portal, 2) Import in E-Mail-Client |
+
+::: {.callout-important}
+## Einschränkungen von Nutzerzertifikaten
+TUM-Nutzerzertifikate sind **NICHT geeignet** für:
+
+- Qualifizierte elektronische Signaturen (eIDAS)
+- Dokumentensignierung in TUM-Kontexten, die qualifizierte Signaturen erfordern
+- Sie erfüllen nicht die Anforderungen an qualifizierte Signaturen
+:::
 
 ### Serverzertifikate
 
-Die TUM stellt kostenlose Zertifikate für Server über DFN-PKI bereit:
+Die TUM stellt kostenlose Zertifikate für Server bereit:
 
-| Merkmal | Beschreibung |
-|---------|--------------|
-| **Anbieter** | DFN-PKI (Deutsches Forschungsnetz) |
-| **Kosten** | Kostenlos für TUM-Mitglieder |
-| **Anwendungsfälle** | HTTPS, Mailserver, andere Dienste |
-| **Gültigkeit** | Standard-Zertifikatslaufzeiten |
+| Option | Beschreibung |
+|--------|--------------|
+| **Let's Encrypt** (empfohlen) | Einfacher einzurichten, zuverlässiger, schneller, basiert auf sicherer Validierung, umfangreiche Software-Unterstützung |
+| **DFN-PKI** | Traditionelle Zertifikate über Deutsches Forschungsnetz, kostenlos für TUM-Mitglieder |
 
 ::: {.callout-tip}
-## Zertifikatsantrag
-Serverzertifikate über das DFN-PKI-Portal mit Ihren TUM-Zugangsdaten beantragen.
+## Let's Encrypt empfohlen
+Die TUM empfiehlt aktiv **Let's Encrypt**-Zertifikate für Serverdienste, wo technisch machbar. Sie sind einfacher einzurichten, zuverlässiger und schneller als traditionelle DFN-PKI-Zertifikate. Siehe [TUM Wiki](https://wiki.tum.de/x/8QWJRg) für Einrichtungsanleitungen.
 :::
 
 ## Netzwerk-Fehlerbehebung
@@ -314,19 +327,19 @@ Serverzertifikate über das DFN-PKI-Portal mit Ihren TUM-Zugangsdaten beantragen
 2. **IP-Konfiguration prüfen** (`ipconfig` / `ip addr`)
 3. **DNS-Auflösung testen** (`nslookup hostname`)
 4. **Routing überprüfen** (`traceroute`)
-5. **IT-Servicezentrum kontaktieren** wenn Probleme bestehen bleiben
+5. **IT-Servicezentrum kontaktieren** wenn Probleme bestehen bleiben (+49.89.289.17123)
 
 ## Zusammenfassungstabelle
 
 | Dienst | Verwaltung | Beantragung |
 |--------|------------|-------------|
-| **Netzwerkplanung** | IT-Servicezentrum | it-support@tum.de |
-| **DNS/Domains** | IT-Servicezentrum | it-support@tum.de |
+| **Netzwerkplanung** | IT-Servicezentrum / LRZ | it-support@tum.de |
+| **DNS/Domains** | IT-Servicezentrum | Antragsformular (siehe Kap. 4) |
 | **Firewall** | LRZ | Über LRZ |
 | **Veranstaltungsnetzwerk** | LRZ | Im Voraus beantragen |
 | **VPN** | LRZ | Self-Service |
 | **LDAP-Integration** | Zentrale TUM | IT-Servicezentrum |
 | **Active Directory** | LRZ | Über TUMonline |
-| **System-Accounts** | IT-Servicezentrum | it-support@tum.de |
+| **System-Accounts** | TUMonline | Online-Formular |
 | **Nutzerzertifikate** | DFN-PKI | Self-Service-Portal |
-| **Serverzertifikate** | DFN-PKI | Self-Service-Portal |
+| **Serverzertifikate** | Let's Encrypt / DFN-PKI | Self-Service |
